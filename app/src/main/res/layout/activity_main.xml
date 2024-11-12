@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <!-- FrameLayout for navigation host -->
     <FrameLayout
-        android:id="@+id/navhost"
+        android:id="@+id/nav_host"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <!-- BottomAppBar -->
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -22,18 +23,19 @@
         android:backgroundTint="@color/Basic"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabAlignmentMode="center">
-
-        <!-- BottomNavigationView within BottomAppBar -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/bottom_menu"
-            app:labelVisibilityMode="labeled"
-            android:layout_gravity="bottom"
-            android:background="@drawable/transparent" />
-
     </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <!-- BottomNavigationView within BottomAppBar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/transparent"
+        app:labelVisibilityMode="labeled"
+        android:layout_marginBottom="-20dp"
+        app:layout_anchor="@+id/nav"
+        app:layout_anchorGravity="bottom|center"
+        app:menu="@menu/bottom_menu" />
 
     <!-- FloatingActionButton anchored to BottomAppBar -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,8 +44,14 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/scan_button"
         android:src="@drawable/baseline_scan"
-        app:layout_anchor="@+id/nav"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/Primary" />
+        android:backgroundTint="@color/Primary"
+        android:padding="8dp"
+        app:fabCustomSize="70dp"
+        app:layout_anchor="@id/nav"
+        app:layout_anchorGravity="bottom"
+        app:borderWidth="2dp" />
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
