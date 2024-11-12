@@ -12,6 +12,8 @@
         android:title="@string/article"/>
 
     <item
+        android:enabled="false"
+        android:checkable="false"
         android:title="@string/scan"/>
 
     <item

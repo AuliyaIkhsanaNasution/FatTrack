@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     // Helper function to replace the fragment
     private fun replaceFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.navhost, fragment)  // navhost is the container in your layout
+        fragmentTransaction.replace(R.id.nav_host, fragment)  // navhost is the container in your layout
         fragmentTransaction.addToBackStack(null) // Add to back stack if you want to navigate back
         fragmentTransaction.commit()
     }
