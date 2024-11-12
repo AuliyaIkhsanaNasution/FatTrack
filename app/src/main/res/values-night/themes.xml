@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+        <item name="bottom_bar_color">@color/black</item>
     </style>
 
     <style name="Theme.FatTrack" parent="Base.Theme.FatTrack" />

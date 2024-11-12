@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="@color/Basic"
+        android:backgroundTint="?attr/bottom_bar_color"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabAlignmentMode="center">
     </com.google.android.material.bottomappbar.BottomAppBar>
