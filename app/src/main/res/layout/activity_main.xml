@@ -21,12 +21,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:backgroundTint="?attr/bottom_bar_color"
+        app:paddingBottomSystemWindowInsets="false"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
         app:fabCradleRoundedCornerRadius="10dp"
         app:fabAlignmentMode="center"
-        app:fabCradleMargin="8dp"
-        app:paddingBottomSystemWindowInsets="false">
+        app:fabCradleMargin="8dp">
 
 
     <!-- BottomNavigationView within BottomAppBar -->
