@@ -24,9 +24,9 @@
         app:paddingBottomSystemWindowInsets="false"
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
-        app:fabCradleRoundedCornerRadius="10dp"
+        app:fabCradleRoundedCornerRadius="30dp"
         app:fabAlignmentMode="center"
-        app:fabCradleMargin="8dp">
+        app:fabCradleMargin="9dp">
 
 
     <!-- BottomNavigationView within BottomAppBar -->
