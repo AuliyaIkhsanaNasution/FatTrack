@@ -1,14 +1,12 @@
 <resources>
     <string name="app_name">FatTrack</string>
     <string name="home">Home</string>
-    <string name="article">Article</string>
     <string name="dashboard">Dashboard</string>
     <string name="profile">Profile</string>
     <string name="scan">Scan</string>
     <string name="scan_button">Scan button</string>
     <string name="dummy_name">My Name</string>
     <string name="dummy_email">example@gmail.com</string>
-    <string name="edit_profile">Edit Profile</string>
     <string name="dark_mode_logo">Dark Mode Logo</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="push_notification">Push Notification</string>
@@ -17,8 +15,10 @@
     <string name="notification_logo">notification_logo</string>
     <string name="reset_logo">reset_logo</string>
     <string name="logout_logo">logout_logo</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    
+<!--    edit profile-->
+    <string name="edit_profile">Edit Profile</string>
     <string name="edit_profile_picture">Edit Profile Picture</string>
     <string name="email_icon">Email Icon</string>
     <string name="edit_email">Edit Email</string>
@@ -26,4 +26,52 @@
     <string name="edit_nama">Edit Nama Lengkap</string>
     <string name="btn_selesai">Selesai</string>
     <string name="btn_cancel">Cancel</string>
+
+    
+<!--   article-->
+    <string name="article">Artikel Rekomendasi</string>
+    <string name="title">title</string>
+    <string name="name">name</string>
+    <string name="date">date</string>
+    <string name="description">description</string>
+
+    <string-array name="data_title">
+        <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>
+        <item>Makanan Sehat yang Meningkatkan Sistem Imun</item>
+        <item>Tips Menjaga Berat Badan Ideal dengan Pola Makan</item>
+        <item>Makanan yang Harus Dihindari untuk Kesehatan Jantung</item>
+        <item>Manfaat Konsumsi Sayur dan Buah Setiap Hari</item>
+    </string-array>
+
+    <string-array name="data_author">
+        <item>Dr. Anita Kusuma</item>
+        <item>Andi Prasetyo, S.Gz</item>
+        <item>Dr. Rani Kurnia</item>
+        <item>Prof. Budi Santoso</item>
+        <item>Lisa Ananda, S.Gz</item>
+    </string-array>
+
+    <string-array name="data_date">
+        <item>2024 November 10</item>
+        <item>2024 November 11</item>
+        <item>2024 November 12</item>
+        <item>2024 November 13</item>
+        <item>2024 November 14</item>
+    </string-array>
+
+    <string-array name="data_description">
+        <item>Air putih memiliki banyak manfaat bagi tubuh, mulai dari menjaga hidrasi hingga meningkatkan metabolisme. Artikel ini akan membahas 10 manfaat penting air putih untuk kesehatan Anda.</item>
+        <item>Sistem imun yang kuat dapat membantu melawan penyakit. Artikel ini membahas jenis makanan yang kaya akan vitamin dan mineral untuk meningkatkan daya tahan tubuh.</item>
+        <item>Menjaga berat badan ideal memerlukan keseimbangan antara pola makan dan aktivitas fisik. Dalam artikel ini, temukan tips praktis untuk mengatur pola makan yang sehat.</item>
+        <item>Makanan tinggi lemak jenuh dan gula dapat merusak kesehatan jantung Anda. Artikel ini membahas makanan yang sebaiknya Anda hindari untuk menjaga kesehatan jantung.</item>
+        <item>Konsumsi sayur dan buah secara rutin memberikan banyak manfaat, termasuk meningkatkan pencernaan dan mencegah penyakit. Pelajari lebih lanjut dalam artikel ini.</item>
+    </string-array>
+
+    <string-array name="data_photo">
+        <item>https://bunda.co.id/wp-content/uploads/2022/03/Bunda-43-e1672666971487.jpg.webp</item>
+        <item>https://bunda.co.id/wp-content/uploads/2021/12/Medical-Check-Up-Berkala-untuk-Kesehatan-Anda-RS-Bunda-Group-e1672654412510.jpg.webp</item>
+        <item>https://bunda.co.id/wp-content/uploads/2022/06/senam-hamil-RSIA-Bunda-Jakarta-e1672631094881.jpeg.webp</item>
+        <item>https://bunda.co.id/wp–content/uploads/2022/05/Bunda–3–1-e1672648428890.png.webp</item>
+        <item>https://bunda.co.id/wp-content/uploads/2022/04/Bunda-83-e1672648360426.jpg</item>
+    </string-array>
 </resources>
