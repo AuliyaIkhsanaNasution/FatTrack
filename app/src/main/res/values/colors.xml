@@ -11,5 +11,6 @@
     <color name="TersierVariant">#FFBF69</color>
     <color name="OnTersier">#FF9F1C</color>
     <color name="Error">#FF3434</color>
+    <color name="gray">#808080</color>
 
 </resources>

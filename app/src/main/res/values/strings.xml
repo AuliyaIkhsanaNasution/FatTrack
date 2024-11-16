@@ -6,4 +6,15 @@
     <string name="profile">Profile</string>
     <string name="scan">Scan</string>
     <string name="scan_button">Scan button</string>
+    <string name="dummy_name">My Name</string>
+    <string name="dummy_email">example@gmail.com</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="dark_mode_logo">Dark Mode Logo</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="push_notification">Push Notification</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="log_out">Log Out</string>
+    <string name="notification_logo">notification_logo</string>
+    <string name="reset_logo">reset_logo</string>
+    <string name="logout_logo">logout_logo</string>
 </resources>
