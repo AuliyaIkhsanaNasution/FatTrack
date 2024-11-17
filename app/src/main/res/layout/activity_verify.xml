@@ -123,6 +123,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:fontFamily="@font/urbold"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="40dp"/>
 
 </LinearLayout>
