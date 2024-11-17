@@ -84,6 +84,7 @@ android:textColor="@color/black"/>
             card_view:layout_constraintVertical_bias="0.479"
             tools:text="@string/date" />
 
+
         <TextView
 android:id="@+id/tv_description"
 android:layout_width="0dp"
