@@ -6,25 +6,25 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.fattrack.view.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.example.fattrack.view.HomeFragment
-import com.example.fattrack.view.ArticleFragment
-import com.example.fattrack.view.DashboardFragment
-import com.example.fattrack.view.ProfileFragment
-import com.example.fattrack.view.ScanFragment // Assuming you have a ScanFragment
+import io.github.muddz.styleabletoast.StyleableToast
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: StyleableToast
+    private val replacedFragmentTags = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Initialize BottomNavigationView
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        // Set the listener for item selection in BottomNavigationView
+        // Set listener for BottomNavigationView
         navView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
@@ -47,33 +47,56 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // If no fragment is loaded initially, load the home fragment
+        // Load HomeFragment by default if no fragment is currently loaded
         if (savedInstanceState == null) {
-            navView.selectedItemId = R.id.navigation_home // Set default selected item
+            navView.selectedItemId = R.id.navigation_home
         }
 
-        // Apply window insets to ensure the system bars are not overlapping
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
 
-        // Initialize the FloatingActionButton (FAB)
         val fab: FloatingActionButton = findViewById(R.id.fab)
-
-        // Set click listener for the FAB
         fab.setOnClickListener {
-            // Replace the current fragment with ScanFragment when the FAB is clicked
             replaceFragment(ScanFragment())
         }
     }
 
-    // Helper function to replace the fragment
-    private fun replaceFragment(fragment: Fragment) {
+
+    // Replace fragment with optional back stack control
+    private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.nav_host, fragment)  // navhost is the container in your layout
-        fragmentTransaction.addToBackStack(null) // Add to back stack if you want to navigate back
+        val tag = fragment.javaClass.simpleName // Gunakan nama fragment sebagai tag unik
+        fragmentTransaction.replace(R.id.nav_host, fragment, tag)
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(tag) // backstack if true
+        }
+        replacedFragmentTags.add(tag) // save tag
         fragmentTransaction.commit()
+    }
+
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host)
+        val currentTag = currentFragment?.tag
+
+        if (currentTag != null && replacedFragmentTags.contains(currentTag)) {
+            // handle from func replaceFragment
+            if (System.currentTimeMillis() - backPressedTime < 2000) {
+                backToast.cancel()
+                replacedFragmentTags.remove(currentTag) // remove tag fragment
+                super.onBackPressed() // next proses back
+            } else {
+                // show toast if back pressed
+                backToast = StyleableToast.makeText(applicationContext, "Klik sekali lagi untuk keluar", R.style.StyleableToast)
+                backToast.show()
+                backPressedTime = System.currentTimeMillis() // Update back time
+            }
+        } else {
+            // default back
+            super.onBackPressed()
+        }
     }
 }
