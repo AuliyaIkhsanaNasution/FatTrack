@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     // Replace fragment with optional back stack control
     private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        val tag = fragment.javaClass.simpleName // Gunakan nama fragment sebagai tag unik
+        val tag = fragment.javaClass.simpleName // use unique class name
         fragmentTransaction.replace(R.id.nav_host, fragment, tag)
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(tag) // backstack if true
