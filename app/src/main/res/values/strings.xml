@@ -16,8 +16,8 @@
     <string name="reset_logo">reset_logo</string>
     <string name="logout_logo">logout_logo</string>
 
-    
-<!--    edit profile-->
+
+    <!--    edit profile-->
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_profile_picture">Edit Profile Picture</string>
     <string name="email_icon">Email Icon</string>
@@ -27,14 +27,15 @@
     <string name="btn_selesai">Selesai</string>
     <string name="btn_cancel">Cancel</string>
 
-    
-<!--   article-->
+
+    <!--   article-->
     <string name="article">Artikel</string>
     <string name="articletitle">Artikel Rekomendasi</string>
     <string name="title">title</string>
     <string name="name">name</string>
     <string name="date">date</string>
     <string name="description">description</string>
+    <string name="to_login">To Login</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>

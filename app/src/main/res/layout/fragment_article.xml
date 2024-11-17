@@ -20,7 +20,7 @@
             android:layout_margin="15dp"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="?attr/font_color"
             android:fontFamily="@font/urbold"
             />
 
