@@ -44,7 +44,8 @@
         android:layout_alignParentBottom="true"
         app:cardCornerRadius="40dp"
         android:layout_marginBottom="-25dp"
-        android:id="@+id/card_view">
+        android:id="@+id/card_view"
+        android:backgroundTint="?attr/cardBackgroundColor">
 
         <!-- LinearLayout di dalam CardView untuk menempatkan teks -->
         <LinearLayout
@@ -172,6 +173,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="25dp"
                     android:padding="4dp"
+
+
                     />
             </LinearLayout>
 
