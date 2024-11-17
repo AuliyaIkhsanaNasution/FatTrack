@@ -55,6 +55,9 @@
     <string name="tolong_check_email_kamu">Tolong check email kamu</string>
     <string name="label">-</string>
     <string name="verify">Verify</string>
+    <string name="confirm">Password harus berbeda dari sebelumnya</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="confirm_password">Confirm password</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>
