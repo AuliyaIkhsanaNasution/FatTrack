@@ -51,6 +51,10 @@
     <string name="forgot_password">Lupa\nPassword?</string>
     <string name="desc_forgot">Masukkan Email yang kamu daftarkan\nuntuk reset Password</string>
     <string name="btn_continue">Continue</string>
+    <string name="verifikasi_code">Verifikasi Code</string>
+    <string name="tolong_check_email_kamu">Tolong check email kamu</string>
+    <string name="label">-</string>
+    <string name="verify">Verify</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>
