@@ -4,4 +4,5 @@
     <attr name="bottom_bar_color" format="color" />
     <attr name="font_color" format="color" />
     <attr name="cardBackgroundColor" format="color" />
+
 </resources>
