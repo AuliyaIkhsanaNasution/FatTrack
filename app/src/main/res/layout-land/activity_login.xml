@@ -8,27 +8,6 @@
     tools:context=".view.login.LoginActivity"
     android:background="@color/Primary">
 
-    <!-- LinearLayout untuk menyusun elemen secara vertikal -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="28dp">
-
-        <!-- TextView untuk judul login -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_title"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:fontFamily="@font/urbold"
-            android:textSize="40sp"
-            android:layout_marginBottom="20dp"
-            android:textColor="?attr/font_color"/>
-
-    </LinearLayout>
-
     <!-- CardView untuk menampilkan teks "Welcome", tetap di bawah -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -47,12 +26,6 @@
             android:padding="28dp"
             android:gravity="center">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:textColor="@color/black"
-                android:textSize="32sp"
-                android:textStyle="bold"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -60,7 +33,6 @@
                 android:id="@+id/username"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
-                android:layout_marginTop="40dp"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:hint="@string/email"
@@ -75,7 +47,7 @@
                 android:id="@+id/password"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:inputType="textPassword"
                 android:padding="10dp"
                 android:fontFamily="@font/urlight"
@@ -91,17 +63,11 @@
                 android:text="@string/lupa_password"
                 android:textAlignment="textEnd"
                 android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/urbold"
                 android:textColor="?attr/font_color"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:textColor="@color/black"
-                android:textSize="32sp"
-                android:textStyle="bold"/>
 
             <Button
                 android:id="@+id/btn_login"
@@ -142,7 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:paddingBottom="30dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -150,8 +117,7 @@
                     android:text="@string/belum_ada_akun"
                     android:textSize="17sp"
                     android:textColor="?attr/font_color"
-                    android:fontFamily="@font/urmedium"
-                    android:layout_marginTop="8dp"/>
+                    android:fontFamily="@font/urmedium" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -162,10 +128,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/urbold"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="25dp"
                     android:padding="4dp"
                     android:onClick="onRegisterClick"
+
 
                     />
             </LinearLayout>

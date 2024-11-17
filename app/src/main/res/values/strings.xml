@@ -44,7 +44,10 @@
     <string name="or">Or</string>
     <string name="google">Google</string>
     <string name="belum_ada_akun">Belum ada akun?</string>
-    <string name="registrasi">Registrasi</string>
+    <string name="registrasi">Register</string>
+    <string name="register_title">Belum ada akun?\nBuat akun dulu yuk</string>
+    <string name="sudah_ada_akun">Sudah ada akun?</string>
+    <string name="enter_you_name">Enter you Name</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>
