@@ -1,5 +1,6 @@
 package com.example.fattrack.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class ArticleAdapter(private val listArticle: ArrayList<ArticleData>) : Recycler
 
     override fun getItemCount(): Int = listArticle.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val (title, name, date, description, photo) = listArticle[position]
 
@@ -42,7 +44,7 @@ class ArticleAdapter(private val listArticle: ArrayList<ArticleData>) : Recycler
 
         holder.tvTitle.text = title
         holder.tvName.text = name
-        holder.tvDate.text = date
+        holder.tvDate.text = "| $date"
         holder.tvDescription.text = description
 
 

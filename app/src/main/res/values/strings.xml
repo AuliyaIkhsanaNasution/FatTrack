@@ -16,8 +16,8 @@
     <string name="reset_logo">reset_logo</string>
     <string name="logout_logo">logout_logo</string>
 
-    
-<!--    edit profile-->
+
+    <!--    edit profile-->
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_profile_picture">Edit Profile Picture</string>
     <string name="email_icon">Email Icon</string>
@@ -27,13 +27,15 @@
     <string name="btn_selesai">Selesai</string>
     <string name="btn_cancel">Cancel</string>
 
-    
-<!--   article-->
-    <string name="article">Artikel Rekomendasi</string>
+
+    <!--   article-->
+    <string name="article">Artikel</string>
+    <string name="articletitle">Artikel Rekomendasi</string>
     <string name="title">title</string>
     <string name="name">name</string>
     <string name="date">date</string>
     <string name="description">description</string>
+    <string name="to_login">To Login</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>
@@ -71,7 +73,7 @@
         <item>https://bunda.co.id/wp-content/uploads/2022/03/Bunda-43-e1672666971487.jpg.webp</item>
         <item>https://bunda.co.id/wp-content/uploads/2021/12/Medical-Check-Up-Berkala-untuk-Kesehatan-Anda-RS-Bunda-Group-e1672654412510.jpg.webp</item>
         <item>https://bunda.co.id/wp-content/uploads/2022/06/senam-hamil-RSIA-Bunda-Jakarta-e1672631094881.jpeg.webp</item>
-        <item>https://bunda.co.id/wp–content/uploads/2022/05/Bunda–3–1-e1672648428890.png.webp</item>
+        <item>https://cdn0-production-images-kly.akamaized.net/yuypGi501Xh2RxfXg0FMezMOB-g=/200x200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4978254/original/004426900_1729731635-IMG_0675.jpeg</item>
         <item>https://bunda.co.id/wp-content/uploads/2022/04/Bunda-83-e1672648360426.jpg</item>
     </string-array>
 </resources>
