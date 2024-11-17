@@ -6,15 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.fattrack.R
+import com.example.fattrack.databinding.FragmentProfileBinding
+import com.example.fattrack.view.profile.EditProfileFragment
 
 class ProfileFragment : Fragment() {
+    private var _bindingProfile: FragmentProfileBinding? = null
+    private val bindingProfile get() = _bindingProfile!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
+        super.onCreate(savedInstanceState)
+        //init binding
+        _bindingProfile = FragmentProfileBinding.inflate(inflater, container, false)
+        val root: View = bindingProfile.root
+
+
+        //button edit profile
+        bindingProfile.btnEditProfile.setOnClickListener {
+            //move to edit profile fragment
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.nav_host, EditProfileFragment())
+            transaction.addToBackStack(null) // add ke back stack
+            transaction.commit()
+        }
+
+        return root
     }
 
 
