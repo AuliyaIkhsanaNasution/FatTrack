@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.fattrack.R
+import com.example.fattrack.view.forgotpassword.ForgotActivity
 import com.example.fattrack.view.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -26,6 +27,12 @@ class LoginActivity : AppCompatActivity() {
     fun onRegisterClick(view: View) {
         // Contoh: Navigasi ke activity registrasi
         val intent = Intent(this, RegisterActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun onForgotClick(view: View) {
+        // Contoh: Navigasi ke activity lupa password
+        val intent = Intent(this, ForgotActivity::class.java)
         startActivity(intent)
     }
 }
