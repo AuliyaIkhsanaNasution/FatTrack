@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/username"
-                android:autofillHints="Email"
+                android:autofillHints="Name"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="20dp"
                 android:inputType="textPersonName"

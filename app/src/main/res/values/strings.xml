@@ -48,6 +48,9 @@
     <string name="register_title">Belum ada akun?\nBuat akun dulu yuk</string>
     <string name="sudah_ada_akun">Sudah ada akun?</string>
     <string name="enter_you_name">Enter you Name</string>
+    <string name="forgot_password">Lupa\nPassword?</string>
+    <string name="desc_forgot">Masukkan Email yang kamu daftarkan\nuntuk reset Password</string>
+    <string name="btn_continue">Continue</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>
