@@ -16,11 +16,12 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/search"
-            android:text="@string/article"
+            android:text="@string/articletitle"
             android:layout_margin="15dp"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:fontFamily="@font/urbold"
             />
 
 
