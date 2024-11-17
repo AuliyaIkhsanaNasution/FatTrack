@@ -17,9 +17,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/search"
             android:text="@string/article"
-            android:layout_margin="16dp"
+            android:layout_margin="15dp"
             android:textSize="22sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             />
 
 
@@ -48,7 +49,7 @@
     app:layout_constraintTop_toBottomOf="@id/search"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    android:paddingBottom="120dp"
+    android:paddingBottom="125dp"
     />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
