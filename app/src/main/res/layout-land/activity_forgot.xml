@@ -9,21 +9,13 @@
     tools:context=".view.forgotpassword.ForgotActivity"
     tools:ignore="UseCompoundDrawables">
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:contentDescription="@string/logout_logo"
-        android:src="@drawable/circle_background"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/forgot_password"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
-        android:textSize="40sp"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         android:fontFamily="@font/urbold"
         android:textColor="?attr/font_color"/>
@@ -35,7 +27,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:fontFamily="@font/urmedium"
         android:textColor="?attr/font_color"/>
 
@@ -65,8 +57,7 @@
         android:layout_marginBottom="15dp"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:fontFamily="@font/urbold"
-        android:layout_marginTop="60dp"/>
+        android:fontFamily="@font/urbold" />
 
     <Button
         android:id="@+id/btn_cancel"
