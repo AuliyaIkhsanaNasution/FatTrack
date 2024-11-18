@@ -36,7 +36,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="4dp"
-                android:src="@drawable/edit_square"
+                android:src="@drawable/ic_edit_square"
                 android:padding="6dp"
                 android:contentDescription="@string/edit_profile_picture" />
         </RelativeLayout>

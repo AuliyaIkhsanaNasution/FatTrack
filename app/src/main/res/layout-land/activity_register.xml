@@ -44,7 +44,7 @@
                 android:padding="10dp"
                 android:hint="@string/enter_you_name"
                 android:fontFamily="@font/urlight"
-                android:drawableStart="@drawable/name"
+                android:drawableStart="@drawable/ic_name"
                 android:textColor="?attr/font_color"
                 android:drawablePadding="10dp"/>
 
@@ -74,7 +74,7 @@
                 android:padding="10dp"
                 android:fontFamily="@font/urlight"
                 android:hint="@string/password"
-                android:drawableStart="@drawable/password"
+                android:drawableStart="@drawable/ic_password"
                 android:textColor="?attr/font_color"
                 android:drawablePadding="10dp"/>
 

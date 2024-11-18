@@ -15,6 +15,7 @@
         <item name="bottom_bar_color">@color/black</item>
         <item name="font_color">@color/white</item>
         <item name="cardBackgroundColor">@color/black</item>
+        <item name="cardBackgroundVariant">@color/darkGray</item>
     </style>
 
     <style name="Theme.FatTrack" parent="Base.Theme.FatTrack" />
