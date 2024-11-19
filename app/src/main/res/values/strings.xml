@@ -68,6 +68,21 @@
     <string name="confirm">Password harus berbeda dari sebelumnya</string>
     <string name="enter_new_password">Enter new password</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="foto_profil">Foto Profil</string>
+    <string name="dummy_hello">Halo Mustika,</string>
+    <string name="selamat_datang">Selamat Datang</string>
+    <string name="target_harian">Target Harian</string>
+    <string name="zero">0</string>
+    <string name="target_kal">/325 kal</string>
+    <string name="masukkan_target_harian_dalam_kalori">Masukkan Target harian dalam kalori</string>
+    <string name="button_set">Set</string>
+    <string name="tracking_protein_lemak_karbo_harian">Tracking Protein, Lemak, Karbo harian</string>
+    <string name="rabu_15_oktober_2024">Rabu, 15 Oktober 2024</string>
+    <string name="protein">Protein</string>
+    <string name="gram">gram</string>
+    <string name="lemak">Lemak</string>
+    <string name="karbohidrat">Karbohidrat</string>
+    <string name="artikel">Artikel</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>

@@ -230,7 +230,8 @@
                     android:layout_marginBottom="8dp"
                     android:textColor="?attr/font_color"
                     android:background="@drawable/card_variant"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    tools:ignore="UselessParent">
 
                     <ImageView
                         android:layout_width="64dp"
