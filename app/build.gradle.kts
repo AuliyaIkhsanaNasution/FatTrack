@@ -54,8 +54,12 @@ dependencies {
     implementation (libs.androidx.navigation.ui.ktx)
     implementation(libs.glide)
 
-    //toast
+    //toaast
     implementation(libs.styleabletoast)
-    //chart
-    implementation(libs.mpandroidchart)
+
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.camera.lifecycle)
+    implementation(libs.camera.view)
+
+    implementation (libs.mpandroidchart)
 }
