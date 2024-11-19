@@ -2,6 +2,9 @@ package com.example.fattrack.view.scan
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,9 +18,11 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.exifinterface.media.ExifInterface
 import com.example.fattrack.R
 import com.example.fattrack.databinding.ActivityCameraBinding
 import java.io.File
+import java.io.FileOutputStream
 
 class CameraActivity : AppCompatActivity() {
 
@@ -115,9 +120,13 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    // Kirim hasil ke ResultActivity
-                    val photoUri = Uri.fromFile(photoFile)
-                    goToResultActivity(photoUri)
+
+                    // Proses gambar untuk membuatnya mirror dan memastikan orientasi
+                    val mirroredImageFile = processImageMirrorAndOrientation(photoFile)
+
+                    // Kirim hasil ke ResultActivity dengan file baru
+                    val mirroredPhotoUri = Uri.fromFile(mirroredImageFile)
+                    goToResultActivity(mirroredPhotoUri)
                 }
 
                 override fun onError(exc: ImageCaptureException) {
@@ -131,6 +140,55 @@ class CameraActivity : AppCompatActivity() {
             }
         )
     }
+
+    private fun processImageMirrorAndOrientation(photoFile: File): File {
+        val originalBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
+        val exif = ExifInterface(photoFile.absolutePath)
+
+        // Ambil informasi orientasi EXIF
+        val orientation = exif.getAttributeInt(
+            ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_NORMAL
+        )
+
+        val matrix = Matrix()
+
+        // Terapkan rotasi berdasarkan orientasi EXIF
+        when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
+            ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
+        }
+
+        // Terapkan mirror (horizontal flip)
+        matrix.preScale(1f, -1f)
+
+        // Buat bitmap baru dengan rotasi dan flip
+        val processedBitmap = Bitmap.createBitmap(
+            originalBitmap,
+            0,
+            0,
+            originalBitmap.width,
+            originalBitmap.height,
+            matrix,
+            true
+        )
+
+        // Simpan bitmap yang telah diproses ke file baru
+        val mirroredImageFile = createCustomTempFile(this)
+        FileOutputStream(mirroredImageFile).use { out ->
+            processedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+        }
+
+        // Bebaskan memori dari bitmap yang tidak lagi digunakan
+        originalBitmap.recycle()
+        processedBitmap.recycle()
+
+        return mirroredImageFile
+    }
+
+
+
 
 
     private fun startGallery() {
