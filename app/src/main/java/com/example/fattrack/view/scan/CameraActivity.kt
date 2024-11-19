@@ -24,7 +24,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCameraBinding
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
-    private var currentImageUri: Uri? = null
+//    private var currentImageUri: Uri? = null
     private var flashMode: Int = ImageCapture.FLASH_MODE_OFF
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,11 +115,9 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    Toast.makeText(
-                        this@CameraActivity,
-                        "Berhasil mengambil gambar.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    // Kirim hasil ke ResultActivity
+                    val photoUri = Uri.fromFile(photoFile)
+                    goToResultActivity(photoUri)
                 }
 
                 override fun onError(exc: ImageCaptureException) {
@@ -133,6 +131,7 @@ class CameraActivity : AppCompatActivity() {
             }
         )
     }
+
 
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
