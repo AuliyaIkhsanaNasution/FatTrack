@@ -34,6 +34,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/dummy_name"
             android:textSize="18sp"
+            android:textColor="?attr/font_color"
             android:textStyle="bold" />
 
         <TextView
@@ -63,13 +64,14 @@
                 android:padding="12dp"
                 android:gravity="center_vertical"
                 android:layout_marginHorizontal="24dp"
-                android:background="@drawable/rounded_border_inline">
+                android:background="@drawable/card_variant">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:contentDescription="@string/dark_mode_logo"
-                    android:src="@drawable/dark_mode" />
+                    android:backgroundTint="?attr/font_color"
+                    android:src="@drawable/ic_dark_mode" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -77,6 +79,7 @@
                     android:layout_weight="1"
                     android:layout_marginStart="8dp"
                     android:text="@string/dark_mode"
+                    android:textColor="?attr/font_color"
                     android:textSize="16sp" />
 
                 <Switch
@@ -95,19 +98,21 @@
             android:padding="12dp"
             android:gravity="center_vertical"
             android:layout_marginHorizontal="24dp"
-            android:background="@drawable/rounded_border_inline">
+            android:background="@drawable/card_variant">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@string/notification_logo"
-                android:src="@drawable/notifications" />
+                android:backgroundTint="?attr/font_color"
+                android:src="@drawable/ic_notifications" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
+                android:textColor="?attr/font_color"
                 android:text="@string/push_notification"
                 android:textSize="16sp" />
 
@@ -121,44 +126,55 @@
 
         <!-- Reset Password -->
         <LinearLayout
+            android:id="@+id/reset_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="24dp"
             android:orientation="horizontal"
             android:padding="12dp"
             android:gravity="center_vertical"
-            android:layout_marginHorizontal="24dp"
-            android:background="@drawable/rounded_border_inline">
+            android:background="@drawable/card_variant"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@string/reset_logo"
-                android:src="@drawable/reset_password" />
+                android:backgroundTint="?attr/font_color"
+                android:src="@drawable/ic_reset_password" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:textColor="?attr/font_color"
                 android:text="@string/reset_password"
                 android:textSize="16sp" />
         </LinearLayout>
 
+
         <!-- Logout Button -->
         <LinearLayout
+            android:id="@+id/logout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="24dp"
             android:orientation="horizontal"
             android:padding="12dp"
             android:gravity="center_vertical"
-            android:layout_marginHorizontal="24dp"
-            android:background="@drawable/rounded_border_red">
+            android:background="@drawable/card_variant"
+            android:clickable="true"
+            android:focusable="true">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@string/logout_logo"
-                android:src="@drawable/logout" />
+                android:backgroundTint="@color/Error"
+                android:src="@drawable/ic_logout" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -168,6 +184,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/Error" />
         </LinearLayout>
+
 
     </LinearLayout>
 </ScrollView>
