@@ -4,43 +4,33 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.example.fattrack.databinding.FragmentScanBinding
+import com.example.fattrack.databinding.ActivityCameraBinding
 import java.io.File
 
-class ScanFragment : Fragment() {
+class CameraActivity : AppCompatActivity() {
 
-    private lateinit var binding: FragmentScanBinding
+    private lateinit var binding: ActivityCameraBinding
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout using ViewBinding and return the root view.
-        binding = FragmentScanBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityCameraBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Mulai kamera pertama kali
         startCamera()
 
         // Atur tombol back untuk kembali ke halaman sebelumnya
         binding.back.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         // Ganti kamera saat tombol ditekan
@@ -62,9 +52,8 @@ class ScanFragment : Fragment() {
         }
     }
 
-
     private fun startCamera() {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
@@ -82,22 +71,22 @@ class ScanFragment : Fragment() {
 
                 imageCapture = ImageCapture.Builder().build()
 
-                // Bind kamera ke lifecycle Fragment dengan selector yang diperbarui
+                // Bind kamera ke lifecycle Activity dengan selector yang diperbarui
                 cameraProvider.bindToLifecycle(
-                    viewLifecycleOwner,
+                    this,
                     cameraSelector,
                     preview,
                     imageCapture
                 )
             } catch (exc: Exception) {
                 Toast.makeText(
-                    requireContext(),
+                    this,
                     "Gagal memunculkan kamera.",
                     Toast.LENGTH_SHORT
                 ).show()
                 Log.e(TAG, "startCamera: ${exc.message}")
             }
-        }, ContextCompat.getMainExecutor(requireContext()))
+        }, ContextCompat.getMainExecutor(this))
     }
 
     private fun createCustomTempFile(context: Context): File {
@@ -109,16 +98,16 @@ class ScanFragment : Fragment() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-        val photoFile = createCustomTempFile(requireContext()) // Gunakan requireContext()
+        val photoFile = createCustomTempFile(this)
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
         imageCapture.takePicture(
             outputOptions,
-            ContextCompat.getMainExecutor(requireContext()), // Gunakan requireContext()
+            ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     Toast.makeText(
-                        requireContext(), // Gunakan requireContext()
+                        this@CameraActivity,
                         "Berhasil mengambil gambar.",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -126,7 +115,7 @@ class ScanFragment : Fragment() {
 
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
-                        requireContext(), // Gunakan requireContext()
+                        this@CameraActivity,
                         "Gagal mengambil gambar.",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -137,6 +126,6 @@ class ScanFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "ScanFragment"
+        private const val TAG = "CameraActivity"
     }
 }
