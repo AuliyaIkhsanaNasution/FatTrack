@@ -167,7 +167,6 @@ class CameraActivity : AppCompatActivity() {
         binding.flash.setImageResource(flashIcon)
     }
 
-
     companion object {
         private const val TAG = "CameraActivity"
     }
