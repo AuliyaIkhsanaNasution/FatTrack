@@ -10,6 +10,12 @@ import com.example.fattrack.view.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.github.muddz.styleabletoast.StyleableToast
+import android.Manifest
+import android.content.pm.PackageManager
+import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -17,10 +23,31 @@ class MainActivity : AppCompatActivity() {
     private lateinit var backToast: StyleableToast
     private val replacedFragmentTags = mutableSetOf<String>()
 
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    private fun allPermissionsGranted() =
+        ContextCompat.checkSelfPermission(
+            this,
+            REQUIRED_PERMISSION
+        ) == PackageManager.PERMISSION_GRANTED
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        if (!allPermissionsGranted()) {
+            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+        }
 
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -50,6 +77,8 @@ class MainActivity : AppCompatActivity() {
         // Load HomeFragment by default if no fragment is currently loaded
         if (savedInstanceState == null) {
             navView.selectedItemId = R.id.navigation_home
+
+
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -73,6 +102,18 @@ class MainActivity : AppCompatActivity() {
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(tag) // backstack if true
         }
+
+        // Sembunyikan Bottom Navigation untuk fragment tertentu
+        val bottomNav = findViewById<BottomNavigationView>(R.id.nav_view)
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        if (fragment is ScanFragment) {
+            bottomNav.visibility = View.GONE // Sembunyikan Bottom Navigation
+            fab.visibility = View.GONE
+        } else {
+            bottomNav.visibility = View.VISIBLE // Tampilkan kembali
+            fab.visibility = View.VISIBLE
+        }
+
         replacedFragmentTags.add(tag) // save tag
         fragmentTransaction.commit()
     }
@@ -98,5 +139,9 @@ class MainActivity : AppCompatActivity() {
             // default back
             super.onBackPressed()
         }
+    }
+
+    companion object {
+        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 }

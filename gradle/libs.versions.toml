@@ -13,6 +13,7 @@ constraintlayout = "2.2.0"
 navigationFragmentKtx = "2.8.3"
 styleabletoast = "1.0.1"
 styleabletoastVersion = "2.4.0"
+cameraxVersion = "1.2.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -27,6 +28,9 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 styleabletoast = { module = "io.github.muddz:styleabletoast", version.ref = "styleabletoastVersion" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraxVersion" }
+camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "cameraxVersion" }
+camera-view = { module = "androidx.camera:camera-view", version.ref = "cameraxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
