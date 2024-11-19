@@ -1,13 +1,13 @@
 package com.example.fattrack.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.fattrack.R
 import com.example.fattrack.databinding.FragmentProfileBinding
-import com.example.fattrack.view.profile.EditProfileFragment
+import com.example.fattrack.view.profile.EditProfileActivity
 
 class ProfileFragment : Fragment() {
     private var _bindingProfile: FragmentProfileBinding? = null
@@ -25,11 +25,9 @@ class ProfileFragment : Fragment() {
 
         //button edit profile
         bindingProfile.btnEditProfile.setOnClickListener {
-            //move to edit profile fragment
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.nav_host, EditProfileFragment())
-            transaction.addToBackStack(null) // add ke back stack
-            transaction.commit()
+            // Intent to move to NotificationsActivity
+            val intent = Intent(requireContext(), EditProfileActivity::class.java)
+            startActivity(intent)
         }
 
         return root
