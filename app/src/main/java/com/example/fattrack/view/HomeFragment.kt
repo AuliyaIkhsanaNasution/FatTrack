@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.fattrack.databinding.FragmentHomeBinding // Import ViewBinding untuk fragment_home.xml
 import com.example.fattrack.view.login.LoginActivity
+import com.example.fattrack.view.notifications.NotificationsActivity
 
 class HomeFragment : Fragment() {
 
@@ -32,6 +33,18 @@ class HomeFragment : Fragment() {
         // Return the root view of the fragment
         return binding.root // Menggunakan binding.root untuk mendapatkan root view yang bukan null
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnNotifications.setOnClickListener {
+            // Intent to move to NotificationsActivity
+            val intent = Intent(requireContext(), NotificationsActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
