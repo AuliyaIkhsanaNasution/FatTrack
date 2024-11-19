@@ -14,6 +14,7 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.example.fattrack.R
 import com.example.fattrack.databinding.ActivityCameraBinding
 import java.io.File
 
@@ -23,12 +24,18 @@ class CameraActivity : AppCompatActivity() {
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
     private var currentImageUri: Uri? = null
+    private var flashMode: Int = ImageCapture.FLASH_MODE_OFF
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.gallery.setOnClickListener { startGallery() }
+        // Ambil foto saat tombol capture ditekan
+        binding.captureImage.setOnClickListener { takePhoto() }
+
+        binding.flash.setOnClickListener { flashCamera() }
 
         // Mulai kamera pertama kali
         startCamera()
@@ -51,10 +58,6 @@ class CameraActivity : AppCompatActivity() {
             startCamera()
         }
 
-        // Ambil foto saat tombol capture ditekan
-        binding.captureImage.setOnClickListener {
-            takePhoto()
-        }
     }
 
     private fun startCamera() {
@@ -144,6 +147,26 @@ class CameraActivity : AppCompatActivity() {
             Log.d("Photo Picker", "No media selected")
         }
     }
+
+    private fun flashCamera() {
+        flashMode = if (flashMode == ImageCapture.FLASH_MODE_OFF) {
+            ImageCapture.FLASH_MODE_ON
+        } else {
+            ImageCapture.FLASH_MODE_OFF
+        }
+
+        // Update flash mode di ImageCapture
+        imageCapture?.flashMode = flashMode
+
+        // Update ikon flash (opsional)
+        val flashIcon = if (flashMode == ImageCapture.FLASH_MODE_OFF) {
+            R.drawable.ic_flash_off
+        } else {
+            R.drawable.ic_flash
+        }
+        binding.flash.setImageResource(flashIcon)
+    }
+
 
     companion object {
         private const val TAG = "CameraActivity"
