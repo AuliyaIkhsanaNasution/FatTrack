@@ -11,8 +11,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.github.muddz.styleabletoast.StyleableToast
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
-import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -89,7 +89,9 @@ class MainActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
-            replaceFragment(ScanFragment())
+            // Pindah ke CameraActivity
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -103,16 +105,6 @@ class MainActivity : AppCompatActivity() {
             fragmentTransaction.addToBackStack(tag) // backstack if true
         }
 
-        // Sembunyikan Bottom Navigation untuk fragment tertentu
-        val bottomNav = findViewById<BottomNavigationView>(R.id.nav_view)
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        if (fragment is ScanFragment) {
-            bottomNav.visibility = View.GONE // Sembunyikan Bottom Navigation
-            fab.visibility = View.GONE
-        } else {
-            bottomNav.visibility = View.VISIBLE // Tampilkan kembali
-            fab.visibility = View.VISIBLE
-        }
 
         replacedFragmentTags.add(tag) // save tag
         fragmentTransaction.commit()
