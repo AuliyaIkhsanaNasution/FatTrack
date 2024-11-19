@@ -62,6 +62,7 @@ class ScanFragment : Fragment() {
         }
     }
 
+
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
