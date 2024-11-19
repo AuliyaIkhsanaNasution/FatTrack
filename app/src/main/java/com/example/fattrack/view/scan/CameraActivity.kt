@@ -1,6 +1,7 @@
-package com.example.fattrack.view
+package com.example.fattrack.view.scan
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -141,12 +142,20 @@ class CameraActivity : AppCompatActivity() {
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
-            currentImageUri = uri
-//            showImage()
+            // Kirim hasil ke ResultActivity
+            goToResultActivity(uri)
         } else {
             Log.d("Photo Picker", "No media selected")
         }
     }
+
+    private fun goToResultActivity(imageUri: Uri) {
+        val intent = Intent(this, ResultActivity::class.java).apply {
+            putExtra("image_uri", imageUri.toString()) // Kirim URI sebagai string
+        }
+        startActivity(intent)
+    }
+
 
     private fun flashCamera() {
         flashMode = if (flashMode == ImageCapture.FLASH_MODE_OFF) {
