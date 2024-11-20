@@ -83,6 +83,11 @@
     <string name="lemak">Lemak</string>
     <string name="karbohidrat">Karbohidrat</string>
     <string name="artikel">Artikel</string>
+    <string name="handler">Handler</string>
+    <string name="title_sheet">Nasi Goreng</string>
+    <string name="dummy_text">Nasi goreng adalah makanan berupa nasi\nyang digoreng dan dicampur dalam minyak\ngoreng, margarin, atau mentega.</string>
+    <string name="dummy_sheet">65g</string>
+    <string name="carbo">Carbo</string>
 
     <string-array name="data_title">
         <item>10 Manfaat Minum Air Putih untuk Kesehatan</item>
