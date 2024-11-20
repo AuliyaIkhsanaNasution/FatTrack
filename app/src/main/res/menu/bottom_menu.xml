@@ -12,6 +12,7 @@
         android:title="@string/article"/>
 
     <item
+        android:id="@+id/navigation_scan"
         android:enabled="false"
         android:checkable="false"
         android:title=""/>
