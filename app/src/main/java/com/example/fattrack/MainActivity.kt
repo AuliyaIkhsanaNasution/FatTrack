@@ -49,55 +49,54 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        //run fun
+        setupBottomNavigation()
+        setupInsets()
+        setupFab()
 
-        // Set listener for BottomNavigationView
+        // Load HomeFragment by default
+        if (savedInstanceState == null) {
+            findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId = R.id.navigation_home
+        }
+    }
+
+
+    // BottomNavigationView
+    private fun setupBottomNavigation() {
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.navigation_home -> {
-                    replaceFragment(HomeFragment())
-                    true
-                }
-                R.id.navigation_article -> {
-                    replaceFragment(ArticleFragment())
-                    true
-                }
-                R.id.navigation_dashboard -> {
-                    replaceFragment(DashboardFragment())
-                    true
-                }
-                R.id.navigation_profile -> {
-                    replaceFragment(ProfileFragment())
-                    true
-                }
+                R.id.navigation_home -> replaceFragment(HomeFragment())
+                R.id.navigation_article -> replaceFragment(ArticleFragment())
+                R.id.navigation_dashboard -> replaceFragment(DashboardFragment())
+                R.id.navigation_profile -> replaceFragment(ProfileFragment())
                 else -> false
             }
         }
-
-        // Load HomeFragment by default if no fragment is currently loaded
-        if (savedInstanceState == null) {
-            navView.selectedItemId = R.id.navigation_home
+    }
 
 
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+    // Inset bottom navigation
+    private fun setupInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
             insets
         }
+    }
 
+
+    // setup floatingActionButton
+    private fun setupFab() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
-            // Pindah ke CameraActivity
-            val intent = Intent(this, CameraActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, CameraActivity::class.java))
         }
     }
 
 
     // Replace fragment with optional back stack control
-    private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+    private fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = false): Boolean {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val tag = fragment.javaClass.simpleName // use unique class name
         fragmentTransaction.replace(R.id.nav_host, fragment, tag)
@@ -108,6 +107,7 @@ class MainActivity : AppCompatActivity() {
 
         replacedFragmentTags.add(tag) // save tag
         fragmentTransaction.commit()
+        return true
     }
 
 

@@ -16,6 +16,7 @@ styleabletoast = "1.0.1"
 styleabletoastVersion = "2.4.0"
 cameraxVersion = "1.2.3"
 uiDesktop = "1.7.0"
+viewpager2 = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

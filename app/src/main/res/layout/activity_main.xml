@@ -53,6 +53,4 @@
         app:layout_anchor="@id/nav"
         app:borderWidth="2dp" />
 
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
