@@ -16,6 +16,7 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.example.fattrack.view.scan.CameraActivity
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -103,7 +104,6 @@ class MainActivity : AppCompatActivity() {
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(tag) // backstack if true
         }
-
 
         replacedFragmentTags.add(tag) // save tag
         fragmentTransaction.commit()
