@@ -1,63 +1,73 @@
 package com.example.fattrack.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.fattrack.R
+import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.adapter.ArticleAdapter
-import com.example.fattrack.data.ArticleData
+import com.example.fattrack.data.viewmodel.ArticlesViewModel
+import com.example.fattrack.databinding.FragmentArticleBinding
 
 class ArticleFragment : Fragment() {
 
-    private lateinit var rvArticle: RecyclerView
-    private val list = ArrayList<ArticleData>()
+    private lateinit var viewModel: ArticlesViewModel
+    private lateinit var adapter: ArticleAdapter
+    private var _binding: FragmentArticleBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_article, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentArticleBinding.inflate(inflater, container, false)
 
-        // Inisialisasi RecyclerView
-        rvArticle = view.findViewById(R.id.rv_article)
-        rvArticle.setHasFixedSize(true)
+        // Initialize ViewModel with ViewModelFactory
+        val factory = ViewModelFactory.getInstance()
+        viewModel = ViewModelProvider(this, factory)[ArticlesViewModel::class.java]
 
-        // Tambahkan data ke daftar
-        list.addAll(getListArticle())
-        showRecyclerList()
+        setupRecyclerView()
+        setupObserver()
 
-        return view
+        // Fetch data from ViewModel
+        viewModel.fetchArticles()
+
+        return binding.root
     }
 
-    private fun getListArticle(): ArrayList<ArticleData> {
-        val dataTitle = resources.getStringArray(R.array.data_title)
-        val dataName = resources.getStringArray(R.array.data_author)
-        val dataDate = resources.getStringArray(R.array.data_date)
-        val dataDescription = resources.getStringArray(R.array.data_description)
-        val dataPhoto = resources.getStringArray(R.array.data_photo)
-        val listArticle = ArrayList<ArticleData>()
-
-        for (i in dataName.indices) {
-            val article = ArticleData(
-                title = dataTitle[i],
-                name = dataName[i],
-                date = dataDate[i],
-                description = dataDescription[i],
-                photo = dataPhoto[i]
-            )
-            listArticle.add(article)
+    private fun setupRecyclerView() {
+        // Initialize the RecyclerView and adapter
+        adapter = ArticleAdapter()
+        binding.rvArticle.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = this@ArticleFragment.adapter
         }
-        return listArticle
     }
 
-    private fun showRecyclerList() {
-        rvArticle.layoutManager = LinearLayoutManager(requireContext()) // Gunakan requireContext()
-        val articleAdapter = ArticleAdapter(list) // Pastikan adapter benar
-        rvArticle.adapter = articleAdapter
+    private fun setupObserver() {
+        // Observe articles LiveData
+        viewModel.articles.observe(viewLifecycleOwner) { articles ->
+            adapter.setDataArticles(articles) // Update adapter with the articles list
+        }
+
+        // Observe loading state LiveData
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        // Observe error messages LiveData
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            if (!message.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Clear binding when the view is destroyed to avoid memory leaks
     }
 }
