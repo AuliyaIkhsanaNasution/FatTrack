@@ -1,7 +1,7 @@
 package com.example.fattrack.data.repositories
 
-import com.example.fattrack.services.responses.ResponseArticle
-import com.example.fattrack.services.retrofit.ApiService
+import com.example.fattrack.data.services.responses.ResponseArticle
+import com.example.fattrack.data.services.retrofit.ApiService
 
 class ArticleRepository (private val apiService: ApiService){
 
@@ -27,7 +27,6 @@ class ArticleRepository (private val apiService: ApiService){
             Result.failure(e)
         }
     }
-
 
     companion object {
         fun getInstance (apiService: ApiService): ArticleRepository {

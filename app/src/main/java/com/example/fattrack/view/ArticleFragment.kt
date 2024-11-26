@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fattrack.R
-import com.example.fattrack.adapter.ArticleAdapter
+import com.example.fattrack.data.adapter.ArticleAdapter
 import com.example.fattrack.data.ArticleData
 
 class ArticleFragment : Fragment() {

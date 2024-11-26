@@ -1,4 +1,4 @@
-package com.example.fattrack.adapter
+package com.example.fattrack.data.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

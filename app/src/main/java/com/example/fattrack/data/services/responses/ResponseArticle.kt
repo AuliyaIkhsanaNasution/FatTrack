@@ -1,4 +1,4 @@
-package com.example.fattrack.services.responses
+package com.example.fattrack.data.services.responses
 
 import com.google.gson.annotations.SerializedName
 

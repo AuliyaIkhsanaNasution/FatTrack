@@ -1,6 +1,6 @@
-package com.example.fattrack.services.retrofit
+package com.example.fattrack.data.services.retrofit
 
-import com.example.fattrack.services.responses.ResponseArticle
+import com.example.fattrack.data.services.responses.ResponseArticle
 import retrofit2.Response
 import retrofit2.http.GET
 
