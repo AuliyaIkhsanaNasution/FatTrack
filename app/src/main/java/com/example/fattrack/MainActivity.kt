@@ -15,7 +15,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.fattrack.data.ViewModelFactory
+import com.example.fattrack.data.pref.ProfilePreferences
+import com.example.fattrack.data.pref.dataStore
+import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.view.scan.CameraActivity
 
 @Suppress("DEPRECATION")
@@ -23,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private var backPressedTime: Long = 0
     private lateinit var backToast: StyleableToast
     private val replacedFragmentTags = mutableSetOf<String>()
+    private lateinit var profileViewModel: ProfileViewModel
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -58,6 +65,18 @@ class MainActivity : AppCompatActivity() {
         // Load HomeFragment by default
         if (savedInstanceState == null) {
             findViewById<BottomNavigationView>(R.id.nav_view).selectedItemId = R.id.navigation_home
+        }
+
+        // Initialize SettingPreferences and ViewModel
+        ProfilePreferences.getInstance(application.dataStore)
+        profileViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[ProfileViewModel::class.java]
+
+        // Observe LiveData for theme settings
+        profileViewModel.getThemeApp().observe(this) { isDarkModeActive ->
+            AppCompatDelegate.setDefaultNightMode(
+                if (isDarkModeActive) AppCompatDelegate.MODE_NIGHT_YES
+                else AppCompatDelegate.MODE_NIGHT_NO
+            )
         }
     }
 

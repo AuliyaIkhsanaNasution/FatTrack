@@ -26,7 +26,7 @@ class ArticleFragment : Fragment() {
         _binding = FragmentArticleBinding.inflate(inflater, container, false)
 
         // Initialize ViewModel with ViewModelFactory
-        val factory = ViewModelFactory.getInstance()
+        val factory = ViewModelFactory.getInstance(this.requireContext())
         viewModel = ViewModelProvider(this, factory)[ArticlesViewModel::class.java]
 
         setupRecyclerView()
