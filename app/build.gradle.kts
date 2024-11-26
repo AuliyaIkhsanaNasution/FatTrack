@@ -59,6 +59,11 @@ dependencies {
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.lifecycle.runtime.ktx) // untuk lifecycleScope
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.activity.ktx)
+    implementation(libs.kotlinx.coroutines.android)
 
     //toast
     implementation(libs.styleabletoast)
