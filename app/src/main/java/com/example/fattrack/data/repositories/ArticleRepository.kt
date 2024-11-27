@@ -7,7 +7,7 @@ class ArticleRepository (private val apiService: ApiService){
 
     suspend fun getListArticles(): Result<ResponseArticle> {
         return try {
-            // Panggil API
+            // get API
             val response = apiService.getArticles()
 
             if (response.isSuccessful) {
@@ -18,12 +18,11 @@ class ArticleRepository (private val apiService: ApiService){
                     Result.failure(Exception("Response body is null"))
                 }
             } else {
-                // Log error untuk debugging
+                // Log error
                 val errorMessage = response.errorBody()?.string() ?: "Unknown error"
                 Result.failure(Exception("Articles Error with code: ${response.code()}, message: $errorMessage"))
             }
         } catch (e: Exception) {
-            // Tangkap semua exception lainnya
             Result.failure(e)
         }
     }

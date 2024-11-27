@@ -55,9 +55,9 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/ed_login_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/username"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="40dp"
@@ -70,9 +70,9 @@
                 android:drawablePadding="10dp"/>
 
             <EditText
+                android:id="@+id/ed_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/password"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="30dp"
@@ -103,6 +103,12 @@
                 android:textColor="@color/black"
                 android:textSize="32sp"
                 android:textStyle="bold"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btn_login"

@@ -20,7 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.pref.ProfilePreferences
-import com.example.fattrack.data.pref.dataStore
+import com.example.fattrack.data.pref.profileDataStore
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.view.scan.CameraActivity
 
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Initialize SettingPreferences and ViewModel
-        ProfilePreferences.getInstance(application.dataStore)
+        ProfilePreferences.getInstance(application.profileDataStore)
         profileViewModel = ViewModelProvider(this, ViewModelFactory.getInstance(this))[ProfileViewModel::class.java]
 
         // Observe LiveData for theme settings

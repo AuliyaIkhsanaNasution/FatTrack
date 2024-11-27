@@ -2,29 +2,138 @@ package com.example.fattrack.view.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.fattrack.R
+import com.example.fattrack.data.ViewModelFactory
+import com.example.fattrack.data.viewmodel.RegisterViewModel
+import com.example.fattrack.databinding.ActivityRegisterBinding
 import com.example.fattrack.view.login.LoginActivity
 
+@Suppress("DEPRECATION")
 class RegisterActivity : AppCompatActivity() {
+    private val registerViewModel: RegisterViewModel by viewModels {
+        ViewModelFactory.getInstance(application)
+    }
+    private lateinit var binding: ActivityRegisterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_register)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        //init binding
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        //run fun
+        setupAction()
+        observeViewModel()
+    }
+
+
+    //Validations and Actions
+    private fun setupAction() {
+        binding.btnRegister?.setOnClickListener() {
+            //get data from edit text
+            val email = binding.edEmail?.text.toString().trim()
+            val nama = binding.edName?.text.toString().trim()
+            val password = binding.edPassword?.text.toString().trim()
+
+            Log.d("RegisterViewModelTest", "Email: $email, Nama: $nama, Password: $password")
+
+            //validations
+            if (email.isEmpty() || nama.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            } else if (password.length < 8) {
+                binding.edPassword?.error = "Password must be at least 8 characters long"
+                Toast.makeText(this, "Password must be at least 8 characters long", Toast.LENGTH_SHORT).show()
+            } else {
+                //register with viewmodel (coroutine)
+                lifecycleScope.launchWhenStarted {
+                    registerViewModel.register(email, nama, password)
+                }
+            }
         }
     }
 
-    // Metode untuk menangani klik pada TextView
-    fun onRegisterClick(view: View) {
+
+    //observe viewmodel
+    private fun observeViewModel() {
+        //response
+        registerViewModel.registerResponse.observe(this) { response ->
+            response?.onSuccess {
+                val email = binding.edEmail?.text.toString().trim()
+                val code = it.code
+
+                if (code == 201) {
+                    showSuccessDialog(email)
+                } else {
+                    val errorMessage = it.data?.message
+                    showErrorDialog(errorMessage)
+                }
+            }?.onFailure {
+                val errorMessage = it.message
+                showErrorDialog(errorMessage)
+            }
+        }
+
+        //loading
+        registerViewModel.isLoading.observe(this) { isLoading ->
+            if (isLoading) {
+                binding.progressBar?.visibility = View.VISIBLE
+            } else {
+                binding.progressBar?.visibility = View.GONE
+
+            }
+        }
+
+        //error
+        registerViewModel.errorMessages.observe(this) { errorMessage ->
+            if (errorMessage != null) {
+                showErrorDialog(errorMessage)
+            } else {
+                showErrorDialog("Unknown error occurred")
+            }
+        }
+    }
+
+
+    //alert dialog error
+    private fun showErrorDialog(message: String?) {
+        SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+            .setTitleText("Failed!")
+            .setContentText("Register Failed : $message")
+            .setConfirmText("OK")
+            .setConfirmClickListener { dialog ->
+                dialog.dismissWithAnimation()
+            }
+            .show()
+    }
+
+
+    //alert dialog success
+    private fun showSuccessDialog(email: String) {
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Success!")
+            .setContentText("Account Created for $email.")
+            .setConfirmClickListener { dialog ->
+                dialog.dismissWithAnimation()
+                finish() // Kembali ke layar sebelumnya
+            }
+            .show()
+    }
+
+
+    //to login
+    fun onLoginClick(view: View) {
         // Contoh: Navigasi ke activity registrasi
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)

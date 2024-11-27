@@ -55,9 +55,9 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/ed_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/username"
                 android:autofillHints="Name"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="20dp"
@@ -70,9 +70,9 @@
                 android:drawablePadding="10dp"/>
 
             <EditText
+                android:id="@+id/ed_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/email"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="20dp"
@@ -85,9 +85,9 @@
                 android:drawablePadding="10dp"/>
 
             <EditText
+                android:id="@+id/ed_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/password"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="20dp"
@@ -99,7 +99,6 @@
                 android:textColor="?attr/font_color"
                 android:drawablePadding="10dp"/>
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
@@ -107,8 +106,15 @@
                 android:textSize="32sp"
                 android:textStyle="bold"/>
 
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/registrasi"
@@ -145,8 +151,7 @@
                     android:textStyle="bold"
                     android:fontFamily="@font/urbold"
                     android:padding="4dp"
-                    android:onClick="onRegisterClick"
-
+                    android:onClick="onLoginClick"
                     />
             </LinearLayout>
 

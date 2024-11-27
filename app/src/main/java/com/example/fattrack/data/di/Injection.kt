@@ -1,12 +1,20 @@
 package com.example.fattrack.data.di
 
 import android.content.Context
+import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.pref.ProfilePreferences
-import com.example.fattrack.data.pref.dataStore
+import com.example.fattrack.data.pref.authSession
+import com.example.fattrack.data.pref.profileDataStore
 import com.example.fattrack.data.repositories.ArticleRepository
+import com.example.fattrack.data.repositories.AuthRepository
 import com.example.fattrack.data.services.retrofit.ApiConfig
 
 object Injection {
+    fun provideAuthRepository(context: Context): AuthRepository {
+        val apiService = ApiConfig.getApiService()
+        val authPreferences = AuthPreferences.getInstance(context.authSession)
+        return AuthRepository.getInstance(authPreferences, apiService)
+    }
 
     fun provideArticlesRepository(): ArticleRepository {
         val apiService = ApiConfig.getApiService()
@@ -14,6 +22,6 @@ object Injection {
     }
 
     fun provideProfilePreferences(context: Context): ProfilePreferences {
-        return ProfilePreferences.getInstance(context.dataStore)
+        return ProfilePreferences.getInstance(context.profileDataStore)
     }
 }

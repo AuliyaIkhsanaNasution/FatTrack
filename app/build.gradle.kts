@@ -67,6 +67,8 @@ dependencies {
 
     //toast
     implementation(libs.styleabletoast)
+    //sweetalert
+    implementation(libs.library)
 
     //camera
     implementation(libs.androidx.camera.camera2)
