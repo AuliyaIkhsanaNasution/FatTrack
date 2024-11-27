@@ -128,4 +128,7 @@
         <item>https://cdn0-production-images-kly.akamaized.net/yuypGi501Xh2RxfXg0FMezMOB-g=/200x200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/4978254/original/004426900_1729731635-IMG_0675.jpeg</item>
         <item>https://bunda.co.id/wp-content/uploads/2022/04/Bunda-83-e1672648360426.jpg</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hasil_scan">Hasil Scan</string>
 </resources>
