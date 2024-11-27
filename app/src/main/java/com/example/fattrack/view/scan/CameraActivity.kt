@@ -13,6 +13,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.CameraSelector.DEFAULT_FRONT_CAMERA
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
@@ -55,7 +56,7 @@ class CameraActivity : AppCompatActivity() {
         binding.switchCamera.setOnClickListener {
             // Ganti cameraSelector antara kamera depan dan belakang
             cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
-                CameraSelector.DEFAULT_FRONT_CAMERA
+                DEFAULT_FRONT_CAMERA
             } else {
                 CameraSelector.DEFAULT_BACK_CAMERA
             }
@@ -120,14 +121,17 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    val processedFile = if (cameraSelector == DEFAULT_FRONT_CAMERA) {
+                        processImageMirrorAndOrientation(photoFile)
+                    } else {
+                        photoFile
+                    }
 
-                    // Proses gambar untuk membuatnya mirror dan memastikan orientasi
-                    val mirroredImageFile = processImageMirrorAndOrientation(photoFile)
-
-                    // Kirim hasil ke ResultActivity dengan file baru
-                    val mirroredPhotoUri = Uri.fromFile(mirroredImageFile)
-                    goToResultActivity(mirroredPhotoUri)
+                    // Kirim hasil ke ResultActivity dengan file yang sudah diproses
+                    val processedPhotoUri = Uri.fromFile(processedFile)
+                    goToResultActivity(processedPhotoUri)
                 }
+
 
                 override fun onError(exc: ImageCaptureException) {
                     Toast.makeText(
