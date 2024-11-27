@@ -191,10 +191,6 @@ class CameraActivity : AppCompatActivity() {
         return mirroredImageFile
     }
 
-
-
-
-
     private fun startGallery() {
         launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
@@ -212,7 +208,8 @@ class CameraActivity : AppCompatActivity() {
 
     private fun goToResultActivity(imageUri: Uri) {
         val intent = Intent(this, ResultActivity::class.java).apply {
-            putExtra("image_uri", imageUri.toString()) // Kirim URI sebagai string
+            putExtra("image_uri", imageUri.toString())  // Kirim URI gambar
+            putExtra("SHOW_BOTTOM_SHEET", true)  // Kirim flag untuk menampilkan Bottom Sheet
         }
         startActivity(intent)
     }
