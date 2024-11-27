@@ -15,13 +15,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.fattrack.data.ViewModelFactory
+import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.pref.ProfilePreferences
+import com.example.fattrack.data.pref.authSession
 import com.example.fattrack.data.pref.profileDataStore
+import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
+import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.scan.CameraActivity
 
 @Suppress("DEPRECATION")
@@ -30,6 +35,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var backToast: StyleableToast
     private val replacedFragmentTags = mutableSetOf<String>()
     private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var authPreferences: AuthPreferences
+    private val viewModel by viewModels<MainViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     private val requestPermissionLauncher =
         registerForActivityResult(
@@ -53,9 +62,14 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        //init pref
+        authPreferences = AuthPreferences.getInstance(this.authSession)
+
         if (!allPermissionsGranted()) {
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
+
+        observeSession()
 
         //run fun
         setupBottomNavigation()
@@ -78,6 +92,24 @@ class MainActivity : AppCompatActivity() {
                 else AppCompatDelegate.MODE_NIGHT_NO
             )
         }
+    }
+
+
+
+    private fun observeSession() {
+        viewModel.getSession().observe(this) {user ->
+            if (!user.isLogin || user.idUser.isEmpty()) {
+                // Redirect to WelcomeActivity if not logged in or token is invalid
+                navigateToWelcomeActivity()
+            }
+        }
+    }
+
+    private fun navigateToWelcomeActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish() // Close the current activity so the user cannot go back
+        return
     }
 
 

@@ -9,6 +9,7 @@ import com.example.fattrack.data.repositories.ArticleRepository
 import com.example.fattrack.data.repositories.AuthRepository
 import com.example.fattrack.data.viewmodel.ArticlesViewModel
 import com.example.fattrack.data.viewmodel.LoginViewModel
+import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.data.viewmodel.RegisterViewModel
 
@@ -40,6 +41,9 @@ class ViewModelFactory(
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+                MainViewModel(authRepository) as T
+            }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(authRepository) as T
             }
@@ -50,7 +54,7 @@ class ViewModelFactory(
                 ArticlesViewModel(articleRepository) as T
             }
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
-                ProfileViewModel(profilePreferences) as T
+                ProfileViewModel(profilePreferences, authRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

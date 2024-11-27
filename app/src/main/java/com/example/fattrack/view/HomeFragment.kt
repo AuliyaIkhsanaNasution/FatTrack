@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import com.example.fattrack.data.ViewModelFactory
+import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.databinding.FragmentHomeBinding // Import ViewBinding untuk fragment_home.xml
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.notifications.NotificationsActivity
@@ -15,23 +19,19 @@ class HomeFragment : Fragment() {
     // Declare the ViewBinding variable
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by viewModels<MainViewModel> {
+        context?.let { ViewModelFactory.getInstance(it) }!!
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment using ViewBinding
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // Handle button click
-        binding.btnTologin.setOnClickListener {
-            // Navigate to LoginActivity
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
         // Return the root view of the fragment
-        return binding.root // Menggunakan binding.root untuk mendapatkan root view yang bukan null
+        return binding.root
     }
 
 

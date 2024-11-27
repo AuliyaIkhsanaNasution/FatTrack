@@ -8,10 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
 import com.example.fattrack.view.profile.EditProfileActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
     private var _bindingProfile: FragmentProfileBinding? = null
@@ -30,7 +33,13 @@ class ProfileFragment : Fragment() {
         _bindingProfile = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = bindingProfile.root
 
+        clickAllButtons()
 
+        return root
+    }
+
+
+    private fun clickAllButtons() {
         //button edit profile
         bindingProfile.btnEditProfile.setOnClickListener {
             // Intent to move to NotificationsActivity
@@ -38,8 +47,16 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-        return root
+        //button logout
+        bindingProfile.logoutButton.setOnClickListener {
+            lifecycleScope.launch {
+                bindingProfile.progressBar.visibility = View.VISIBLE
+                delay(500) //delay 0,5s
+                profileViewModel.logout()
+            }
+        }
     }
+
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
