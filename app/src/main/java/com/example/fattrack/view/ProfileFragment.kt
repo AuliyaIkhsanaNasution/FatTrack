@@ -1,15 +1,20 @@
 package com.example.fattrack.view
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.fattrack.data.ViewModelFactory
+import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
 import com.example.fattrack.view.profile.EditProfileActivity
@@ -22,6 +27,27 @@ class ProfileFragment : Fragment() {
 
     private val profileViewModel: ProfileViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
+    }
+
+    private val notificationViewModel: NotificationViewModel by viewModels {
+        ViewModelFactory.getInstance(requireContext())
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(requireContext(), "Notifications permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Notifications permission rejected", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private fun requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
     }
 
     override fun onCreateView(
@@ -37,7 +63,6 @@ class ProfileFragment : Fragment() {
 
         return root
     }
-
 
     private fun clickAllButtons() {
         //button edit profile
@@ -57,10 +82,11 @@ class ProfileFragment : Fragment() {
         }
     }
 
-
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requestNotificationPermissionIfNeeded()
 
         val switchTheme = bindingProfile.themeSwitch
 
@@ -72,6 +98,17 @@ class ProfileFragment : Fragment() {
         // Save theme setting on switch change
         switchTheme.setOnCheckedChangeListener { _, isChecked ->
             profileViewModel.saveThemeApp(isChecked)
+        }
+
+        // Switch toggle for notifications
+        val switchNotification = bindingProfile.switchNotification
+        notificationViewModel.notificationToggleState.observe(viewLifecycleOwner) { isEnabled ->
+            switchNotification.isChecked = isEnabled
+        }
+
+        // save toggle state
+        switchNotification.setOnCheckedChangeListener { _, isChecked ->
+            notificationViewModel.setNotificationToggle(isChecked)
         }
     }
 
