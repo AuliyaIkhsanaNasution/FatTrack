@@ -30,6 +30,7 @@ class NotificationViewModel(private val repository: NotificationRepository, priv
         }
     }
 
+
     suspend fun getNotifications(): List<NotificationEntity> {
         return repository.getNotifications()
     }
