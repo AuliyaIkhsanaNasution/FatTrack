@@ -23,21 +23,21 @@ import kotlinx.coroutines.launch
 class NotificationReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        // Cek apakah izin POST_NOTIFICATIONS telah diberikan
+        // Check whether POST_NOTIFICATIONS permission has been granted
         if (ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            // Ambil data dari Intent
+        // Retrieve data from Intent
             val title = intent.getStringExtra("title") ?: "Reminder"
             val message = intent.getStringExtra("message") ?: "It's time to check your calories!"
             val timestamp = System.currentTimeMillis()
 
-            // Simpan notifikasi ke database
+        // Save notification to database
             saveNotification(context, title, message, timestamp)
 
-            // Buat PendingIntent untuk membuka NotificationActivity ketika notifikasi diklik
+            // Create a PendingIntent to open the NotificationActivity when the notification is clicked
             val notificationIntent = Intent(context, NotificationsActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(
                 context,
@@ -46,7 +46,7 @@ class NotificationReceiver : BroadcastReceiver() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
-            // Bangun notifikasi
+            // build notifikasi
             val builder = NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.baseline_notifications_active_24)
                 .setContentTitle(title)
@@ -55,17 +55,17 @@ class NotificationReceiver : BroadcastReceiver() {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
 
-            // Tampilkan notifikasi
+            // Show notification
             val notificationManager = NotificationManagerCompat.from(context)
             notificationManager.notify(timestamp.toInt(), builder.build())
         } else {
-            // Tangani jika izin tidak diberikan
+            // Handle if permission is not granted
             println("Permission for POST_NOTIFICATIONS is not granted.")
         }
     }
 
     private fun saveNotification(context: Context, title: String, message: String, timestamp: Long) {
-        // Akses database dan simpan data notifikasi
+        // Access database and save notification data
         val notificationDao = NotificationDatabase.getDatabase(context).notificationDao()
         val notification = NotificationEntity(
             id = 0,
@@ -79,10 +79,10 @@ class NotificationReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        // Channel ID untuk notifikasi (pastikan channel ini dibuat di aplikasi)
+        // Channel ID for notifications (make sure this channel is created in the app)
         private const val CHANNEL_ID = "default_channel"
 
-        // Fungsi untuk membuat Notification Channel (harus dipanggil pada saat aplikasi dijalankan)
+        // Function to create a Notification Channel (must be called when the application is run)
         fun createNotificationChannel(context: Context) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val importance = NotificationManager.IMPORTANCE_HIGH
@@ -90,7 +90,7 @@ class NotificationReceiver : BroadcastReceiver() {
                     description = "Channel for reminder notifications"
                 }
 
-                // Dapatkan NotificationManager dan buat channel
+                // Get NotificationManager and create a channel
                 val notificationManager: NotificationManager =
                     context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                 notificationManager.createNotificationChannel(channel)

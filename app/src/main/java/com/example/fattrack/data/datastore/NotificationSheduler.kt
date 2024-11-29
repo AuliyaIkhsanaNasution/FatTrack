@@ -12,7 +12,7 @@ class NotificationScheduler(private val context: Context) {
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    // Menjadwalkan notifikasi pada waktu tertentu
+    // Schedule notifications at specific times
     fun scheduleNotification(hour: Int, minute: Int) {
         val intent = Intent(context, NotificationReceiver::class.java).apply {
             putExtra("title", "Reminder")
@@ -26,7 +26,7 @@ class NotificationScheduler(private val context: Context) {
             else PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        // Set calendar untuk waktu yang dijadwalkan
+        // Set calendar for scheduled time
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
@@ -34,7 +34,7 @@ class NotificationScheduler(private val context: Context) {
             set(Calendar.MILLISECOND, 0)
         }
 
-        // Jadwalkan alarm untuk notifikasi
+// Schedule an alarm for notification
         alarmManager.setRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
@@ -43,7 +43,7 @@ class NotificationScheduler(private val context: Context) {
         )
     }
 
-    // Membatalkan notifikasi yang dijadwalkan
+    // Cancels a scheduled notification
     fun cancelNotifications() {
         val intent = Intent(context, NotificationReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
