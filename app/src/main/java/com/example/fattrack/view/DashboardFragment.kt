@@ -25,6 +25,12 @@ class DashboardFragment : Fragment() {
         _bindingDashboard = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = bindingDashboard.root
 
+        dashboardSetup()
+
+        return root
+    }
+
+    private fun dashboardSetup() {
         // Dummy data
         val barEntries = listOf(
             BarEntry(0f, 50f),
@@ -54,8 +60,6 @@ class DashboardFragment : Fragment() {
         barChart.axisRight.isEnabled = false // Hide right axis
         barChart.legend.textColor = ContextCompat.getColor(requireContext(), R.color.chart_text_color)
         barChart.invalidate() // Refresh chart
-
-        return root
     }
 
 

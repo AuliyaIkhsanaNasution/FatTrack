@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.exifinterface.media.ExifInterface
 import com.example.fattrack.R
 import com.example.fattrack.databinding.ActivityCameraBinding
+import io.github.muddz.styleabletoast.StyleableToast
 import java.io.File
 import java.io.FileOutputStream
 
@@ -38,30 +39,27 @@ class CameraActivity : AppCompatActivity() {
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Set up buttons
         binding.gallery.setOnClickListener { startGallery() }
-        // Ambil foto saat tombol capture ditekan
         binding.captureImage.setOnClickListener { takePhoto() }
-
         binding.flash.setOnClickListener { flashCamera() }
 
-        // Mulai kamera pertama kali
+        // setup camera
         startCamera()
 
-        // Atur tombol back untuk kembali ke halaman sebelumnya
+        // back
         binding.back.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        // Ganti kamera saat tombol ditekan
+        // switch camera
         binding.switchCamera.setOnClickListener {
-            // Ganti cameraSelector antara kamera depan dan belakang
             cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
                 DEFAULT_FRONT_CAMERA
             } else {
                 CameraSelector.DEFAULT_BACK_CAMERA
             }
 
-            // Restart kamera dengan selector baru
             startCamera()
         }
 
@@ -74,10 +72,10 @@ class CameraActivity : AppCompatActivity() {
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
 
             try {
-                // Unbind semua use cases sebelum memulai ulang
+                // Unbind all use cases before rebinding
                 cameraProvider.unbindAll()
 
-                // Buat ulang Preview dengan SurfaceProvider
+                // recreate
                 val preview = Preview.Builder()
                     .build()
                     .also {
@@ -86,7 +84,7 @@ class CameraActivity : AppCompatActivity() {
 
                 imageCapture = ImageCapture.Builder().build()
 
-                // Bind kamera ke lifecycle Activity dengan selector yang diperbarui
+                // bind camera
                 cameraProvider.bindToLifecycle(
                     this,
                     cameraSelector,
@@ -134,11 +132,7 @@ class CameraActivity : AppCompatActivity() {
 
 
                 override fun onError(exc: ImageCaptureException) {
-                    Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToast("Failed to take picture.")
                     Log.e(TAG, "onError: ${exc.message}")
                 }
             }
@@ -149,7 +143,7 @@ class CameraActivity : AppCompatActivity() {
         val originalBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
         val exif = ExifInterface(photoFile.absolutePath)
 
-        // Ambil informasi orientasi EXIF
+        // get orientation EXIF
         val orientation = exif.getAttributeInt(
             ExifInterface.TAG_ORIENTATION,
             ExifInterface.ORIENTATION_NORMAL
@@ -157,17 +151,17 @@ class CameraActivity : AppCompatActivity() {
 
         val matrix = Matrix()
 
-        // Terapkan rotasi berdasarkan orientasi EXIF
+        // rotation EXIF
         when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90f)
             ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180f)
             ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270f)
         }
 
-        // Terapkan mirror (horizontal flip)
+        // active mirror (horizontal flip)
         matrix.preScale(1f, -1f)
 
-        // Buat bitmap baru dengan rotasi dan flip
+        // flip bitmap
         val processedBitmap = Bitmap.createBitmap(
             originalBitmap,
             0,
@@ -178,13 +172,13 @@ class CameraActivity : AppCompatActivity() {
             true
         )
 
-        // Simpan bitmap yang telah diproses ke file baru
+        // save processed bitmap to file
         val mirroredImageFile = createCustomTempFile(this)
         FileOutputStream(mirroredImageFile).use { out ->
             processedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
         }
 
-        // Bebaskan memori dari bitmap yang tidak lagi digunakan
+        // clear memory
         originalBitmap.recycle()
         processedBitmap.recycle()
 
@@ -199,17 +193,16 @@ class CameraActivity : AppCompatActivity() {
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
-            // Kirim hasil ke ResultActivity
             goToResultActivity(uri)
         } else {
             Log.d("Photo Picker", "No media selected")
         }
     }
 
+
     private fun goToResultActivity(imageUri: Uri) {
         val intent = Intent(this, ResultActivity::class.java).apply {
-            putExtra("image_uri", imageUri.toString())  // Kirim URI gambar
-            putExtra("SHOW_BOTTOM_SHEET", true)  // Kirim flag untuk menampilkan Bottom Sheet
+            putExtra("image_uri", imageUri.toString())
         }
         startActivity(intent)
     }
@@ -232,6 +225,11 @@ class CameraActivity : AppCompatActivity() {
             R.drawable.ic_flash
         }
         binding.flash.setImageResource(flashIcon)
+    }
+
+    private fun showToast(message: String) {
+        val toastCustom = StyleableToast.makeText(applicationContext, message, R.style.StyleableToast)
+        toastCustom.show()
     }
 
     companion object {

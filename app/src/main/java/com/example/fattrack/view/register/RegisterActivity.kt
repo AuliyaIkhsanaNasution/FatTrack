@@ -18,6 +18,7 @@ import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.RegisterViewModel
 import com.example.fattrack.databinding.ActivityRegisterBinding
 import com.example.fattrack.view.login.LoginActivity
+import io.github.muddz.styleabletoast.StyleableToast
 
 @Suppress("DEPRECATION")
 class RegisterActivity : AppCompatActivity() {
@@ -51,10 +52,10 @@ class RegisterActivity : AppCompatActivity() {
 
             //validations
             if (email.isEmpty() || nama.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                showToast("Please fill in all fields")
             } else if (password.length < 8) {
                 binding.edPassword?.error = "Password must be at least 8 characters long"
-                Toast.makeText(this, "Password must be at least 8 characters long", Toast.LENGTH_SHORT).show()
+                showToast("Password must be at least 8 characters long")
             } else {
                 //register with viewmodel (coroutine)
                 lifecycleScope.launchWhenStarted {
@@ -129,6 +130,12 @@ class RegisterActivity : AppCompatActivity() {
                 finish() // Kembali ke layar sebelumnya
             }
             .show()
+    }
+
+
+    private fun showToast(message: String) {
+        val toastCustom = StyleableToast.makeText(applicationContext, message, R.style.StyleableToast)
+        toastCustom.show()
     }
 
 

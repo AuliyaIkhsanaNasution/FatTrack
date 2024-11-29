@@ -22,6 +22,7 @@ import com.example.fattrack.data.viewmodel.LoginViewModel
 import com.example.fattrack.databinding.ActivityLoginBinding
 import com.example.fattrack.view.forgotpassword.ForgotActivity
 import com.example.fattrack.view.register.RegisterActivity
+import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -59,10 +60,10 @@ class LoginActivity : AppCompatActivity() {
 
             //validations
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                showToast("Please fill in all fields")
             } else if (password.length < 8) {
                 binding.edLoginPassword?.error = "Password must be at least 8 characters long"
-                Toast.makeText(this, "Password must be at least 8 characters long", Toast.LENGTH_SHORT).show()
+                showToast("Password must be at least 8 characters long")
             } else {
                 //login with viewmodel (coroutine)
                 lifecycleScope.launchWhenStarted {
@@ -173,6 +174,12 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
             .show()
+    }
+
+
+    private fun showToast(message: String) {
+        val toastCustom = StyleableToast.makeText(applicationContext, message, R.style.StyleableToast)
+        toastCustom.show()
     }
 
 
