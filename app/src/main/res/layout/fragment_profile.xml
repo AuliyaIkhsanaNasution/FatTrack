@@ -119,10 +119,10 @@
                 android:textSize="16sp" />
 
             <Switch
+                android:id="@+id/switch_notification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:thumbTint="@color/gray"
-                android:checked="true"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
         </LinearLayout>
 
