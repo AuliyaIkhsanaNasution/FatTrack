@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.fattrack.data.NotificationReceiver
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.pref.ProfilePreferences
@@ -53,6 +54,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        NotificationReceiver.createNotificationChannel(this)
 
         // Initialize ViewBinding
         binding = ActivityMainBinding.inflate(layoutInflater)

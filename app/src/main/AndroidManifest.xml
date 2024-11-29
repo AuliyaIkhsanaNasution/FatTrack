@@ -39,7 +39,8 @@
             android:exported="false" />
         <activity
             android:name=".view.notifications.NotificationsActivity"
-            android:exported="true">
+            android:exported="true"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>

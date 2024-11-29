@@ -9,7 +9,7 @@
     <string name="dummy_email">example@gmail.com</string>
     <string name="dark_mode_logo">Dark Mode Logo</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="push_notification">Push Notification</string>
+    <string name="push_notification">Calorie Check Reminder</string>
     <string name="reset_password">Reset Password</string>
     <string name="log_out">Log Out</string>
     <string name="notification_logo">notification_logo</string>

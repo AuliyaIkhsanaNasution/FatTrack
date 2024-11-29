@@ -16,9 +16,6 @@ class NotificationRepository(
         dataStoreManager.setNotificationToggle(enabled)
     }
 
-    suspend fun saveNotification(notification: NotificationEntity) {
-        notificationDao.insertNotification(notification)
-    }
 
     suspend fun getNotifications(): List<NotificationEntity> {
         return notificationDao.getAllNotifications()

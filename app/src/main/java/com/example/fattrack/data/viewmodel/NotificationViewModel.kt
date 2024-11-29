@@ -24,13 +24,6 @@ class NotificationViewModel(private val repository: NotificationRepository, priv
         }
     }
 
-    fun saveNotification(notification: NotificationEntity) {
-        viewModelScope.launch {
-            repository.saveNotification(notification)
-        }
-    }
-
-
     suspend fun getNotifications(): List<NotificationEntity> {
         return repository.getNotifications()
     }

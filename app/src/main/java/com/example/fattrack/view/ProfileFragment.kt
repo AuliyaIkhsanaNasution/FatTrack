@@ -44,12 +44,6 @@ class ProfileFragment : Fragment() {
             }
         }
 
-    private fun requestNotificationPermissionIfNeeded() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,6 +54,9 @@ class ProfileFragment : Fragment() {
         val root: View = bindingProfile.root
 
         clickAllButtons()
+        if (Build.VERSION.SDK_INT >= 33) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        }
 
         return root
     }
@@ -85,8 +82,6 @@ class ProfileFragment : Fragment() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requestNotificationPermissionIfNeeded()
 
         val switchTheme = bindingProfile.themeSwitch
 

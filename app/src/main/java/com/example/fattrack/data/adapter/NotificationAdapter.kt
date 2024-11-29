@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fattrack.data.database.NotificationEntity
 import com.example.fattrack.databinding.ItemNotificationBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class NotificationAdapter(private val notifications: List<NotificationEntity>) :
     RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
@@ -15,7 +18,13 @@ class NotificationAdapter(private val notifications: List<NotificationEntity>) :
         fun bind(notification: NotificationEntity) {
             binding.tvTitleNotification.text = notification.title
             binding.tvDescNotification.text = notification.message
-            binding.tvTimeNotification.text = notification.timestamp.toString()
+            binding.tvTimeNotification.text = formatTimestamp(notification.timestamp)
+        }
+
+        private fun formatTimestamp(timestamp: Long): String {
+            val sdf = SimpleDateFormat("HH:mm", Locale.getDefault()) // Format jam:menit:detik
+            val date = Date(timestamp)
+            return sdf.format(date)  // Mengembalikan waktu yang diformat
         }
     }
 
