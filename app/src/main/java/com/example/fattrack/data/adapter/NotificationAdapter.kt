@@ -22,9 +22,9 @@ class NotificationAdapter(private val notifications: List<NotificationEntity>) :
         }
 
         private fun formatTimestamp(timestamp: Long): String {
-            val sdf = SimpleDateFormat("HH:mm", Locale.getDefault()) // Format jam:menit:detik
+            val sdf = SimpleDateFormat("HH.mm", Locale.getDefault())
             val date = Date(timestamp)
-            return sdf.format(date)  // Mengembalikan waktu yang diformat
+            return sdf.format(date)  // Returns the formatted time
         }
     }
 

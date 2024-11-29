@@ -5,11 +5,11 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -34,15 +34,14 @@ class ProfileFragment : Fragment() {
     }
 
     private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
-                Toast.makeText(requireContext(), "Notifications permission granted", Toast.LENGTH_SHORT).show()
+                Log.d("Permission", "Notifications permission granted")
             } else {
-                Toast.makeText(requireContext(), "Notifications permission rejected", Toast.LENGTH_SHORT).show()
+                Log.d("Permission", "Notifications permission rejected")
             }
         }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
