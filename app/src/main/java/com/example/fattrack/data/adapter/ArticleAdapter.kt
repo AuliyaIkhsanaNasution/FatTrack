@@ -16,7 +16,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
 
     private val articles = mutableListOf<DataItem>()
 
-    // ViewHolder untuk artikel
+    // ViewHolder for the article
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.tv_item_name)
         private val author: TextView = itemView.findViewById(R.id.tv_name)
@@ -24,17 +24,17 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
         private val description: TextView = itemView.findViewById(R.id.tv_description)
         private val image: ImageView = itemView.findViewById(R.id.img_item)
 
-        // Bind data ke elemen UI
+        // Bind data to UI elements
         fun bind(article: DataItem) {
             title.text = article.title
-            // Gabungkan author dan date dengan separator "|"
+            // Combine author and date with separator "|"
             val authorAndDate = "${article.author ?: "Unknown Author"} | ${article.date ?: "Unknown Date"}"
             author.text = authorAndDate
             description.text = article.description
 
 
             Glide.with(itemView.context)
-                .load(article.image) // URL gambar
+                .load(article.image) // URL image
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image)
         }
@@ -53,7 +53,7 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
         holder.bind(articles[position])
     }
 
-    // Set data artikel baru
+    // Set data artikel
     @SuppressLint("NotifyDataSetChanged")
     fun setDataArticles(data: List<DataItem>) {
         articles.clear()
