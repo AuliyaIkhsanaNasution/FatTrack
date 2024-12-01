@@ -35,10 +35,6 @@ class SplashActivity : AppCompatActivity() {
         // Initialize AuthPreferences
         authPreferences = AuthPreferences.getInstance(this.authSession)
 
-        // Mulai animasi Lottie
-        binding.progressBar.setAnimation(R.raw.bzeu2opaye)
-        binding.progressBar.playAnimation()
-
         Handler(Looper.getMainLooper()).postDelayed({
             if (isInternetAvailable()) {
                 observeSession()
