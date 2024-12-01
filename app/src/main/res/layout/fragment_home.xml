@@ -364,16 +364,15 @@
             android:textStyle="bold"
             android:layout_marginTop="24dp" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/recycler_home"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btn_tologin"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/login" />
 
     </LinearLayout>
 </ScrollView>
