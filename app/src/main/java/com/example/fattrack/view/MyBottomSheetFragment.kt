@@ -1,5 +1,6 @@
 package com.example.fattrack.view
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.example.fattrack.MainActivity
 import com.example.fattrack.R
 import com.example.fattrack.data.data.NutritionData
 import com.example.fattrack.databinding.BottomSheetBinding
@@ -62,7 +64,7 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
         // set style BottomSheetDialog
         val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
 
-//        // Menentukan ukuran tinggi BottomSheet menjadi 2/3 layar
+//        // set height 3/4
         val displayMetrics = resources.displayMetrics
         val height = (displayMetrics.heightPixels * 3) / 4
         dialog.setOnShowListener {
@@ -70,9 +72,9 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
             bottomSheet?.layoutParams?.height = height
             bottomSheet?.requestLayout()
 
-            // Menonaktifkan drag atau geser ke bawah
+            // false to drag
             val behavior = BottomSheetBehavior.from(bottomSheet!!)
-            behavior.isDraggable = false // Menonaktifkan drag
+            behavior.isDraggable = false
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
@@ -92,6 +94,7 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
         finishSetup()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun viewSetup() {
         // Update UI
         nutritionalInfo?.let { info ->
@@ -106,27 +109,20 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
 
 
     private fun finishSetup() {
-        binding.btnFinish.setOnClickListener() {
-            //finish fragment and back to dashboard
-            val fragment = DashboardFragment()
-            val fragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.nav_host, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-        }
-
-        //handle back button
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            navigateToCameraActivity()
+        binding.btnFinish.setOnClickListener {
+            navigateToMain()
         }
     }
 
-    private fun navigateToCameraActivity() {
-        val intent = Intent(requireContext(), CameraActivity::class.java)
+    // to MainActiviy
+    private fun navigateToMain() {
+        // go to mainActivity
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
         requireActivity().finish()
     }
+
 
 
     // setup for chart

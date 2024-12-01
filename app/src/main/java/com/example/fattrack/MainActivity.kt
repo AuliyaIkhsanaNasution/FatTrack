@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Observe session changes
-//        observeSession()
+        observeSession()
 
         // Set up UI components
         setupBottomNavigation()
@@ -95,20 +95,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun observeSession() {
-//        viewModel.getSession().observe(this) { user ->
-//            if (!user.isLogin || user.idUser.isEmpty()) {
-//                // Redirect to LoginActivity if user is not logged in
-//                navigateToWelcomeActivity()
-//            }
-//        }
-//    }
-//
-//    private fun navigateToWelcomeActivity() {
-//        val intent = Intent(this, LoginActivity::class.java)
-//        startActivity(intent)
-//        finish() // Close current activity to prevent returning back
-//    }
+    private fun observeSession() {
+        viewModel.getSession().observe(this) { user ->
+            if (!user.isLogin || user.idUser.isEmpty()) {
+                // Redirect to LoginActivity if user is not logged in
+                navigateToWelcomeActivity()
+            }
+        }
+    }
+
+    private fun navigateToWelcomeActivity() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish() // Close current activity to prevent returning back
+    }
 
     // Set up BottomNavigationView behavior
     private fun setupBottomNavigation() {

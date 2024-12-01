@@ -1,5 +1,6 @@
 package com.example.fattrack.view.scan
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -69,11 +70,16 @@ class ResultActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         //observe predict
         predictViewModel.predictResponse.observe(this) { response ->
             response?.let {
                 if (it.code == 200) {
+                    //disabled button scan
+                    binding.btnScan.isEnabled = false
+                    binding.btnScan.text = "Success"
+
                     //open bottom and send data
                     val nutrition = mapToParcelable(it.data?.nutritionalInfo)
                     displayBottomSheet(nutrition)
@@ -85,12 +91,18 @@ class ResultActivity : AppCompatActivity() {
 
         //observe loading
         predictViewModel.isLoading.observe(this) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) android.view.View.VISIBLE else android.view.View.GONE
+            if(isLoading) {
+                binding.progressBar.visibility = android.view.View.VISIBLE
+                binding.btnScan.isEnabled = false
+            } else {
+                binding.progressBar.visibility = android.view.View.GONE
+            }
         }
 
         //observe error
         predictViewModel.errorMessage.observe(this) { errorMessage ->
             if (errorMessage != null) {
+                binding.btnScan.text = "Failed"
                 showErrorDialog(errorMessage)
             }
         }
@@ -116,10 +128,15 @@ class ResultActivity : AppCompatActivity() {
     private fun showErrorDialog(message: String?) {
         SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Failed!")
-            .setContentText("Error : $message")
+            .setContentText("$message. Please try again.")
             .setConfirmText("OK")
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
+                // goto ke camera
+                val intent = Intent(this@ResultActivity, CameraActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
             }
             .show()
     }
