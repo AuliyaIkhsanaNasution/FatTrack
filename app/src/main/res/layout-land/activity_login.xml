@@ -14,9 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:cardCornerRadius="40dp"
-        android:layout_marginBottom="-25dp"
-        android:id="@+id/card_view"
-        android:backgroundTint="?attr/cardBackgroundColor">
+        android:layout_marginBottom="-30dp"
+        android:id="@+id/card_view">
 
         <!-- LinearLayout di dalam CardView untuk menempatkan teks -->
         <LinearLayout

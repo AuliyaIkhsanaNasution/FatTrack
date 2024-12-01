@@ -17,6 +17,7 @@ import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
+import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.profile.EditProfileActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -68,14 +69,24 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-        //button logout
+// Button logout
         bindingProfile.logoutButton.setOnClickListener {
             lifecycleScope.launch {
                 bindingProfile.progressBar.visibility = View.VISIBLE
-                delay(500) //delay 0,5s
+                delay(500) // Delay 0,5 detik
                 profileViewModel.logout()
+
+                bindingProfile.progressBar.visibility = View.GONE
+                navigateToLogin()
             }
         }
+
+    }
+
+    private fun navigateToLogin() {
+        val intent = Intent(requireContext(), LoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
