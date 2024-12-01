@@ -10,6 +10,7 @@ import com.example.fattrack.data.pref.authSession
 import com.example.fattrack.data.pref.profileDataStore
 import com.example.fattrack.data.repositories.ArticleRepository
 import com.example.fattrack.data.repositories.AuthRepository
+import com.example.fattrack.data.repositories.DashboardRepository
 import com.example.fattrack.data.repositories.MainRepository
 import com.example.fattrack.data.repositories.NotificationRepository
 import com.example.fattrack.data.services.retrofit.ApiConfig
@@ -25,6 +26,12 @@ object Injection {
         val apiService = ApiConfig.getApiService()
         val authPreferences = AuthPreferences.getInstance(context.authSession)
         return MainRepository.getInstance(apiService, authPreferences)
+    }
+
+    fun provideDashboardRepository(context: Context): DashboardRepository {
+        val apiService = ApiConfig.getApiService()
+        val authPreferences = AuthPreferences.getInstance(context.authSession)
+        return DashboardRepository.getInstance(apiService, authPreferences)
     }
 
     fun provideArticlesRepository(context: Context): ArticleRepository {
