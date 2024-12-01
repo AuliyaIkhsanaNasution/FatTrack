@@ -7,7 +7,9 @@ import com.example.fattrack.data.services.retrofit.ApiService
 import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class MainRepository(private val apiService: ApiService, private val authPreferences: AuthPreferences) {
@@ -24,9 +26,12 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
 
             //converse to multipart
             val imagePart = image.toMultipartBody()
+            val idUserPart = RequestBody.create("text/plain".toMediaTypeOrNull(), idUser)
+
+            val url = "https://fastapi-tensorflow-app-123661394110.asia-southeast2.run.app/predict_image"
 
             // get API
-            val response = apiService.predict("Bearer $token", imagePart, idUser)
+            val response = apiService.predict( url, "Bearer $token", idUserPart, imagePart)
 
             if (response.isSuccessful) {
                 val body = response.body()
@@ -48,7 +53,7 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
 
     private fun File.toMultipartBody(): MultipartBody.Part {
         val requestBody = this.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        return MultipartBody.Part.createFormData("photo", this.name, requestBody)
+        return MultipartBody.Part.createFormData("uploaded_file", this.name, requestBody)
     }
 
 

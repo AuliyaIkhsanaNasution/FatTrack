@@ -4,7 +4,9 @@ import com.example.fattrack.data.services.responses.ResponseArticle
 import com.example.fattrack.data.services.responses.ResponseLogin
 import com.example.fattrack.data.services.responses.ResponseRegister
 import com.example.fattrack.data.services.responses.ResponseScanImage
+import com.example.fattrack.data.services.responses.ResponseSearchFood
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -13,6 +15,8 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
+import retrofit2.http.Url
 
 interface ApiService {
     //AUTH
@@ -34,12 +38,21 @@ interface ApiService {
 
     //Predict / scan image
     @Multipart
-    @POST("https://fastapi-tensorflow-app-123661394110.asia-southeast2.run.app/predict_image")
+    @POST
     suspend fun predict(
+        @Url url:String,
         @Header("Authorization") token: String,
+        @Part("user_id") userId: RequestBody,
         @Part file: MultipartBody.Part,
-        @Part("user_id") userId: String,
     ) : Response<ResponseScanImage>
+
+
+    //search
+    @GET("makanan")
+    suspend fun searhFood(
+        @Query("nama") nama: String
+    ) : Response<ResponseSearchFood>
+
 
     //articles
     @GET("articles")

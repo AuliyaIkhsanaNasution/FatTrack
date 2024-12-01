@@ -1,19 +1,24 @@
 package com.example.fattrack.view
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.example.fattrack.R
 import com.example.fattrack.data.data.NutritionData
 import com.example.fattrack.databinding.BottomSheetBinding
+import com.example.fattrack.view.scan.CameraActivity
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -55,7 +60,27 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // set style BottomSheetDialog
-        return BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+
+//        // Menentukan ukuran tinggi BottomSheet menjadi 2/3 layar
+        val displayMetrics = resources.displayMetrics
+        val height = (displayMetrics.heightPixels * 3) / 4
+        dialog.setOnShowListener {
+            val bottomSheet = dialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+            bottomSheet?.layoutParams?.height = height
+            bottomSheet?.requestLayout()
+
+            // Menonaktifkan drag atau geser ke bawah
+            val behavior = BottomSheetBehavior.from(bottomSheet!!)
+            behavior.isDraggable = false // Menonaktifkan drag
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+        // Nonaktifkan gesture drag dan close otomatis saat mengetuk luar area
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.setCancelable(false)
+
+        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,6 +89,7 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
         //setup
         viewSetup()
         chartSetup()
+        finishSetup()
     }
 
     private fun viewSetup() {
@@ -76,6 +102,30 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
             binding.tvLemak.text = "${info.lemak} g"
             binding.tvProtein.text = "${info.protein} g"
         }
+    }
+
+
+    private fun finishSetup() {
+        binding.btnFinish.setOnClickListener() {
+            //finish fragment and back to dashboard
+            val fragment = DashboardFragment()
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.nav_host, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
+        }
+
+        //handle back button
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            navigateToCameraActivity()
+        }
+    }
+
+    private fun navigateToCameraActivity() {
+        val intent = Intent(requireContext(), CameraActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
 
