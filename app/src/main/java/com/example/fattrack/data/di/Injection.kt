@@ -27,9 +27,10 @@ object Injection {
         return MainRepository.getInstance(apiService, authPreferences)
     }
 
-    fun provideArticlesRepository(): ArticleRepository {
+    fun provideArticlesRepository(context: Context): ArticleRepository {
+        val authPreferences = AuthPreferences.getInstance(context.authSession)
         val apiService = ApiConfig.getApiService()
-        return ArticleRepository.getInstance(apiService)
+        return ArticleRepository.getInstance(apiService, authPreferences)
     }
 
     fun provideProfilePreferences(context: Context): ProfilePreferences {

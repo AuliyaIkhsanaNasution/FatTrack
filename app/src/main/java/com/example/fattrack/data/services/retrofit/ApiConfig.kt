@@ -16,7 +16,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://bde98299-9a25-4595-a36b-3a82152b7d9d.mock.pstmn.io/")
+                .baseUrl("https://fat-track-api-123661394110.asia-southeast2.run.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.example.fattrack.R
-import com.example.fattrack.data.model.NutritionData
+import com.example.fattrack.data.data.NutritionData
 import com.example.fattrack.databinding.BottomSheetBinding
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend

@@ -80,16 +80,20 @@ class LoginActivity : AppCompatActivity() {
             response?.onSuccess {
                 val email = binding.edLoginEmail?.text.toString().trim()
                 val code = it.code
-                val idUser = it.data?.user?.id
+                val idUser = it.data?.id
+                val token = it.data?.token
 
                 if (code == 200) {
                     //set session
                     val user = idUser?.let { it1 ->
-                        SessionModel(
-                            idUser = it1,
-                            email = email,
-                            isLogin = true
-                        )
+                        token?.let { it2 ->
+                            SessionModel(
+                                idUser = it1,
+                                token = it2,
+                                email = email,
+                                isLogin = true
+                            )
+                        }
                     }
                     if (user != null) {
                         loginViewModel.saveSession(user)

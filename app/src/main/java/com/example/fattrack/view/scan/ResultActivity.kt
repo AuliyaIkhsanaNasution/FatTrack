@@ -9,7 +9,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.fattrack.MainActivity
 import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
-import com.example.fattrack.data.model.NutritionData
+import com.example.fattrack.data.data.NutritionData
 import com.example.fattrack.data.services.responses.NutritionalInfo
 import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.databinding.ActivityResultBinding

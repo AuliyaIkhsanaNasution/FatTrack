@@ -39,9 +39,11 @@ class PredictViewModel(private val mainRepository: MainRepository) : ViewModel()
                     Log.d("PredictResponse", "Success: $it")
                 } .onFailure {
                     _errorMessage.value = it.message.toString()
+                    Log.d("PredictResponse", it.message.toString())
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.message.toString()
+                Log.d("PredictResponse", e.message.toString())
             } finally {
                 _isLoading.value = false
             }

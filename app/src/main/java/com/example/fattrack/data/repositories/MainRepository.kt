@@ -1,5 +1,6 @@
 package com.example.fattrack.data.repositories
 
+import android.util.Log
 import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.services.responses.ResponseScanImage
 import com.example.fattrack.data.services.retrofit.ApiService
@@ -13,16 +14,19 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
     suspend fun predictImage(image: File): Result<ResponseScanImage> {
         return try {
             // Cek isToken ready
-            val token = authPreferences.getSession().first().idUser
-            if (token.isEmpty()) {
+            val idUser = authPreferences.getSession().first().idUser
+            val token = authPreferences.getSession().first().token
+            if (token.isEmpty() || idUser.isEmpty()) {
                 Result.failure<Throwable>(Exception("Token not found"))
             }
+
+            Log.d("PredictResponse", "user id: $idUser, token: $token")
 
             //converse to multipart
             val imagePart = image.toMultipartBody()
 
             // get API
-            val response = apiService.predict(imagePart, token)
+            val response = apiService.predict("Bearer $token", imagePart, idUser)
 
             if (response.isSuccessful) {
                 val body = response.body()

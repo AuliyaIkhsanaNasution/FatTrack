@@ -36,7 +36,7 @@ class ViewModelFactory(
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
                     INSTANCE = ViewModelFactory(
-                        Injection.provideArticlesRepository(),
+                        Injection.provideArticlesRepository(context),
                         Injection.provideProfilePreferences(context),
                         Injection.provideAuthRepository(context),
                         Injection.provideMainRepository(context),
