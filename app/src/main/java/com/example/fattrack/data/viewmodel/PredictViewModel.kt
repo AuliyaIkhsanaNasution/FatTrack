@@ -5,17 +5,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.repositories.MainRepository
 import com.example.fattrack.data.services.responses.ResponseScanImage
+import com.example.fattrack.data.services.responses.ResponseSearchFood
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 import java.io.File
+import java.util.Locale
 
 class PredictViewModel(private val mainRepository: MainRepository) : ViewModel() {
     //live data
     private val _predictResponse = MutableLiveData<ResponseScanImage>()
     val predictResponse: LiveData<ResponseScanImage> = _predictResponse
+
+    private val _searchResponse = MutableLiveData<ResponseSearchFood?>()
+    val searchResponse: LiveData<ResponseSearchFood?> = _searchResponse
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -49,4 +52,42 @@ class PredictViewModel(private val mainRepository: MainRepository) : ViewModel()
             }
         }
     }
+
+    // Fungsi untuk mencari makanan berdasarkan nama
+    fun searchFood(nama: String) {
+        _isLoading.value = true
+        _searchResponse.value = null
+
+        // Validasi jika nama pencarian kosong
+        if (nama.isBlank()) {
+            _errorMessage.value = "Please enter a food name."
+            _isLoading.value = false
+            return
+        }
+
+        viewModelScope.launch {
+            try {
+                val filteredName = nama.trim().lowercase(Locale.ROOT)
+                val response = mainRepository.searchFood(filteredName)
+                response.onSuccess { data ->
+                    if (data.responseSearchFood.isNullOrEmpty()) {
+                        _errorMessage.value = "No food found matching your query."
+                    } else {
+                        _searchResponse.value = data
+                    }
+                    Log.d("SearchFood", "Success: $data")
+                }.onFailure { throwable ->
+                    _errorMessage.value = throwable.message ?: "An unknown error occurred."
+                    Log.e("SearchFood", "Error: ${throwable.message}")
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = e.message ?: "An error occurred while searching for food."
+                Log.e("SearchFood", "Exception: ${e.message}")
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
 }
