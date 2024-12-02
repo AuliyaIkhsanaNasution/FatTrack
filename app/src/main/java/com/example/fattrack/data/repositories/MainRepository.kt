@@ -79,6 +79,7 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
                 Result.failure(Exception("Error because $errorMessage"))
             }
         } catch (e: Exception) {
+            Log.d("SearchFood", e.message.toString())
             Result.failure(e)
         }
     }

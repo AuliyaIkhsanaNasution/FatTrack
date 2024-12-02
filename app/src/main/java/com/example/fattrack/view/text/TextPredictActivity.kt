@@ -9,7 +9,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.data.NutritionData
-import com.example.fattrack.data.services.responses.Data
+import com.example.fattrack.data.services.responses.FoodDataItem
 import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.databinding.ActivityTextPredictBinding
 import com.example.fattrack.view.MyBottomSheetFragment
@@ -39,15 +39,19 @@ class TextPredictActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         predictViewModel.searchResponse.observe(this) { response ->
-            response?.let { searchResponse ->
-                val foodData = searchResponse.responseSearchFood?.firstOrNull()?.data?.let { data ->
-                    mapToParcelable(data)
+            if (response != null) {
+                val foodData = response.data?.mapNotNull { foodItem ->
+                    foodItem?.let { mapToParcelable(it) }
                 }
 
-                foodData?.let { nutritionData ->
-                    displayBottomSheet(nutritionData)
-                } ?: showToast("No matching food found.")
-            } ?: showToast("Response is null.")
+                if (!foodData.isNullOrEmpty()) {
+                    displayBottomSheet(foodData[0])
+                } else {
+                    showToast("No matching food found.")
+                }
+            } else {
+                showToast("Response is null.")
+            }
         }
 
         predictViewModel.isLoading.observe(this) { isLoading ->
@@ -76,7 +80,7 @@ class TextPredictActivity : AppCompatActivity() {
         bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
     }
 
-    private fun mapToParcelable(response: Data?): NutritionData {
+    private fun mapToParcelable(response: FoodDataItem?): NutritionData {
         return NutritionData(
             deskripsi = response?.deskripsi,
             kalori = response?.kalori,

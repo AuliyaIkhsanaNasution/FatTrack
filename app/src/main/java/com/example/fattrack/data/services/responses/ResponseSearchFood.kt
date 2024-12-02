@@ -4,11 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseSearchFood(
 
-	@field:SerializedName("ResponseSearchFood")
-	val responseSearchFood: List<ResponseSearchFoodItem?>? = null
+	@field:SerializedName("code")
+	val code: Int? = null,
+
+	@field:SerializedName("data")
+	val data: List<FoodDataItem?>? = null,
+
+	@field:SerializedName("status")
+	val status: String? = null
 )
 
-data class Data(
+data class FoodDataItem(
 
 	@field:SerializedName("kalori")
 	val kalori: Int? = null,
@@ -30,16 +36,4 @@ data class Data(
 
 	@field:SerializedName("lemak")
 	val lemak: Any? = null
-)
-
-data class ResponseSearchFoodItem(
-
-	@field:SerializedName("code")
-	val code: Int? = null,
-
-	@field:SerializedName("data")
-	val data: Data? = null,
-
-	@field:SerializedName("status")
-	val status: String? = null
 )

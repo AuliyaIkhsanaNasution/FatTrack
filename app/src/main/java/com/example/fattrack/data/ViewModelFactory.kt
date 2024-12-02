@@ -8,12 +8,14 @@ import com.example.fattrack.data.di.Injection
 import com.example.fattrack.data.pref.ProfilePreferences
 import com.example.fattrack.data.repositories.ArticleRepository
 import com.example.fattrack.data.repositories.AuthRepository
+import com.example.fattrack.data.repositories.DashboardRepository
 import com.example.fattrack.data.repositories.MainRepository
 import com.example.fattrack.data.viewmodel.ArticlesViewModel
 import com.example.fattrack.data.viewmodel.LoginViewModel
 import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.data.repositories.NotificationRepository
+import com.example.fattrack.data.viewmodel.DashboardViewModel
 import com.example.fattrack.data.viewmodel.DetailViewModel
 import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.NotificationViewModel
@@ -26,7 +28,8 @@ class ViewModelFactory(
     private val authRepository: AuthRepository,
     private val mainRepository: MainRepository,
     private val notificationRepository: NotificationRepository,
-    private val scheduler: NotificationScheduler
+    private val scheduler: NotificationScheduler,
+    private val dashboardRepository: DashboardRepository
     ) : ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -43,7 +46,8 @@ class ViewModelFactory(
                         Injection.provideAuthRepository(context),
                         Injection.provideMainRepository(context),
                         Injection.provideNotificationRepository(context),
-                        Injection.provideNotificationScheduler(context)
+                        Injection.provideNotificationScheduler(context),
+                        Injection.provideDashboardRepository(context)
                     )
                 }
             }
@@ -62,6 +66,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(DashboardViewModel::class.java) -> {
+                DashboardViewModel(dashboardRepository) as T
             }
             modelClass.isAssignableFrom(ArticlesViewModel::class.java) -> {
                 ArticlesViewModel(articleRepository) as T
