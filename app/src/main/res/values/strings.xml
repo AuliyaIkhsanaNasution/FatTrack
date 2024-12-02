@@ -138,4 +138,7 @@
     <string name="pilih_predict_calori">Pilih Predict Calori</string>
     <string name="camera">Camera</string>
     <string name="predict_by_text">Predict By Text</string>
+    <string name="makanan_yang_ingin_kamu_cek_kalori">Makanan yang ingin kamu cek kalori</string>
+    <string name="nama_makanan">nama makanan</string>
+    <string name="cek_kalori_makanan">Cek Kalori Makanan</string>
 </resources>
