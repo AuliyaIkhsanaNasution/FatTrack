@@ -18,12 +18,13 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="12dp"
                 android:contentDescription="@string/foto_profil"
-                android:src="@drawable/circle_background" />
+                android:src="@drawable/default_pp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -32,11 +33,13 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/dummy_hello"
+                    tools:text="Halo, Name"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/urbold"
                     android:textColor="?attr/font_color" />
 
                 <TextView
@@ -44,7 +47,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/selamat_datang"
                     android:textSize="14sp"
-                    android:textColor="@color/gray" />
+                    android:fontFamily="@font/urregular"
+                    android:textColor="?attr/font_color" />
             </LinearLayout>
 
             <ImageView
