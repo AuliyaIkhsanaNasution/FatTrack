@@ -1,6 +1,7 @@
 package com.example.fattrack.data.adapter
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.fattrack.R
 import com.example.fattrack.data.services.responses.DataItem
+import com.example.fattrack.view.detail.DetailActivity
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
@@ -37,6 +39,13 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
                 .load(article.image) // URL image
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image)
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailActivity::class.java).apply {
+                    putExtra(DetailActivity.ARTICLE_ID, article.id.toString()) // Kirim ID artikel ke DetailActivity
+                }
+                itemView.context.startActivity(intent)
+            }
         }
 
     }
