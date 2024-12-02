@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
 
         // Fetch data from ViewModel
         viewModelArticle.fetchArticles()
+        homeViewModel.fetchHomeData()
 
         // Return the root view of the fragment
         return binding.root
@@ -74,7 +75,7 @@ class HomeFragment : Fragment() {
         // Observe articles LiveData
         viewModelArticle.articles.observe(viewLifecycleOwner) { articles ->
             val limitedArticles = articles.take(5)
-            adapter.setDataArticles(limitedArticles) // Update adapter dengan 5 artikel
+            adapter.setDataArticles(limitedArticles)
         }
 
         // Observe loading state LiveData
@@ -107,16 +108,31 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
+        homeViewModel.totalProtein.observe(viewLifecycleOwner) { totalProtein ->
+            binding.totalProtein.text = totalProtein?.toString() ?: "0.0 g"
+        }
+
+        homeViewModel.totalKarbohidrat.observe(viewLifecycleOwner) { totalKarbohidrat ->
+            binding.totalKarbohidrat.text = totalKarbohidrat?.toString() ?: "0.0 g"
+        }
+
+        homeViewModel.totalLemak.observe(viewLifecycleOwner) { totalLemak ->
+            binding.totalLemak.text = totalLemak?.toString() ?: "0.0 g"
+        }
+
+        homeViewModel.date.observe(viewLifecycleOwner) { formattedDate ->
+            binding.textDate.text = formattedDate ?: "Tanggal tidak tersedia"
+        }
+
         homeViewModel.userName.observe(viewLifecycleOwner) { name ->
              binding.userName.text = "Halo, ${name ?: "Unknown Name"}"
-
         }
 
         homeViewModel.userPhoto.observe(viewLifecycleOwner) { photoUrl ->
             Glide.with(requireContext())
                 .load(photoUrl)
-                .placeholder(R.drawable.default_pp) // Gambar default jika kosong
-                .into(binding.ivProfile) // Tampilkan foto profil
+                .placeholder(R.drawable.default_pp)
+                .into(binding.ivProfile)
         }
 
         homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
