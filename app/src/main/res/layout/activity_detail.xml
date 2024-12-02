@@ -61,7 +61,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAlignment="center"
-                    android:textStyle="italic"
                     android:fontFamily="@font/urmedium"
                     android:textColor="?attr/font_color"
                     tools:text="Dr.Indranami Oky" />
