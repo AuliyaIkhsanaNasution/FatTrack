@@ -23,9 +23,12 @@ import com.example.fattrack.data.pref.profileDataStore
 import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.ActivityMainBinding
+import com.example.fattrack.databinding.PredictButtomSheetBinding
 import com.example.fattrack.view.*
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.scan.CameraActivity
+import com.example.fattrack.view.text.TextPredictActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.github.muddz.styleabletoast.StyleableToast
 
 @Suppress("DEPRECATION")
@@ -135,8 +138,32 @@ class MainActivity : AppCompatActivity() {
     // Set up FloatingActionButton behavior
     private fun setupFab() {
         binding.fab.setOnClickListener {
-            startActivity(Intent(this, CameraActivity::class.java))
+            showBottomSheet()
         }
+    }
+
+    private fun showBottomSheet() {
+
+        // Create BottomSheetDialog with a custom theme
+        val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+
+        // Create binding for the bottom sheet layout
+        val bottomSheetBinding = PredictButtomSheetBinding.inflate(layoutInflater)
+
+        // Set up click listeners for options
+        bottomSheetBinding.camera.setOnClickListener {
+            bottomSheetDialog.dismiss() // Close the dialog
+            startActivity(Intent(this, CameraActivity::class.java)) // Open CameraActivity
+        }
+
+        bottomSheetBinding.searchByText.setOnClickListener {
+            bottomSheetDialog.dismiss() // Close the dialog
+            startActivity(Intent(this, TextPredictActivity::class.java)) // Open TextPredictActivity
+        }
+
+        // Set the view using binding and show the bottom sheet
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.show()
     }
 
     // Replace current fragment and optionally add to back stack

@@ -135,4 +135,7 @@
     <string name="image_preview">Image Preview</string>
     <string name="time">time</string>
     <string name="cover_image">cover image</string>
+    <string name="pilih_predict_calori">Pilih Predict Calori</string>
+    <string name="camera">Camera</string>
+    <string name="predict_by_text">Predict By Text</string>
 </resources>
