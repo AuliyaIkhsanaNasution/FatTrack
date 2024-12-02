@@ -15,6 +15,7 @@ import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.data.repositories.NotificationRepository
 import com.example.fattrack.data.viewmodel.DetailViewModel
+import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.data.viewmodel.RegisterViewModel
@@ -76,6 +77,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 DetailViewModel(articleRepository) as T
+            }
+            modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
+                HomeViewModel(mainRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

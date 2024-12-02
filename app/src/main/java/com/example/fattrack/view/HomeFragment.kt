@@ -1,5 +1,6 @@
 package com.example.fattrack.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,12 +11,16 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.adapter.ArticleAdapter
 import com.example.fattrack.data.viewmodel.ArticlesViewModel
+import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.databinding.FragmentHomeBinding
 import com.example.fattrack.view.notifications.NotificationsActivity
+import io.github.muddz.styleabletoast.StyleableToast
 
 class HomeFragment : Fragment() {
 
@@ -25,6 +30,9 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<MainViewModel> {
+        context?.let { ViewModelFactory.getInstance(it) }!!
+    }
+    private val homeViewModel by viewModels<HomeViewModel> {
         context?.let { ViewModelFactory.getInstance(it) }!!
     }
 
@@ -41,6 +49,10 @@ class HomeFragment : Fragment() {
 
         setupRecyclerView()
         setupObserver()
+        observeViewModel()
+
+        // Panggil fungsi untuk mengambil data user
+        homeViewModel.getUserById()
 
         // Fetch data from ViewModel
         viewModelArticle.fetchArticles()
@@ -92,4 +104,35 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null // Clean up the binding reference to avoid memory leaks
     }
+
+    @SuppressLint("SetTextI18n")
+    private fun observeViewModel() {
+        homeViewModel.userName.observe(viewLifecycleOwner) { name ->
+             binding.userName.text = "Halo, ${name ?: "Unknown Name"}"
+
+        }
+
+        homeViewModel.userPhoto.observe(viewLifecycleOwner) { photoUrl ->
+            Glide.with(requireContext())
+                .load(photoUrl)
+                .placeholder(R.drawable.default_pp) // Gambar default jika kosong
+                .into(binding.ivProfile) // Tampilkan foto profil
+        }
+
+        homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        homeViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                showToast(it)
+            }
+        }
+    }
+
+    private fun showToast(message: String) {
+        val toastCustom = StyleableToast.makeText(requireContext(), message, R.style.StyleableToast)
+        toastCustom.show()
+    }
+
 }
