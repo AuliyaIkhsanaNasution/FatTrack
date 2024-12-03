@@ -128,7 +128,7 @@ class HomeFragment : Fragment() {
 
         binding.targetPieChart.apply {
             data = PieData(PieDataSet(listOf(
-                PieEntry(persentase, "Used"),
+                PieEntry(persentase),
                 PieEntry(100 - persentase)
             ), "").apply {
                 colors = listOf(color, Color.LTGRAY)
