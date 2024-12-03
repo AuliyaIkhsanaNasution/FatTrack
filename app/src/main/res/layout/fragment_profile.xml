@@ -18,32 +18,44 @@
             android:layout_height="200dp"
             android:background="?attr/colorPrimary" />
 
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <!-- Profile Image -->
-        <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="-70dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_photo_profile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="-90dp"
             android:contentDescription="@string/profile"
-            android:src="@drawable/circle_background"
+            android:src="@drawable/default_pp"
             android:scaleType="centerCrop"
             android:elevation="4dp" />
 
         <!-- Name and Email -->
         <TextView
+            android:id="@+id/tv_name_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/dummy_name"
-            android:textSize="18sp"
+            tools:text="My Name"
+            android:textSize="25sp"
             android:textColor="?attr/font_color"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/urbold"/>
 
         <TextView
+            android:id="@+id/tv_email_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dummy_email"
-            android:textSize="14sp"
-            android:textColor="@color/gray" />
+            android:textSize="17sp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/urmedium"/>
 
         <!-- Edit Profile Button -->
         <Button
@@ -187,11 +199,6 @@
                 android:textColor="@color/Error" />
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
 
 
     </LinearLayout>

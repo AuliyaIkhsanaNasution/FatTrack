@@ -13,12 +13,16 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
+import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.profile.EditProfileActivity
+import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -32,6 +36,10 @@ class ProfileFragment : Fragment() {
 
     private val notificationViewModel: NotificationViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
+    }
+
+    private val userViewModel by viewModels<HomeViewModel> {
+        context?.let { ViewModelFactory.getInstance(it) }!!
     }
 
     private val requestPermissionLauncher =
@@ -57,6 +65,9 @@ class ProfileFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= 33) {
             requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
+
+        observeViewModel()
+        userViewModel.getUserById()
 
         return root
     }
@@ -116,6 +127,41 @@ class ProfileFragment : Fragment() {
             notificationViewModel.setNotificationToggle(isChecked)
         }
     }
+
+    private fun observeViewModel() {
+
+        userViewModel.userName.observe(viewLifecycleOwner) { name ->
+            bindingProfile.tvNameProfile.text = name
+        }
+
+        userViewModel.userEmail.observe(viewLifecycleOwner) { email ->
+            bindingProfile.tvEmailProfile.text = email
+        }
+
+        userViewModel.userPhoto.observe(viewLifecycleOwner) { photoUrl ->
+            Glide.with(requireContext())
+                .load(photoUrl)
+                .placeholder(R.drawable.default_pp)
+                .into(bindingProfile.ivPhotoProfile)
+        }
+
+        userViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            bindingProfile.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+
+        userViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                showToast(it)
+            }
+        }
+
+    }
+
+    private fun showToast(message: String) {
+        val toastCustom = StyleableToast.makeText(requireContext(), message, R.style.StyleableToast)
+        toastCustom.show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

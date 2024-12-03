@@ -56,8 +56,6 @@ class HomeFragment : Fragment() {
         setupObserver()
         observeViewModel()
         homeViewModel.getUserById()
-
-        // Fetch data from ViewModel
         viewModelArticle.fetchArticles()
         homeViewModel.fetchHomeData()
 
@@ -195,8 +193,6 @@ class HomeFragment : Fragment() {
         }
 
     }
-
-
 
     private fun showToast(message: String) {
         val toastCustom = StyleableToast.makeText(requireContext(), message, R.style.StyleableToast)

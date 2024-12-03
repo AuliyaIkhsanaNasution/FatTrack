@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fattrack.data.repositories.MainRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()  {
@@ -16,6 +14,9 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
 
     private val _userPhoto = MutableLiveData<String?>()
     val userPhoto: LiveData<String?> = _userPhoto
+
+    private val _userEmail = MutableLiveData<String?>()
+    val userEmail: LiveData<String?> = _userEmail
 
     private val _totalProtein = MutableLiveData<Double?>()
     val totalProtein: LiveData<Double?> = _totalProtein
@@ -38,8 +39,8 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-        private val _targetKalori = MutableLiveData<Int>(2000)
-        val targetKalori: LiveData<Int> = _targetKalori
+    private val _targetKalori = MutableLiveData<Int>(2000)
+    val targetKalori: LiveData<Int> = _targetKalori
 
 
 
@@ -54,6 +55,7 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
                 result.onSuccess { response ->
                     _userName.value = response.data?.nama
                     _userPhoto.value = response.data?.fotoProfile
+                    _userEmail.value = response.data?.email
                 }.onFailure { throwable ->
                     _errorMessage.value = throwable.message
                 }
