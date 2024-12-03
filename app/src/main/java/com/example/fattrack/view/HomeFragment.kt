@@ -134,7 +134,7 @@ class HomeFragment : Fragment() {
         binding.targetPieChart.apply {
             data = PieData(PieDataSet(listOf(
                 PieEntry(persentase, "Used"),
-                PieEntry(100 - persentase, "Remaining")
+                PieEntry(100 - persentase)
             ), "").apply {
                 colors = listOf(color, Color.LTGRAY)
                 setDrawValues(false)
@@ -146,7 +146,7 @@ class HomeFragment : Fragment() {
             setUsePercentValues(true)
             centerText = String.format("%.0f%%", persentase)
             setCenterTextColor(color)
-            setCenterTextSize(18f)
+            setCenterTextSize(12f)
             invalidate() // Refresh chart
         }
     }
