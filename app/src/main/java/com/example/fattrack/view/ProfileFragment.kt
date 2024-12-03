@@ -131,7 +131,7 @@ class ProfileFragment : Fragment() {
     private fun observeViewModel() {
 
         userViewModel.userName.observe(viewLifecycleOwner) { name ->
-            bindingProfile.tvNameProfile.text = name
+            bindingProfile.tvNameProfile.text = name?.uppercase() ?: "Default Name"
         }
 
         userViewModel.userEmail.observe(viewLifecycleOwner) { email ->
