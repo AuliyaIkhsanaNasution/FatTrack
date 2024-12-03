@@ -56,7 +56,6 @@ class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  
             }
         }
     }
-
     fun fetchHomeData() {
         _isLoading.value = true
         viewModelScope.launch {
