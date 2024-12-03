@@ -27,6 +27,9 @@ class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  
     private val _date = MutableLiveData<String?>()
     val date: LiveData<String?> = _date
 
+    private val _totalKalori = MutableLiveData<Int?>()
+    val totalKalori: LiveData<Int?> = _totalKalori
+
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -67,6 +70,7 @@ class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  
                         _totalKarbohidrat.value = homeData.totalKarbohidrat?.toString()?.toDoubleOrNull()
                         _totalLemak.value = homeData.totalLemak?.toString()?.toDoubleOrNull()
                         _date.value = homeData.date ?: "Tanggal tidak tersedia"
+                        _totalKalori.value = homeData.totalKalori
                     } else {
                         _errorMessage.value = "Data is null"
                     }
@@ -80,4 +84,5 @@ class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  
             }
         }
     }
+
 }

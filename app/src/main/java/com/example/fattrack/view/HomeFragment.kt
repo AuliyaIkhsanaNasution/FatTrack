@@ -144,7 +144,14 @@ class HomeFragment : Fragment() {
                 showToast(it)
             }
         }
+
+        homeViewModel.totalKalori.observe(viewLifecycleOwner) { totalKalori ->
+            binding.totalKalori.text = "${totalKalori ?: 0}"
+        }
+
     }
+
+
 
     private fun showToast(message: String) {
         val toastCustom = StyleableToast.makeText(requireContext(), message, R.style.StyleableToast)

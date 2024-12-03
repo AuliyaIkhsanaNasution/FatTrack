@@ -103,7 +103,7 @@
 
                         <!-- TextView for the current value (210) -->
                         <TextView
-                            android:id="@+id/target_value"
+                            android:id="@+id/total_kalori"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/zero"
@@ -115,6 +115,7 @@
 
                         <!-- TextView for the description "/325 kal" -->
                         <TextView
+                            android:id="@+id/target_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/target_kal"
@@ -135,34 +136,6 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <!-- EditText for target input -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/masukkan_target_harian_dalam_kalori"
-                        android:textSize="12sp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <!-- Button for setting the target -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/button_set"
-                        android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:layout_gravity="end"
-                        android:paddingVertical="6dp"
-                        android:paddingHorizontal="12dp"
-                        android:background="@drawable/rounded_button"
-                        android:textColor="?attr/font_color" />
-
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
