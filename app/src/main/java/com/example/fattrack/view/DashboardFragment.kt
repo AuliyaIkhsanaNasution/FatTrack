@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.adapter.HistoryDayAdapter
+import com.example.fattrack.data.adapter.HistoryPredictAdapter
 import com.example.fattrack.data.data.HistoryDayData
 import com.example.fattrack.data.viewmodel.DashboardViewModel
 import com.example.fattrack.databinding.FragmentDashboardBinding
@@ -29,6 +30,7 @@ class DashboardFragment : Fragment() {
     private val bindingDashboard get() = _bindingDashboard!!
     private lateinit var viewModel: DashboardViewModel
     private var adapter = HistoryDayAdapter(emptyList())
+    private lateinit var adapterhistory: HistoryPredictAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,11 +57,25 @@ class DashboardFragment : Fragment() {
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        adapterhistory = HistoryPredictAdapter(listOf())
+        bindingDashboard.rvHistoryScan.layoutManager = LinearLayoutManager(requireContext())
+        bindingDashboard.rvHistoryScan.adapter = adapterhistory
+
+        // Observasi data dari ViewModel
+        viewModel.historyData.observe(viewLifecycleOwner) { historyList ->
+            adapterhistory.setData(historyList)
+        }
+    }
+
 
     private fun initAllViewModel() {
         viewModel.dashboardWeek()
         viewModel.dashboardMonth()
         viewModel.getHistory()
+        viewModel.getHistoryScan()
     }
 
 

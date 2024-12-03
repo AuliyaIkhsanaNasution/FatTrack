@@ -24,6 +24,9 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
     private val _userPhoto = MutableLiveData<String?>()
     val userPhoto: LiveData<String?> = _userPhoto
 
+    private val _userEmail = MutableLiveData<String?>()
+    val userEmail: LiveData<String?> = _userEmail
+
     private val _totalProtein = MutableLiveData<Double?>()
     val totalProtein: LiveData<Double?> = _totalProtein
 
@@ -85,6 +88,7 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
                     _userName.value = response.data?.nama
                     _userPhoto.value = response.data?.fotoProfile
                     _userResponse.value = response.data
+                    _userEmail.value = response.data?.email
                 }.onFailure { throwable ->
                     _errorMessage.value = throwable.message
                 }

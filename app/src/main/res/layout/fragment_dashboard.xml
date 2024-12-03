@@ -234,6 +234,11 @@
             android:fontFamily="sans-serif-medium"
             android:layout_marginBottom="8dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_history_scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 </ScrollView>
