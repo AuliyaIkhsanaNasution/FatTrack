@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/rounded_border_inline"
-                android:padding="16dp">
+                android:padding="4dp">
 
                 <!-- LinearLayout for the value and PieChart -->
                 <LinearLayout
@@ -118,7 +118,7 @@
                             android:id="@+id/target_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/target_kal"
+                            tools:text="/2000Kcal"
                             android:textSize="20sp"
                             android:textColor="@color/Primary"
                             android:fontFamily="sans-serif-medium"
@@ -129,8 +129,8 @@
                     <!-- PieChart aligned to the right -->
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/target_pie_chart"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_gravity="end"
                         android:layout_marginStart="16dp" />
                 </LinearLayout>

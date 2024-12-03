@@ -55,8 +55,6 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         setupObserver()
         observeViewModel()
-
-        // Panggil fungsi untuk mengambil data user
         homeViewModel.getUserById()
 
         // Fetch data from ViewModel
@@ -111,17 +109,14 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.totalKalori.observe(viewLifecycleOwner) { totalKalori ->
-            // Menghitung persentase kalori yang telah digunakan
             val persentase = (totalKalori?.toDouble() ?: 0.0) / 2000.0 * 100
 
-            // Tentukan warna berdasarkan persentase
             val color = when {
                 persentase >= 90 -> ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
                 persentase >= 70 -> ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light)
                 else -> ContextCompat.getColor(requireContext(), R.color.Primary)
             }
 
-            // Memperbarui PieChart dengan warna yang sesuai
             updatePieChart(totalKalori, color)
         }
 
@@ -133,8 +128,8 @@ class HomeFragment : Fragment() {
 
         binding.targetPieChart.apply {
             data = PieData(PieDataSet(listOf(
-                PieEntry(persentase, "Used"),
-                PieEntry(100 - persentase, "Remaining")
+                PieEntry(persentase),
+                PieEntry(100 - persentase)
             ), "").apply {
                 colors = listOf(color, Color.LTGRAY)
                 setDrawValues(false)
@@ -146,7 +141,7 @@ class HomeFragment : Fragment() {
             setUsePercentValues(true)
             centerText = String.format("%.0f%%", persentase)
             setCenterTextColor(color)
-            setCenterTextSize(18f)
+            setCenterTextSize(12f)
             invalidate() // Refresh chart
         }
     }
