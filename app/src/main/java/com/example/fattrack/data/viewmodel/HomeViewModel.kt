@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fattrack.data.repositories.MainRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  {
+class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()  {
 
     private val _userName = MutableLiveData<String?>()
     val userName: LiveData<String?> = _userName
@@ -36,6 +38,12 @@ class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
+        private val _targetKalori = MutableLiveData<Int>(2000)
+        val targetKalori: LiveData<Int> = _targetKalori
+
+
+
+
     fun getUserById() {
         _isLoading.value = true
         _errorMessage.value = null
@@ -56,6 +64,7 @@ class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  
             }
         }
     }
+
     fun fetchHomeData() {
         _isLoading.value = true
         viewModelScope.launch {
@@ -83,5 +92,6 @@ class HomeViewModel (private val mainRepository: MainRepository) : ViewModel()  
             }
         }
     }
+
 
 }

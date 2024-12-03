@@ -3,11 +3,13 @@ package com.example.fattrack.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,9 @@ import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.databinding.FragmentHomeBinding
 import com.example.fattrack.view.notifications.NotificationsActivity
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import io.github.muddz.styleabletoast.StyleableToast
 
 class HomeFragment : Fragment() {
@@ -91,13 +96,58 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        homeViewModel.targetKalori.observe(viewLifecycleOwner) { targetKalori ->
+            binding.targetValue.text = "/$targetKalori Kcal"
+        }
 
         binding.btnNotifications.setOnClickListener {
             // Intent to move to NotificationsActivity
             val intent = Intent(requireContext(), NotificationsActivity::class.java)
             startActivity(intent)
+        }
+
+        homeViewModel.totalKalori.observe(viewLifecycleOwner) { totalKalori ->
+            // Menghitung persentase kalori yang telah digunakan
+            val persentase = (totalKalori?.toDouble() ?: 0.0) / 2000.0 * 100
+
+            // Tentukan warna berdasarkan persentase
+            val color = when {
+                persentase >= 90 -> ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
+                persentase >= 70 -> ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light)
+                else -> ContextCompat.getColor(requireContext(), R.color.Primary)
+            }
+
+            // Memperbarui PieChart dengan warna yang sesuai
+            updatePieChart(totalKalori, color)
+        }
+
+    }
+
+    @SuppressLint("DefaultLocale")
+    private fun updatePieChart(totalKalori: Int?, color: Int) {
+        val persentase = (totalKalori?.toFloat() ?: 0f) / 2000f * 100
+
+        binding.targetPieChart.apply {
+            data = PieData(PieDataSet(listOf(
+                PieEntry(persentase, "Used"),
+                PieEntry(100 - persentase, "Remaining")
+            ), "").apply {
+                colors = listOf(color, Color.LTGRAY)
+                setDrawValues(false)
+            })
+
+            description.isEnabled = false
+            legend.isEnabled = false
+            setHoleColor(Color.TRANSPARENT)
+            setUsePercentValues(true)
+            centerText = String.format("%.0f%%", persentase)
+            setCenterTextColor(color)
+            setCenterTextSize(18f)
+            invalidate() // Refresh chart
         }
     }
 
