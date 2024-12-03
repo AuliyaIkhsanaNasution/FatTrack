@@ -1,4 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -69,153 +69,6 @@
             android:fontFamily="sans-serif-medium"
             android:layout_marginBottom="8dp" />
 
-<!--        <HorizontalScrollView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:scrollbars="none">-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:gravity="center_vertical">-->
-
-<!--                &lt;!&ndash; Card Item 1 &ndash;&gt;-->
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="200dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:background="@drawable/card_variant"-->
-<!--                        android:padding="16dp">-->
-
-<!--                        &lt;!&ndash; Tanggal &ndash;&gt;-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/dummy_tgl"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:textColor="?attr/font_color"-->
-<!--                            android:layout_marginBottom="8dp" />-->
-
-<!--                        &lt;!&ndash; Row untuk ikon dan teks kalori &ndash;&gt;-->
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            tools:ignore="UseCompoundDrawables">-->
-
-<!--                            &lt;!&ndash; Ikon Kalori &ndash;&gt;-->
-<!--                            <ImageView-->
-<!--                                android:layout_width="24dp"-->
-<!--                                android:layout_height="24dp"-->
-<!--                                android:src="@drawable/ic_fire"-->
-<!--                                android:contentDescription="@string/kalori_logo"-->
-<!--                                android:layout_marginEnd="8dp" />-->
-
-<!--                            &lt;!&ndash; Teks Kalori &ndash;&gt;-->
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="@string/dummy_kalori"-->
-<!--                                android:textSize="20sp"-->
-<!--                                android:textColor="?attr/font_color"-->
-<!--                                android:fontFamily="sans-serif-medium" />-->
-<!--                        </LinearLayout>-->
-<!--                    </LinearLayout>-->
-
-<!--                &lt;!&ndash; Card Item 2 &ndash;&gt;-->
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="200dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:background="@drawable/card_variant"-->
-<!--                        android:padding="16dp">-->
-
-<!--                        &lt;!&ndash; Tanggal &ndash;&gt;-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/dummy_tgl"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:textColor="?attr/font_color"-->
-<!--                            android:layout_marginBottom="8dp" />-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            tools:ignore="UseCompoundDrawables">-->
-
-<!--                            <ImageView-->
-<!--                                android:layout_width="24dp"-->
-<!--                                android:layout_height="24dp"-->
-<!--                                android:src="@drawable/ic_fire"-->
-<!--                                android:contentDescription="@string/kalori_logo"-->
-<!--                                android:layout_marginEnd="8dp" />-->
-
-<!--                            &lt;!&ndash; Teks Kalori &ndash;&gt;-->
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="@string/dummy_kalori"-->
-<!--                                android:textSize="20sp"-->
-<!--                                android:textColor="?attr/font_color"-->
-<!--                                android:fontFamily="sans-serif-medium" />-->
-<!--                        </LinearLayout>-->
-<!--                    </LinearLayout>-->
-
-<!--                &lt;!&ndash; Card Item 3 &ndash;&gt;-->
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="200dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:orientation="vertical"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:background="@drawable/card_variant"-->
-<!--                        android:padding="16dp">-->
-
-<!--                        &lt;!&ndash; Tanggal &ndash;&gt;-->
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:text="@string/dummy_tgl"-->
-<!--                            android:textSize="12sp"-->
-<!--                            android:textColor="?attr/font_color"-->
-<!--                            android:layout_marginBottom="8dp" />-->
-
-<!--                        &lt;!&ndash; Row untuk ikon dan teks kalori &ndash;&gt;-->
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="horizontal"-->
-<!--                            android:gravity="center_vertical"-->
-<!--                            tools:ignore="UseCompoundDrawables">-->
-
-<!--                            &lt;!&ndash; Ikon Kalori &ndash;&gt;-->
-<!--                            <ImageView-->
-<!--                                android:layout_width="24dp"-->
-<!--                                android:layout_height="24dp"-->
-<!--                                android:src="@drawable/ic_fire"-->
-<!--                                android:contentDescription="@string/kalori_logo"-->
-<!--                                android:layout_marginEnd="8dp" />-->
-
-<!--                            &lt;!&ndash; Teks Kalori &ndash;&gt;-->
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="@string/dummy_kalori"-->
-<!--                                android:textSize="20sp"-->
-<!--                                android:textColor="?attr/font_color"-->
-<!--                                android:fontFamily="sans-serif-medium" />-->
-<!--                        </LinearLayout>-->
-<!--                    </LinearLayout>-->
-
-<!--            </LinearLayout>-->
-<!--        </HorizontalScrollView>-->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_history_day"
             android:layout_width="wrap_content"
@@ -236,9 +89,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_history_scan"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

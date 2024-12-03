@@ -174,7 +174,6 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.userPhoto.observe(viewLifecycleOwner) { photoUrl ->
-            Log.d("HomeFragmentTest", "User Photo URL: $photoUrl")
             if (photoUrl != null) {
                 Glide.with(this)
                     .load(photoUrl)

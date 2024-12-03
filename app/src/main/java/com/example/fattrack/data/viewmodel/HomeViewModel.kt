@@ -112,7 +112,7 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
                         _totalProtein.value = homeData.totalProtein?.toString()?.toDoubleOrNull()
                         _totalKarbohidrat.value = homeData.totalKarbohidrat?.toString()?.toDoubleOrNull()
                         _totalLemak.value = homeData.totalLemak?.toString()?.toDoubleOrNull()
-                        _date.value = homeData.date ?: "Tanggal tidak tersedia"
+                        _date.value = homeData.date ?: "Not Available Date"
                         _totalKalori.value = homeData.totalKalori
                     } else {
                         _errorMessage.value = "Data is null"

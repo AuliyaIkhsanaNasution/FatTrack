@@ -144,4 +144,5 @@
     <string name="cek_kalori_makanan">Cek Kalori Makanan</string>
     <string name="email_label">Email:</string>
     <string name="fullname_label">FullName:</string>
+    <string name="dummy_clock">00.00 WIB</string>
 </resources>

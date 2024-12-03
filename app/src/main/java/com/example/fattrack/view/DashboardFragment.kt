@@ -44,10 +44,15 @@ class DashboardFragment : Fragment() {
         val factory = ViewModelFactory.getInstance(this.requireContext())
         viewModel = ViewModelProvider(this, factory)[DashboardViewModel::class.java]
 
-        //init recycler and adapter
+        //init recycler and adapter Day
         val recyclerView = bindingDashboard.rvHistoryDay
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
+
+        //init recycler and adapter history scan
+        adapterhistory = HistoryPredictAdapter(listOf())
+        bindingDashboard.rvHistoryScan.layoutManager = LinearLayoutManager(requireContext())
+        bindingDashboard.rvHistoryScan.adapter = adapterhistory
 
         initAllViewModel()
         observeViewModel()
@@ -55,19 +60,6 @@ class DashboardFragment : Fragment() {
         buttonClick()
         historyDay()
         return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        adapterhistory = HistoryPredictAdapter(listOf())
-        bindingDashboard.rvHistoryScan.layoutManager = LinearLayoutManager(requireContext())
-        bindingDashboard.rvHistoryScan.adapter = adapterhistory
-
-        // Observasi data dari ViewModel
-        viewModel.historyData.observe(viewLifecycleOwner) { historyList ->
-            adapterhistory.setData(historyList)
-        }
     }
 
 
@@ -95,6 +87,15 @@ class DashboardFragment : Fragment() {
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             if (errorMessage.isNotEmpty()) {
                 Log.e("DashboardFragmentTest", "Error: $errorMessage")
+            }
+        }
+
+        //history scan/data
+        viewModel.historyData.observe(viewLifecycleOwner) { historyList ->
+            if (historyList != null) {
+                adapterhistory.setData(historyList)
+            } else {
+                Log.e("DashboardFragmentTest", "History data is null")
             }
         }
     }
