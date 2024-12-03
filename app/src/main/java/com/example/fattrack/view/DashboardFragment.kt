@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
-import com.example.fattrack.data.viewmodel.ArticlesViewModel
+import com.example.fattrack.data.adapter.HistoryDayAdapter
+import com.example.fattrack.data.data.HistoryDayData
 import com.example.fattrack.data.viewmodel.DashboardViewModel
 import com.example.fattrack.databinding.FragmentDashboardBinding
 import com.github.mikephil.charting.charts.BarChart
@@ -26,7 +28,7 @@ class DashboardFragment : Fragment() {
     private var _bindingDashboard: FragmentDashboardBinding? = null
     private val bindingDashboard get() = _bindingDashboard!!
     private lateinit var viewModel: DashboardViewModel
-    private var barEntries = mutableListOf<BarEntry>()
+    private var adapter = HistoryDayAdapter(emptyList())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,10 +42,16 @@ class DashboardFragment : Fragment() {
         val factory = ViewModelFactory.getInstance(this.requireContext())
         viewModel = ViewModelProvider(this, factory)[DashboardViewModel::class.java]
 
+        //init recycler and adapter
+        val recyclerView = bindingDashboard.rvHistoryDay
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.adapter = adapter
+
         initAllViewModel()
         observeViewModel()
         dashboardWeekSetup()
         buttonClick()
+        historyDay()
         return root
     }
 
@@ -130,7 +138,7 @@ class DashboardFragment : Fragment() {
                         }
 
                         // init and set data ke chart
-                        val barDataSet = BarDataSet(barEntries, "Kalori per Hari").apply {
+                        val barDataSet = BarDataSet(barEntries, "Daily Calories").apply {
                             colors = ColorTemplate.MATERIAL_COLORS.toList()
                             valueTextColor = ContextCompat.getColor(requireContext(), R.color.chart_text_color)
                             valueTextSize = 12f
@@ -184,7 +192,7 @@ class DashboardFragment : Fragment() {
                 }
 
                 // init and set data ke chart
-                val barDataSet = BarDataSet(barEntries, "Kalori per Minggu").apply {
+                val barDataSet = BarDataSet(barEntries, "Weekly Calories").apply {
                     colors = ColorTemplate.MATERIAL_COLORS.toList()
                     valueTextColor = ContextCompat.getColor(requireContext(), R.color.chart_text_color)
                     valueTextSize = 12f
@@ -205,6 +213,19 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    //history day
+    private fun historyDay() {
+        //observe
+        viewModel.dashboardWeekResponse.observe(viewLifecycleOwner) { response ->
+            response?.data?.let { dataList ->
+                //mapping data
+                val items = dataList.map { it?.date?.let { it1 -> HistoryDayData(it1,
+                    it.totalCalories.toString()
+                ) } }
 
+                adapter.updateData(items)
+            }
+        }
+    }
 
 }
