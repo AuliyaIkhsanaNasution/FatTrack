@@ -53,12 +53,14 @@ class PredictViewModel(private val mainRepository: MainRepository) : ViewModel()
         }
     }
 
-    // Fungsi untuk mencari makanan berdasarkan nama
+
+
+    // Search by name
     fun searchFood(nama: String) {
         _isLoading.value = true
         _searchResponse.value = null
 
-        // Validasi jika nama pencarian kosong
+        // validate
         if (nama.isBlank()) {
             _errorMessage.value = "Please enter a food name."
             _isLoading.value = false
@@ -69,16 +71,13 @@ class PredictViewModel(private val mainRepository: MainRepository) : ViewModel()
             try {
                 val filteredName = nama.trim().lowercase(Locale.ROOT)
                 val response = mainRepository.searchFood(filteredName)
-                response.onSuccess { data ->
-                    if (data.responseSearchFood.isNullOrEmpty()) {
-                        _errorMessage.value = "No food found matching your query."
-                    } else {
-                        _searchResponse.value = data
-                    }
-                    Log.d("SearchFood", "Success: $data")
-                }.onFailure { throwable ->
-                    _errorMessage.value = throwable.message ?: "An unknown error occurred."
-                    Log.e("SearchFood", "Error: ${throwable.message}")
+
+                response.onSuccess{
+                    _searchResponse.value = it
+                    Log.d("SearchFood", "Success: $it")
+                }.onFailure {
+                    _errorMessage.value = it.message ?: "An error occurred while searching for food."
+                    Log.e("SearchFood", "Failure: ${it.message}")
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "An error occurred while searching for food."

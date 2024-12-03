@@ -49,8 +49,8 @@
     <string name="sudah_ada_akun">Sudah ada akun?</string>
     <string name="enter_you_name">Enter you Name</string>
 
-    <string name="week">Week</string>
-    <string name="month">Month</string>
+    <string name="day">Day</string>
+    <string name="weekly">Weekly</string>
     <string name="dummy_tgl">Rabu, 15 Oktober 2024</string>
     <string name="kalori_logo">kalori_logo</string>
     <string name="dummy_kalori">0 kcal</string>
