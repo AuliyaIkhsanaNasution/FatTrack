@@ -16,6 +16,7 @@
         <item name="font_color">@color/white</item>
         <item name="cardBackgroundColor">@color/black</item>
         <item name="cardBackgroundVariant">@color/darkGray</item>
+        <item name="cardBackgroundDisabled">@color/darkGray</item>
     </style>
 
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">

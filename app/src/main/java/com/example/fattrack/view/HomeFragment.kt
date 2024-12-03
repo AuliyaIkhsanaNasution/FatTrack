@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.graphics.Color
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.adapter.ArticleAdapter
@@ -174,10 +176,22 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.userPhoto.observe(viewLifecycleOwner) { photoUrl ->
-            Glide.with(requireContext())
-                .load(photoUrl)
-                .placeholder(R.drawable.default_pp)
-                .into(binding.ivProfile)
+            Log.d("HomeFragmentTest", "User Photo URL: $photoUrl")
+            if (photoUrl != null) {
+                Glide.with(this)
+                    .load(photoUrl)
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(R.drawable.circle_background)
+                    .error(R.drawable.circle_background)
+                    .into(binding.ivProfile)
+            } else {
+                Glide.with(this)
+                    .load(R.drawable.default_pp)
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(R.drawable.circle_background)
+                    .error(R.drawable.circle_background)
+                    .into(binding.ivProfile)
+            }
         }
 
         homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->

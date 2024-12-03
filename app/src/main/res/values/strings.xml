@@ -142,4 +142,6 @@
     <string name="makanan_yang_ingin_kamu_cek_kalori">Makanan yang ingin kamu cek kalori</string>
     <string name="nama_makanan">nama makanan</string>
     <string name="cek_kalori_makanan">Cek Kalori Makanan</string>
+    <string name="email_label">Email:</string>
+    <string name="fullname_label">FullName:</string>
 </resources>

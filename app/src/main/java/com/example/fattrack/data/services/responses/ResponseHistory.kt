@@ -8,7 +8,7 @@ data class ResponseHistory(
 	val code: Int? = null,
 
 	@field:SerializedName("data")
-	val data: HIstoryData? = null,
+	val data: HistoryData? = null,
 
 	@field:SerializedName("status")
 	val status: String? = null
@@ -29,7 +29,7 @@ data class JsonMember20241201Item(
 	val calories: Int? = null
 )
 
-data class HIstoryData(
+data class HistoryData(
 
 	@field:SerializedName("2024-11-30")
 	val jsonMember20241130: List<JsonMember20241130Item?>? = null,

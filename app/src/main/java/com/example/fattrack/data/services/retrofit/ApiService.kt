@@ -10,7 +10,9 @@ import com.example.fattrack.data.services.responses.ResponseLogin
 import com.example.fattrack.data.services.responses.ResponsePhoto
 import com.example.fattrack.data.services.responses.ResponseRegister
 import com.example.fattrack.data.services.responses.ResponseScanImage
+import com.example.fattrack.data.services.responses.ResponseSearchArticle
 import com.example.fattrack.data.services.responses.ResponseSearchFood
+import com.example.fattrack.data.services.responses.ResponseUpdateProfile
 import com.example.fattrack.data.services.responses.ResponseUser
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -68,6 +70,16 @@ interface ApiService {
         @Path("userId") userId: String
     ): Response<ResponseUser>
 
+    //update profile
+    @Multipart
+    @POST("updateProfile")
+    suspend fun updateProfile(
+        @Header("Authorization") token: String,
+        @Part("userId") userId: RequestBody,
+        @Part("newName") newName: RequestBody,
+        @Part file: MultipartBody.Part,
+    ) : Response<ResponseUpdateProfile>
+
     //Home
     @GET("home/histories/{userId}")
     suspend fun getHome(
@@ -118,5 +130,12 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Response<ResponseDetailArticle>
+
+    //search article
+    @GET("articles/search")
+    suspend fun searchArticle(
+        @Header("Authorization") token: String,
+        @Query("title") title: String
+    ) : Response<ResponseSearchArticle>
 }
 

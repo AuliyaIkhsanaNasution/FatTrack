@@ -5,6 +5,7 @@ import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.services.responses.ResponseHome
 import com.example.fattrack.data.services.responses.ResponseScanImage
 import com.example.fattrack.data.services.responses.ResponseSearchFood
+import com.example.fattrack.data.services.responses.ResponseUpdateProfile
 import com.example.fattrack.data.services.responses.ResponseUser
 import com.example.fattrack.data.services.retrofit.ApiService
 import kotlinx.coroutines.flow.first
@@ -116,6 +117,36 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
     }
 
 
+    //update profile
+    suspend fun updateProfile(image: File, newName: String): Result<ResponseUpdateProfile> {
+        return try {
+            // Cek isToken ready
+            val idUser = authPreferences.getSession().first().idUser
+            val token = authPreferences.getSession().first().token
+            if (token.isEmpty() || idUser.isEmpty()) {
+                Result.failure<Throwable>(Exception("Token not found"))
+            }
+
+            // get API
+            val response = apiService.updateProfile("Bearer $token", idUser.toRequestBody(), newName.toRequestBody(), image.toMultipartBody2())
+
+            if (response.isSuccessful) {
+                val body = response.body()
+                if (body != null) {
+                    Result.success(body)
+                } else {
+                    Result.failure(Exception("Response body is null"))
+                }
+            } else {
+                // Log error
+                val errorMessage = response.errorBody()?.string() ?: "Unknown error"
+                Result.failure(Exception("Error because $errorMessage"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
     //Home
     suspend fun homeData(): Result<ResponseHome> {
@@ -152,6 +183,11 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
     private fun File.toMultipartBody(): MultipartBody.Part {
         val requestBody = this.asRequestBody("image/jpeg".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData("uploaded_file", this.name, requestBody)
+    }
+
+    private fun File.toMultipartBody2(): MultipartBody.Part {
+        val requestBody = this.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("file", this.name, requestBody)
     }
 
 

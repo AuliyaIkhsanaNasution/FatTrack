@@ -5,11 +5,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fattrack.data.repositories.MainRepository
+import com.example.fattrack.data.services.responses.ResponseUpdateProfile
+import com.example.fattrack.data.services.responses.ResponseUser
+import com.example.fattrack.data.services.responses.UserData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 
 class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()  {
+
+    private val _userResponse = MutableLiveData<UserData?>(null)
+    val userResponse: LiveData<UserData?> = _userResponse
 
     private val _userName = MutableLiveData<String?>()
     val userName: LiveData<String?> = _userName
@@ -38,11 +45,34 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-        private val _targetKalori = MutableLiveData<Int>(2000)
-        val targetKalori: LiveData<Int> = _targetKalori
+    private val _targetKalori = MutableLiveData<Int>(2000)
+    val targetKalori: LiveData<Int> = _targetKalori
+
+    private val _updateProfileResponse = MutableLiveData<ResponseUpdateProfile>()
+    val updateProfileResponse: LiveData<ResponseUpdateProfile> = _updateProfileResponse
 
 
+    //update profile
+    fun updateProfile(photoProfile: File, name: String) {
+        _isLoading.value = true
 
+        viewModelScope.launch {
+            try {
+                val response = mainRepository.updateProfile(photoProfile, name)
+
+                //response handling
+                response.onSuccess{
+                    _updateProfileResponse.value = it
+                }.onFailure {
+                    _errorMessage.value = it.message
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = e.message.toString()
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
 
     fun getUserById() {
         _isLoading.value = true
@@ -54,6 +84,7 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
                 result.onSuccess { response ->
                     _userName.value = response.data?.nama
                     _userPhoto.value = response.data?.fotoProfile
+                    _userResponse.value = response.data
                 }.onFailure { throwable ->
                     _errorMessage.value = throwable.message
                 }
