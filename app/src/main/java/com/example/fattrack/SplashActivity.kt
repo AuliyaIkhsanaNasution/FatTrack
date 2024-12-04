@@ -103,6 +103,17 @@ class SplashActivity : AppCompatActivity() {
             .setConfirmText("OK")
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
+
+                // Menunda pengecekan koneksi internet
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (isInternetAvailable()) {
+                        observeSession()
+                    } else {
+                        // Tampilkan dialog kesalahan lagi jika internet tidak tersedia
+                        showErrorDialog("Check your connection.")
+                    }
+                }, 1000)
+
             }
             .show()
     }

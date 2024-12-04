@@ -64,9 +64,10 @@ class PasswordCustom @JvmOverloads constructor(
 
     private fun updateToggleDrawable() {
         setButtonDrawables(
-            startOfTheText = startIcon, // Keep the start icon constant
+            startOfTheText = startIcon,
             endOfTheText = if (isPasswordVisible) visiblePasswordDrawable else hiddenPasswordDrawable
         )
+        invalidate()
     }
 
     private fun validatePassword(password: String) {
@@ -126,6 +127,7 @@ class PasswordCustom @JvmOverloads constructor(
                     }
                     MotionEvent.ACTION_UP -> {
                         togglePasswordVisibility() // Toggle password visibility
+                        updateToggleDrawable()
                         return true
                     }
                 }
@@ -148,9 +150,6 @@ class PasswordCustom @JvmOverloads constructor(
 
         // Maintain cursor position at the end
         setSelection(text?.length ?: 0)
-
-        // Update the icon drawable
-        updateToggleDrawable()
     }
 
 
