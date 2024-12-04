@@ -195,7 +195,7 @@ class CameraActivity : AppCompatActivity() {
         if (uri != null) {
             goToResultActivity(uri)
         } else {
-            Log.d("Photo Picker", "No media selected")
+            showToast("No media selected")
         }
     }
 

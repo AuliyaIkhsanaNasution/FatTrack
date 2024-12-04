@@ -44,17 +44,15 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.btnRegister?.setOnClickListener() {
             //get data from edit text
-            val email = binding.edEmail?.text.toString().trim()
-            val nama = binding.edName?.text.toString().trim()
-            val password = binding.edPassword?.text.toString().trim()
-
-            Log.d("RegisterViewModelTest", "Email: $email, Nama: $nama, Password: $password")
+            val email = binding.edEmail.text.toString().trim()
+            val nama = binding.edName.text.toString().trim()
+            val password = binding.edPassword.text.toString().trim()
 
             //validations
             if (email.isEmpty() || nama.isEmpty() || password.isEmpty()) {
                 showToast("Please fill in all fields")
             } else if (password.length < 8) {
-                binding.edPassword?.error = "Password must be at least 8 characters long"
+                binding.edPassword.error = "Password must be at least 8 characters long"
                 showToast("Password must be at least 8 characters long")
             } else {
                 //register with viewmodel (coroutine)
@@ -71,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
         //response
         registerViewModel.registerResponse.observe(this) { response ->
             response?.onSuccess {
-                val email = binding.edEmail?.text.toString().trim()
+                val email = binding.edEmail.text.toString().trim()
                 val code = it.code
 
                 if (code == 201) {
@@ -81,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
                     showErrorDialog(errorMessage)
                 }
             }?.onFailure {
-                val errorMessage = it.message
+                val errorMessage = "Something went wrong. Please try again!"
                 showErrorDialog(errorMessage)
             }
         }
@@ -111,7 +109,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun showErrorDialog(message: String?) {
         SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Failed!")
-            .setContentText("Register Failed : $message")
+            .setContentText(message)
             .setConfirmText("OK")
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()

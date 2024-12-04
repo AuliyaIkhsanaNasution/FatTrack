@@ -14,7 +14,7 @@ import com.example.fattrack.databinding.ActivityDetailBinding
 class DetailActivity : AppCompatActivity() {
 
     companion object {
-        const val ARTICLE_ID = "article_id" // Konstanta untuk kunci data
+        const val ARTICLE_ID = "article_id"
     }
 
     private lateinit var binding: ActivityDetailBinding
@@ -30,23 +30,22 @@ class DetailActivity : AppCompatActivity() {
         val articleId = intent.getStringExtra(ARTICLE_ID)
 
         if (articleId != null) {
-            // Memuat detail artikel berdasarkan ID
+            // load detail article
             loadArticleDetail(articleId)
         } else {
             Toast.makeText(this, "Article ID is missing!", Toast.LENGTH_SHORT).show()
-            finish() // Kembali jika ID tidak ditemukan
+            finish()
         }
 
     }
 
     private fun loadArticleDetail(articleId: String) {
-        // Panggil ViewModel untuk memuat detail artikel
+        // fetch data
         viewModel.fetchArticleDetail(articleId)
 
-        // Amati data detail artikel
         viewModel.articleDetail.observe(this) { article ->
             if (article != null) {
-                // Update UI dengan data artikel menggunakan binding
+                // Update data in UI
                 binding.tvArticleTitle.text = article.title
                 binding.tvArticleName.text = article.author ?: "Unknown Author"
                 binding.tvArticleDate.text = article.date ?: "Unknown Date"
@@ -63,11 +62,11 @@ class DetailActivity : AppCompatActivity() {
 
         // Amati status loading
         viewModel.isLoading.observe(this) { isLoading ->
-            // Handle loading state, misalnya tampilkan progress bar
+            //loading
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
-        // Amati pesan error
+        // error message
         viewModel.errorMessage.observe(this) { errorMessage ->
             errorMessage?.let {
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()

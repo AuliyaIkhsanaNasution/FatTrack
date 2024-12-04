@@ -14,14 +14,20 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
+import com.example.fattrack.databinding.LogoutButtomSheetBinding
+import com.example.fattrack.databinding.PredictButtomSheetBinding
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.profile.EditProfileActivity
+import com.example.fattrack.view.scan.CameraActivity
+import com.example.fattrack.view.text.TextPredictActivity
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -80,25 +86,53 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
 
-// Button logout
+        // Button logout
         bindingProfile.logoutButton.setOnClickListener {
-            lifecycleScope.launch {
-                bindingProfile.progressBar.visibility = View.VISIBLE
-                delay(500) // Delay 0,5 detik
-                profileViewModel.logout()
-
-                bindingProfile.progressBar.visibility = View.GONE
-                navigateToLogin()
-            }
+            showBottomSheetCancel()
         }
 
     }
+
+
+    //confirm bottom sheet
+    private fun showBottomSheetCancel() {
+        // Create BottomSheetDialog with a custom theme
+        val bottomSheetDialog = context?.let {
+            BottomSheetDialog(
+                it,
+                R.style.BottomSheetDialogTheme
+            )
+        }
+
+        // Create binding for the bottom sheet layout
+        val bottomSheetBinding = LogoutButtomSheetBinding.inflate(layoutInflater)
+
+        // Set up click listeners for options
+        bottomSheetBinding.logoutBottom.setOnClickListener {
+            //logout
+            profileViewModel.logout()
+            navigateToLogin()
+            bottomSheetDialog?.dismiss()
+        }
+
+        bottomSheetBinding.cancelBottom.setOnClickListener {
+            // Close the dialog
+            bottomSheetDialog?.dismiss()
+        }
+
+        // Set the view using binding and show the bottom sheet
+        bottomSheetDialog?.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog?.show()
+    }
+
+
 
     private fun navigateToLogin() {
         val intent = Intent(requireContext(), LoginActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
     }
+
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -129,18 +163,13 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-
-        userViewModel.userName.observe(viewLifecycleOwner) { name ->
-            bindingProfile.tvNameProfile.text = name?.uppercase() ?: "Default Name"
-        }
-
-        userViewModel.userEmail.observe(viewLifecycleOwner) { email ->
-            bindingProfile.tvEmailProfile.text = email
-        }
-
-        userViewModel.userPhoto.observe(viewLifecycleOwner) { photoUrl ->
+        //user response
+        userViewModel.userResponse.observe(viewLifecycleOwner) { response ->
+            bindingProfile.tvNameProfile.text = response?.nama?.uppercase() ?: "Default Name"
+            bindingProfile.tvEmailProfile.text = response?.email
             Glide.with(requireContext())
-                .load(photoUrl)
+                .load(response?.fotoProfile)
+                .apply(RequestOptions.circleCropTransform())
                 .placeholder(R.drawable.default_pp)
                 .into(bindingProfile.ivPhotoProfile)
         }

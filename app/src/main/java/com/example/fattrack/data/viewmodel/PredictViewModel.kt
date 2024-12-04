@@ -39,14 +39,11 @@ class PredictViewModel(private val mainRepository: MainRepository) : ViewModel()
                 //handle response
                 response.onSuccess {
                     _predictResponse.value = it
-                    Log.d("PredictResponse", "Success: $it")
                 } .onFailure {
-                    _errorMessage.value = it.message.toString()
-                    Log.d("PredictResponse", it.message.toString())
+                    _errorMessage.value = "Failed to predict image. Please try again with a different image."
                 }
             } catch (e: Exception) {
-                _errorMessage.value = e.message.toString()
-                Log.d("PredictResponse", e.message.toString())
+                _errorMessage.value = "Something went wrong. Please try again later."
             } finally {
                 _isLoading.value = false
             }
@@ -74,14 +71,11 @@ class PredictViewModel(private val mainRepository: MainRepository) : ViewModel()
 
                 response.onSuccess{
                     _searchResponse.value = it
-                    Log.d("SearchFood", "Success: $it")
                 }.onFailure {
-                    _errorMessage.value = it.message ?: "An error occurred while searching for food."
-                    Log.e("SearchFood", "Failure: ${it.message}")
+                    _errorMessage.value = "An error occurred while searching for food."
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "An error occurred while searching for food."
-                Log.e("SearchFood", "Exception: ${e.message}")
             } finally {
                 _isLoading.value = false
             }

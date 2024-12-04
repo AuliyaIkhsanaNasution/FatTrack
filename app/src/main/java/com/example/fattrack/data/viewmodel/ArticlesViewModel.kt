@@ -58,10 +58,10 @@ class ArticlesViewModel(private val articleRepository: ArticleRepository) : View
                         _errorMessage.value = "No articles found for '$title'"
                     }
                 }.onFailure { throwable ->
-                    _errorMessage.value = throwable.message ?: "An error occurred"
+                    _errorMessage.value ="No articles found for '$title'"
                 }
             } catch (e: Exception) {
-                _errorMessage.value = e.message ?: "An unexpected error occurred"
+                _errorMessage.value = "No articles found for '$title'"
             } finally {
                 _isLoading.value = false
             }

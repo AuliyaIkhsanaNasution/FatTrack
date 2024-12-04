@@ -36,9 +36,6 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: ArticleAdapter
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<MainViewModel> {
-        context?.let { ViewModelFactory.getInstance(it) }!!
-    }
     private val homeViewModel by viewModels<HomeViewModel> {
         context?.let { ViewModelFactory.getInstance(it) }!!
     }
@@ -153,27 +150,21 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
-        homeViewModel.totalProtein.observe(viewLifecycleOwner) { totalProtein ->
-            binding.totalProtein.text = totalProtein?.toString() ?: "0.0 g"
+        //home response
+        homeViewModel.homeResponse.observe(viewLifecycleOwner) { response ->
+            binding.totalKalori.text = response?.totalKalori.toString()
+            binding.totalProtein.text = response?.totalProtein.toString().toFloat().toString()
+            binding.totalKarbohidrat.text = response?.totalKarbohidrat.toString().toFloat().toString()
+            binding.totalLemak.text = response?.totalLemak.toString().toFloat().toString()
+            binding.textDate.text = response?.date.toString()
         }
 
-        homeViewModel.totalKarbohidrat.observe(viewLifecycleOwner) { totalKarbohidrat ->
-            binding.totalKarbohidrat.text = totalKarbohidrat?.toString() ?: "0.0 g"
-        }
+        //user response
+        homeViewModel.userResponse.observe(viewLifecycleOwner) { response ->
+             binding.userName.text = "Halo, ${response?.nama ?: "My Name"}"
 
-        homeViewModel.totalLemak.observe(viewLifecycleOwner) { totalLemak ->
-            binding.totalLemak.text = totalLemak?.toString() ?: "0.0 g"
-        }
-
-        homeViewModel.date.observe(viewLifecycleOwner) { formattedDate ->
-            binding.textDate.text = formattedDate ?: "Tanggal tidak tersedia"
-        }
-
-        homeViewModel.userName.observe(viewLifecycleOwner) { name ->
-             binding.userName.text = "Halo, ${name ?: "Unknown Name"}"
-        }
-
-        homeViewModel.userPhoto.observe(viewLifecycleOwner) { photoUrl ->
+            //image
+            val photoUrl = response?.fotoProfile
             if (photoUrl != null) {
                 Glide.with(this)
                     .load(photoUrl)
@@ -191,20 +182,17 @@ class HomeFragment : Fragment() {
             }
         }
 
+        //loading
         homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
+        //error message
         homeViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
             errorMessage?.let {
                 showToast(it)
             }
         }
-
-        homeViewModel.totalKalori.observe(viewLifecycleOwner) { totalKalori ->
-            binding.totalKalori.text = "${totalKalori ?: 0}"
-        }
-
     }
 
     private fun showToast(message: String) {

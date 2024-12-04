@@ -60,7 +60,7 @@ class TextPredictActivity : AppCompatActivity() {
 
                 if (!foodData.isNullOrEmpty()) {
                     //get data
-                    val imageUrl = "https://asset.kompas.com/crops/U6YxhTLF-vrjgM8PN3RYTHlIxfM=/84x60:882x592/1200x800/data/photo/2021/11/17/61949959e07d3.jpg"
+                    val imageUrl = foodData[0].image
                     val desc = foodData[0].deskripsi
                     val nameFood = foodData[0].nama
                     val calorie = foodData[0].kalori
@@ -203,7 +203,7 @@ class TextPredictActivity : AppCompatActivity() {
         // glide image url
         Glide.with(this)
             .load(imageUrl)
-            .apply(RequestOptions().transform(RoundedCorners(100)))
+            .apply(RequestOptions().transform(RoundedCorners(70)))
             .into(imageBubble)
 
         // add to container
@@ -218,15 +218,18 @@ class TextPredictActivity : AppCompatActivity() {
 
 
     //Mapping
-    private fun mapToParcelable(response: FoodDataItem?): NutritionData {
-        return NutritionData(
-            deskripsi = response?.deskripsi,
-            kalori = response?.kalori,
-            karbohidrat = response?.karbohidrat.toString().toDoubleOrNull() ?: 0.0,
-            lemak = response?.lemak.toString().toDoubleOrNull() ?: 0.0,
-            nama = response?.nama,
-            protein = response?.protein.toString().toDoubleOrNull() ?: 0.0
-        )
+    private fun mapToParcelable(response: FoodDataItem?): NutritionData? {
+        return response?.image?.let {
+            NutritionData(
+                deskripsi = response.deskripsi,
+                kalori = response.kalori,
+                karbohidrat = response.karbohidrat.toString().toDoubleOrNull() ?: 0.0,
+                lemak = response.lemak.toString().toDoubleOrNull() ?: 0.0,
+                nama = response.nama,
+                protein = response.protein.toString().toDoubleOrNull() ?: 0.0,
+                image = it
+            )
+        }
     }
 
     //toast

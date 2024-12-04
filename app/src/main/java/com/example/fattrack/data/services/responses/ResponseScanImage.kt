@@ -32,7 +32,10 @@ data class NutritionalInfo(
 	val deskripsi: String? = null,
 
 	@field:SerializedName("lemak")
-	val lemak: Any? = null
+	val lemak: Any? = null,
+
+	@field:SerializedName("image")
+	val image: String? = null
 )
 
 data class PredictData(

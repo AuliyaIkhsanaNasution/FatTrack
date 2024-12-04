@@ -1,5 +1,6 @@
 package com.example.fattrack.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -71,6 +72,7 @@ class DashboardFragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         //loading
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
@@ -95,7 +97,9 @@ class DashboardFragment : Fragment() {
             if (historyList != null) {
                 adapterhistory.setData(historyList)
             } else {
-                Log.e("DashboardFragmentTest", "History data is null")
+                bindingDashboard.rvHistoryScan.visibility = View.GONE
+                bindingDashboard.errorMessage.text = "No history available"
+                bindingDashboard.errorMessage.visibility = View.VISIBLE
             }
         }
     }

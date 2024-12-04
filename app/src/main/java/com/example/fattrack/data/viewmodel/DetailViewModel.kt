@@ -10,19 +10,18 @@ import kotlinx.coroutines.launch
 
 class DetailViewModel(private val articleRepository: ArticleRepository) : ViewModel() {
 
-    // LiveData untuk menampung detail artikel
+    // LiveData
     private val _articleDetail = MutableLiveData<DetailArticleData?>()
     val articleDetail: LiveData<DetailArticleData?> = _articleDetail
 
-    // LiveData untuk menampung status loading
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    // LiveData untuk menampung pesan error
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-    // Fungsi untuk mengambil detail artikel berdasarkan ID
+
+    // detail article
     fun fetchArticleDetail(articleId: String) {
         _isLoading.value = true
         _errorMessage.value = null
@@ -30,19 +29,20 @@ class DetailViewModel(private val articleRepository: ArticleRepository) : ViewMo
         viewModelScope.launch {
             val tokenError = "Token not found"
             try {
-                // Ambil hasil dari repository
+                // get detail article
                 val result = articleRepository.getDetailArticle(articleId)
+
                 result.onSuccess { response ->
                     _articleDetail.value = response.data
                 }.onFailure { throwable ->
                     _errorMessage.value = if (throwable.message == tokenError) {
                         "Autentikasi gagal, silakan login ulang"
                     } else {
-                        throwable.message ?: "Terjadi kesalahan tak terduga"
+                        "Something went wrong. Please try again later!"
                     }
                 }
             } catch (e: Exception) {
-                _errorMessage.value = e.message ?: "Terjadi kesalahan tak terduga"
+                _errorMessage.value = "Something went wrong. Please try again later!"
             } finally {
                 _isLoading.value = false
             }

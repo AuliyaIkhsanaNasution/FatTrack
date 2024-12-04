@@ -44,12 +44,6 @@
         </RelativeLayout>
 
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -176,5 +170,12 @@
                 app:strokeWidth="2dp"
                 app:strokeColor="?attr/colorError" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"/>
     </LinearLayout>
 </ScrollView>

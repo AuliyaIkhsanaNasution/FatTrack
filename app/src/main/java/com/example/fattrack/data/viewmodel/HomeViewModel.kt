@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fattrack.data.repositories.MainRepository
+import com.example.fattrack.data.services.responses.HomeData
+import com.example.fattrack.data.services.responses.ResponseHome
 import com.example.fattrack.data.services.responses.ResponseUpdateProfile
 import com.example.fattrack.data.services.responses.ResponseUser
 import com.example.fattrack.data.services.responses.UserData
@@ -18,26 +20,8 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
     private val _userResponse = MutableLiveData<UserData?>(null)
     val userResponse: LiveData<UserData?> = _userResponse
 
-    private val _userName = MutableLiveData<String?>()
-    val userName: LiveData<String?> = _userName
-
-    private val _userPhoto = MutableLiveData<String?>()
-    val userPhoto: LiveData<String?> = _userPhoto
-
-    private val _userEmail = MutableLiveData<String?>()
-    val userEmail: LiveData<String?> = _userEmail
-
-    private val _totalProtein = MutableLiveData<Double?>()
-    val totalProtein: LiveData<Double?> = _totalProtein
-
-    private val _totalKarbohidrat = MutableLiveData<Double?>()
-    val totalKarbohidrat: LiveData<Double?> = _totalKarbohidrat
-
-    private val _totalLemak = MutableLiveData<Double?>()
-    val totalLemak: LiveData<Double?> = _totalLemak
-
-    private val _date = MutableLiveData<String?>()
-    val date: LiveData<String?> = _date
+    private val _homeResponse = MutableLiveData<HomeData?>()
+    val homeResponse: LiveData<HomeData?> = _homeResponse
 
     private val _totalKalori = MutableLiveData<Int?>()
     val totalKalori: LiveData<Int?> = _totalKalori
@@ -67,10 +51,10 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
                 response.onSuccess{
                     _updateProfileResponse.value = it
                 }.onFailure {
-                    _errorMessage.value = it.message
+                    _errorMessage.value = "Update unsuccessfully. Please try again!"
                 }
             } catch (e: Exception) {
-                _errorMessage.value = e.message.toString()
+                _errorMessage.value = "Something went wrong. Please try again later!"
             } finally {
                 _isLoading.value = false
             }
@@ -85,15 +69,12 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
             try {
                 val result = mainRepository.getUserById()
                 result.onSuccess { response ->
-                    _userName.value = response.data?.nama
-                    _userPhoto.value = response.data?.fotoProfile
                     _userResponse.value = response.data
-                    _userEmail.value = response.data?.email
-                }.onFailure { throwable ->
-                    _errorMessage.value = throwable.message
+                }.onFailure {
+                    _errorMessage.value = "Data Not Found. Please try again!"
                 }
             } catch (e: Exception) {
-                _errorMessage.value = e.message
+                _errorMessage.value = "Something went wrong. Please try again later!"
             } finally {
                 _isLoading.value = false
             }
@@ -106,22 +87,13 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
             try {
                 val result = mainRepository.homeData()
                 result.onSuccess { response ->
-                    val homeData = response.data
-                    if (homeData != null) {
-                        // Parse data to LiveData
-                        _totalProtein.value = homeData.totalProtein?.toString()?.toDoubleOrNull()
-                        _totalKarbohidrat.value = homeData.totalKarbohidrat?.toString()?.toDoubleOrNull()
-                        _totalLemak.value = homeData.totalLemak?.toString()?.toDoubleOrNull()
-                        _date.value = homeData.date ?: "Not Available Date"
-                        _totalKalori.value = homeData.totalKalori
-                    } else {
-                        _errorMessage.value = "Data is null"
-                    }
-                }.onFailure { throwable ->
-                    _errorMessage.value = throwable.message
+                    _homeResponse.value = response.data
+                    _totalKalori.value = response.data?.totalKalori
+                }.onFailure {
+                    _errorMessage.value = "Data is not available."
                 }
             } catch (e: Exception) {
-                _errorMessage.value = e.message
+                _errorMessage.value = "Something went wrong. Please try again later!"
             } finally {
                 _isLoading.value = false
             }

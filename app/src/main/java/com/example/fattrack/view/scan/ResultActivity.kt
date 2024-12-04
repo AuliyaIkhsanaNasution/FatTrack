@@ -128,7 +128,7 @@ class ResultActivity : AppCompatActivity() {
     private fun showErrorDialog(message: String?) {
         SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Failed!")
-            .setContentText("$message. Please try again.")
+            .setContentText(message)
             .setConfirmText("OK")
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
@@ -155,7 +155,8 @@ class ResultActivity : AppCompatActivity() {
             karbohidrat = response?.karbohidrat.toString().toDouble(),
             lemak = response?.lemak.toString().toDouble(),
             nama = response?.nama,
-            protein = response?.protein.toString().toDouble()
+            protein = response?.protein.toString().toDouble(),
+            image = response?.image.toString()
         )
     }
 

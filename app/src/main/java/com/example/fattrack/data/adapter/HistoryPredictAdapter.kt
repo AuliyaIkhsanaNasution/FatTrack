@@ -68,7 +68,7 @@ class HistoryPredictAdapter(private var items: List<HistoryDataItem>) :
     private fun formatTime(inputDateTime: String): String {
         return try {
             // get time part, after comma
-            val timePart = inputDateTime.split(",")[1].trim()
+            val timePart = inputDateTime.split(" ")[1].trim()
 
             // Format input dan parsing
             val inputFormat = SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)

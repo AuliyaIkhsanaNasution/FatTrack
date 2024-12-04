@@ -113,6 +113,7 @@ class DashboardViewModel(private val dashboardRepository: DashboardRepository): 
                     _historyData.value = it.data as List<HistoryDataItem>?
                 }.onFailure { exception ->
                     _errorMessage.value = exception.message ?: "Failed to fetch history"
+                    _historyData.value = null
                 }
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "An error occurred"

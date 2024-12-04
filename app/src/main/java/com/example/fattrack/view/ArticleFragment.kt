@@ -1,6 +1,7 @@
 package com.example.fattrack.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,9 +67,7 @@ class ArticleFragment : Fragment() {
 
         // Observe error messages LiveData
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
-            message?.let {
-                showToast(it)
-            }
+            Log.d("ArticleFragment", "Error message: $message")
         }
 
         viewModel.searchResults.observe(viewLifecycleOwner) { searchResults ->
@@ -83,19 +82,23 @@ class ArticleFragment : Fragment() {
             }
             adapter.setDataArticles(convertedResults)
         }
-
     }
 
+
+
+    //search binding
     private fun setupSearch() {
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (!query.isNullOrEmpty()) {
-                    viewModel.searchArticles(query)
-                }
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (!newText.isNullOrEmpty()) {
+                    viewModel.searchArticles(newText)
+                } else {
+                    viewModel.fetchArticles() //if query is empty, fetch all articles
+                }
                 return true
             }
         })
