@@ -10,35 +10,31 @@ import kotlinx.coroutines.launch
 
 class ArticlesViewModel(private val articleRepository: ArticleRepository) : ViewModel() {
 
-    // LiveData untuk menampung daftar artikel
     private val _articles = MutableLiveData<List<DataItem>>()
     val articles: LiveData<List<DataItem>> = _articles
 
-    // LiveData untuk menampung status loading
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    // LiveData untuk menampung pesan error
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-
     fun fetchArticles() {
-        _isLoading.value = true // Set loading state ke true
-        _errorMessage.value = null // Reset error message sebelum memulai
+        _isLoading.value = true
+        _errorMessage.value = null
 
         viewModelScope.launch {
             try {
                 val result = articleRepository.getListArticles()
                 result.onSuccess { response ->
-                    _articles.value = response.data?.filterNotNull() // Set hasil ke LiveData
+                    _articles.value = response.data?.filterNotNull()
                 }.onFailure { throwable ->
-                    _errorMessage.value = throwable.message // Set pesan error
+                    _errorMessage.value = throwable.message
                 }
             } catch (e: Exception) {
-                _errorMessage.value = e.message // Handle error tak terduga
+                _errorMessage.value = e.message
             } finally {
-                _isLoading.value = false // Set loading state ke false
+                _isLoading.value = false
             }
         }
     }
