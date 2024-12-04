@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fattrack.data.data.PredictionItemData
 import com.example.fattrack.data.repositories.DashboardRepository
 import com.example.fattrack.data.services.responses.HistoryDataItem
 import com.example.fattrack.data.services.responses.ResponseDashboardMonth

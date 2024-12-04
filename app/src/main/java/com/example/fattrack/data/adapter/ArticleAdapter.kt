@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.fattrack.R
+import com.example.fattrack.data.services.responses.ArticlesItem
 import com.example.fattrack.data.services.responses.DataItem
 import com.example.fattrack.view.detail.DetailActivity
 
 class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private val articles = mutableListOf<DataItem>()
+    private val filteredArticles = mutableListOf<ArticlesItem>()
 
     // ViewHolder for the article
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -67,6 +69,13 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
     fun setDataArticles(data: List<DataItem>) {
         articles.clear()
         articles.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setSearchResults(data: List<ArticlesItem>) {
+        filteredArticles.clear()
+        filteredArticles.addAll(data)
         notifyDataSetChanged()
     }
 }

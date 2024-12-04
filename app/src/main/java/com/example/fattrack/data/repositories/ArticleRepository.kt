@@ -1,6 +1,5 @@
 package com.example.fattrack.data.repositories
 
-import android.util.Log
 import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.services.responses.ResponseArticle
 import com.example.fattrack.data.services.responses.ResponseDetailArticle
