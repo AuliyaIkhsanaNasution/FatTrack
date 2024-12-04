@@ -145,4 +145,9 @@
     <string name="email_label">Email:</string>
     <string name="fullname_label">FullName:</string>
     <string name="dummy_clock">00.00 WIB</string>
+    <string name="fattrack_bot">FatTrack Bot</string>
+    <string name="status_chat">Online</string>
+    <string name="chat_halo">Halo! Makanan apa yang ingin kamu cari?</string>
+    <string name="ketik_pesan">Ketik pesan</string>
+    <string name="send">Send</string>
 </resources>
