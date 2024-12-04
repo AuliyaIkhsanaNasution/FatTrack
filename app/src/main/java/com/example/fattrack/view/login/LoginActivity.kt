@@ -4,12 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.fattrack.MainActivity
@@ -54,15 +50,15 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction() {
         binding.btnLogin.setOnClickListener() {
             //get data from edit text
-            val email = binding.edLoginEmail?.text.toString().trim()
-            val password = binding.edLoginPassword?.text.toString().trim()
+            val email = binding.edLoginEmail.text.toString().trim()
+            val password = binding.edLoginPassword.text.toString().trim()
             Log.d("RegisterViewModelTest", "Email: $email, Password: $password")
 
             //validations
             if (email.isEmpty() || password.isEmpty()) {
                 showToast("Please fill in all fields")
             } else if (password.length < 8) {
-                binding.edLoginPassword?.error = "Password must be at least 8 characters long"
+                binding.edLoginPassword.error = "Password must be at least 8 characters long"
                 showToast("Password must be at least 8 characters long")
             } else {
                 //login with viewmodel (coroutine)
@@ -78,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
         //response
         loginViewModel.loginResponse.observe(this) { response ->
             response?.onSuccess {
-                val email = binding.edLoginEmail?.text.toString().trim()
+                val email = binding.edLoginEmail.text.toString().trim()
                 val code = it.code
                 val idUser = it.data?.id
                 val token = it.data?.token

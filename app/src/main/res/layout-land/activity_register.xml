@@ -33,10 +33,10 @@
                 android:textSize="32sp"
                 android:textStyle="bold"/>
 
-            <EditText
+            <com.example.fattrack.view.custom.NameCustom
+                android:id="@+id/ed_name"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/username"
                 android:autofillHints="Name"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="20dp"
@@ -48,10 +48,10 @@
                 android:textColor="?attr/font_color"
                 android:drawablePadding="10dp"/>
 
-            <EditText
+            <com.example.fattrack.view.custom.EmailCustom
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/email"
+                android:id="@+id/ed_email"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="20dp"
@@ -63,10 +63,10 @@
                 android:textColor="?attr/font_color"
                 android:drawablePadding="10dp"/>
 
-            <EditText
+            <com.example.fattrack.view.custom.PasswordCustom
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/password"
+                android:id="@+id/ed_password"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
                 android:layout_marginTop="20dp"
