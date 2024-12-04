@@ -78,7 +78,8 @@
                 android:textStyle="bold"
                 android:padding="10dp"
                 android:fontFamily="@font/urbold"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -96,6 +97,7 @@
                 app:icon="@drawable/google"
                 app:iconGravity="textStart"
                 app:iconTint="@null"
+                android:textColor="@color/white"
                 android:drawableTint="@color/Primary"
                 app:iconPadding="10dp"
                 app:iconSize="24dp"
