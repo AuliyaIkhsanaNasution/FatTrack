@@ -29,9 +29,12 @@ class NotificationViewModel(private val repository: NotificationRepository, priv
     }
 
     private fun scheduleNotifications() {
-        notificationScheduler.scheduleNotification(8, 0)  // 8 AM
-        notificationScheduler.scheduleNotification(12, 0) // 12 PM
-        notificationScheduler.scheduleNotification(19, 0) // 7 PM
+        val times = listOf(
+            8 to 0,   // 8 AM
+            12 to 0,  // 12 PM
+            19 to 15   // 7 PM
+        )
+        notificationScheduler.scheduleNotifications(times)
     }
 
     private fun cancelScheduledNotifications() {

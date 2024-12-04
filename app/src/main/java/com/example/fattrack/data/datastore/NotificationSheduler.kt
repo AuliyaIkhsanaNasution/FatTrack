@@ -12,6 +12,13 @@ class NotificationScheduler(private val context: Context) {
 
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+    fun scheduleNotifications(times: List<Pair<Int, Int>>) {
+        for (time in times) {
+            val (hour, minute) = time
+            scheduleNotification(hour, minute)
+        }
+    }
+
     // Schedule notifications at specific times
     fun scheduleNotification(hour: Int, minute: Int) {
         val intent = Intent(context, NotificationReceiver::class.java).apply {
