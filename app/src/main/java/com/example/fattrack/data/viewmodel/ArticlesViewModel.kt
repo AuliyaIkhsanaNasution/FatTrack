@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fattrack.data.repositories.ArticleRepository
+import com.example.fattrack.data.services.responses.ArticlesItem
 import com.example.fattrack.data.services.responses.DataItem
 import kotlinx.coroutines.launch
 
@@ -18,6 +19,10 @@ class ArticlesViewModel(private val articleRepository: ArticleRepository) : View
 
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
+
+    private val _searchResults = MutableLiveData<List<ArticlesItem>>()
+    val searchResults: LiveData<List<ArticlesItem>> get() = _searchResults
+
 
     fun fetchArticles() {
         _isLoading.value = true
@@ -38,5 +43,31 @@ class ArticlesViewModel(private val articleRepository: ArticleRepository) : View
             }
         }
     }
+
+    fun searchArticles(title: String) {
+        _isLoading.value = true
+        _errorMessage.value = null // Reset error message sebelum mencari
+
+        viewModelScope.launch {
+            try {
+                val result = articleRepository.searchArticle(title)
+                result.onSuccess { response ->
+                    val articles = response.data?.articles?.filterNotNull() ?: emptyList()
+                    _searchResults.value = articles
+                    if (articles.isEmpty()) {
+                        _errorMessage.value = "No articles found for '$title'"
+                    }
+                }.onFailure { throwable ->
+                    _errorMessage.value = throwable.message ?: "An error occurred"
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = e.message ?: "An unexpected error occurred"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+
 }
 
