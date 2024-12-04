@@ -10,10 +10,10 @@
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/logout_logo"
-        android:src="@drawable/circle_background"
+        android:src="@drawable/logo_fatrack"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"/>
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/forgot_password"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:textSize="40sp"
         android:textStyle="bold"
         android:fontFamily="@font/urbold"

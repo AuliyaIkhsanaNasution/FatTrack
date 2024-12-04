@@ -1,27 +1,20 @@
 package com.example.fattrack.view.profile
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.fattrack.MainActivity
 import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.HomeViewModel
-import com.example.fattrack.data.viewmodel.MainViewModel
-import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.ActivityEditProfileBinding
+import com.example.fattrack.view.ProfileFragment
 import com.example.fattrack.view.scan.reduceFileImage
 import com.example.fattrack.view.scan.uriToFile
 import io.github.muddz.styleabletoast.StyleableToast
@@ -190,8 +183,11 @@ class EditProfileActivity : AppCompatActivity() {
             .setContentText(message)
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
-                //finish
-                finish()
+                val profileFragment = ProfileFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, profileFragment) // Sesuaikan ID container
+                    .addToBackStack(null)
+                    .commit()
             }
             .show()
     }

@@ -47,12 +47,14 @@
             android:padding="28dp"
             android:gravity="center">
 
-            <TextView
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:textColor="@color/black"
                 android:textSize="32sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginBottom="25dp"
+                android:src="@drawable/logo_fatrack"/>
 
             <com.example.fattrack.view.custom.EmailCustom
                 android:id="@+id/ed_login_email"
@@ -60,7 +62,6 @@
                 android:layout_height="50dp"
                 android:autofillHints="Email"
                 android:background="@drawable/rounded_border_inline"
-                android:layout_marginTop="40dp"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:hint="@string/email"
