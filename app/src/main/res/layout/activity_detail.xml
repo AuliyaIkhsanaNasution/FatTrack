@@ -71,6 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:fontFamily="@font/urmedium"
                     android:textColor="?attr/font_color"
                     tools:text="Karir IT memiliki banyak cabang, mulai dari Software, Hardware, Jaringan, Sistem Cerdas..." />
 
