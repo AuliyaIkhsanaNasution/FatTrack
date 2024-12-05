@@ -11,6 +11,6 @@ data class NutritionData(
     val lemak: Double?,
     val nama: String?,
     val protein: Double?,
-    val image: String
+    val image: String?
 ) : Parcelable
 

@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -23,11 +24,14 @@ import com.example.fattrack.data.viewmodel.ArticlesViewModel
 import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.databinding.FragmentHomeBinding
+import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.notifications.NotificationsActivity
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import io.github.muddz.styleabletoast.StyleableToast
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -36,9 +40,19 @@ class HomeFragment : Fragment() {
     private lateinit var adapter: ArticleAdapter
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dialogLoading: DialogLoading
     private val homeViewModel by viewModels<HomeViewModel> {
         context?.let { ViewModelFactory.getInstance(it) }!!
     }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //loading setup
+        dialogLoading = DialogLoading(requireContext())
+        dialogLoading.startLoading()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +66,6 @@ class HomeFragment : Fragment() {
         viewModelArticle = ViewModelProvider(this, factory)[ArticlesViewModel::class.java]
 
         setupRecyclerView()
-        setupObserver()
         observeViewModel()
         homeViewModel.getUserById()
         viewModelArticle.fetchArticles()
@@ -61,6 +74,7 @@ class HomeFragment : Fragment() {
         // Return the root view of the fragment
         return binding.root
     }
+
 
     private fun setupRecyclerView() {
         // Initialize the RecyclerView and adapter
@@ -71,25 +85,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupObserver() {
-        // Observe articles LiveData
-        viewModelArticle.articles.observe(viewLifecycleOwner) { articles ->
-            val limitedArticles = articles.take(5)
-            adapter.setDataArticles(limitedArticles)
-        }
-
-        // Observe loading state LiveData
-        viewModelArticle.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-        }
-
-        // Observe error messages LiveData
-        viewModelArticle.errorMessage.observe(viewLifecycleOwner) { message ->
-            if (!message.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -116,8 +111,8 @@ class HomeFragment : Fragment() {
 
             updatePieChart(totalKalori, color)
         }
-
     }
+
 
     @SuppressLint("DefaultLocale")
     private fun updatePieChart(totalKalori: Int?, color: Int) {
@@ -143,11 +138,15 @@ class HomeFragment : Fragment() {
         }
     }
 
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // Clean up the binding reference to avoid memory leaks
     }
 
+
+
+    //OBSERVE
     @SuppressLint("SetTextI18n")
     private fun observeViewModel() {
         //home response
@@ -182,9 +181,27 @@ class HomeFragment : Fragment() {
             }
         }
 
+
+        // Observe articles LiveData
+        viewModelArticle.articles.observe(viewLifecycleOwner) { articles ->
+            val limitedArticles = articles.take(5)
+            adapter.setDataArticles(limitedArticles)
+        }
+
+        // Observe error messages LiveData
+        viewModelArticle.errorMessage.observe(viewLifecycleOwner) { message ->
+            if (!message.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        }
+
         //loading
         homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            if (isLoading) {
+                dialogLoading.startLoading()
+            } else {
+                dialogLoading.stopLoading()
+            }
         }
 
         //error message

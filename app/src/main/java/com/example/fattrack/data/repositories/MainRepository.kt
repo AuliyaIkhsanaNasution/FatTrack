@@ -118,7 +118,7 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
 
 
     //update profile
-    suspend fun updateProfile(image: File, newName: String): Result<ResponseUpdateProfile> {
+    suspend fun updateProfile(image: File? = null, newName: String): Result<ResponseUpdateProfile> {
         return try {
             // Cek isToken ready
             val idUser = authPreferences.getSession().first().idUser
@@ -128,7 +128,13 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
             }
 
             // get API
-            val response = apiService.updateProfile("Bearer $token", idUser.toRequestBody(), newName.toRequestBody(), image.toMultipartBody2())
+            val response =
+            if (image != null) {
+                apiService.updateProfile("Bearer $token", idUser.toRequestBody(), newName.toRequestBody(), image.toMultipartBody2())
+            } else {
+                apiService.updateProfile("Bearer $token", idUser.toRequestBody(), newName.toRequestBody())
+            }
+
 
             if (response.isSuccessful) {
                 val body = response.body()

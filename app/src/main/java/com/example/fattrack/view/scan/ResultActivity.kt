@@ -56,7 +56,7 @@ class ResultActivity : AppCompatActivity() {
             predictViewModel.predictImage(imageUri)
         }
         binding.btnCancel.setOnClickListener {
-            finishActivity()
+            finish()
         }
         binding.btnHome.setOnClickListener {
             //finish and open home
@@ -65,7 +65,7 @@ class ResultActivity : AppCompatActivity() {
             finish()
         }
         binding.btnBack.setOnClickListener {
-            finishActivity()
+            finish()
         }
     }
 
@@ -132,18 +132,10 @@ class ResultActivity : AppCompatActivity() {
             .setConfirmText("OK")
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
-                // goto ke camera
-                val intent = Intent(this@ResultActivity, CameraActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+                // back to camera
                 finish()
             }
             .show()
-    }
-
-
-    private fun finishActivity() {
-        finish()
     }
 
 

@@ -77,7 +77,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Part("userId") userId: RequestBody,
         @Part("newName") newName: RequestBody,
-        @Part file: MultipartBody.Part,
+        @Part file: MultipartBody.Part? = null,
     ) : Response<ResponseUpdateProfile>
 
     //Home

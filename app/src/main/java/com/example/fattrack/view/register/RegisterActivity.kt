@@ -17,6 +17,7 @@ import com.example.fattrack.R
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.RegisterViewModel
 import com.example.fattrack.databinding.ActivityRegisterBinding
+import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.login.LoginActivity
 import io.github.muddz.styleabletoast.StyleableToast
 
@@ -26,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(application)
     }
     private lateinit var binding: ActivityRegisterBinding
+    private lateinit var dialogLoading: DialogLoading
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,9 @@ class RegisterActivity : AppCompatActivity() {
         //init binding
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //init dialog loading
+        dialogLoading = DialogLoading(this)
 
         //run fun
         setupAction()
@@ -87,9 +92,9 @@ class RegisterActivity : AppCompatActivity() {
         //loading
         registerViewModel.isLoading.observe(this) { isLoading ->
             if (isLoading) {
-                binding.progressBar?.visibility = View.VISIBLE
+                dialogLoading.startLoading()
             } else {
-                binding.progressBar?.visibility = View.GONE
+                dialogLoading.stopLoading()
 
             }
         }

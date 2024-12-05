@@ -17,6 +17,7 @@ import com.example.fattrack.data.adapter.HistoryPredictAdapter
 import com.example.fattrack.data.data.HistoryDayData
 import com.example.fattrack.data.viewmodel.DashboardViewModel
 import com.example.fattrack.databinding.FragmentDashboardBinding
+import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -32,6 +33,16 @@ class DashboardFragment : Fragment() {
     private lateinit var viewModel: DashboardViewModel
     private var adapter = HistoryDayAdapter(emptyList())
     private lateinit var adapterhistory: HistoryPredictAdapter
+    private lateinit var dialogLoading: DialogLoading
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //loading setup
+        dialogLoading = DialogLoading(requireContext())
+        dialogLoading.startLoading()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,11 +88,11 @@ class DashboardFragment : Fragment() {
         //loading
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
             if (isLoading) {
-                bindingDashboard.progressBar.visibility = View.VISIBLE
+                dialogLoading.startLoading()
                 bindingDashboard.barChart.visibility = View.GONE
             } else {
-                bindingDashboard.progressBar.visibility = View.GONE
                 bindingDashboard.barChart.visibility = View.VISIBLE
+                dialogLoading.stopLoading()
             }
         }
 

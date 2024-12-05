@@ -83,7 +83,9 @@ class TextPredictActivity : AppCompatActivity() {
 
                     //send response chat
                     binding.chatbotStatus.text = "Online"
-                    addBubbleImage(chatContainer, imageUrl)
+                    if (imageUrl != null) {
+                        addBubbleImage(chatContainer, imageUrl)
+                    }
                     lifecycleScope.launch {
                         delay(300)
                         binding.chatbotStatus.text = "Typing..."
@@ -183,7 +185,7 @@ class TextPredictActivity : AppCompatActivity() {
         val imageBubble = ImageView(this).apply {
             background = getDrawable(R.drawable.chat_bubble_other)
 
-            // Set layout params untuk ImageView
+            // Set layout params for ImageView
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -219,17 +221,15 @@ class TextPredictActivity : AppCompatActivity() {
 
     //Mapping
     private fun mapToParcelable(response: FoodDataItem?): NutritionData? {
-        return response?.image?.let {
-            NutritionData(
-                deskripsi = response.deskripsi,
-                kalori = response.kalori,
-                karbohidrat = response.karbohidrat.toString().toDoubleOrNull() ?: 0.0,
-                lemak = response.lemak.toString().toDoubleOrNull() ?: 0.0,
-                nama = response.nama,
-                protein = response.protein.toString().toDoubleOrNull() ?: 0.0,
-                image = it
-            )
-        }
+        return NutritionData(
+            deskripsi = response?.deskripsi,
+            kalori = response?.kalori,
+            karbohidrat = response?.karbohidrat.toString().toDouble(),
+            lemak = response?.lemak.toString().toDouble(),
+            nama = response?.nama,
+            protein = response?.protein.toString().toDouble(),
+            image = response?.image.toString()
+        )
     }
 
     //toast
@@ -240,7 +240,7 @@ class TextPredictActivity : AppCompatActivity() {
 
 
     //html parse
-    fun String.toHtmlSpanned(): Spanned {
+    private fun String.toHtmlSpanned(): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
         } else {

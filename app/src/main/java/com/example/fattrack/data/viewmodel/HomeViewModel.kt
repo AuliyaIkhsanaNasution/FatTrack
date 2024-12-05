@@ -40,7 +40,7 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
 
 
     //update profile
-    fun updateProfile(photoProfile: File, name: String) {
+    fun updateProfile(photoProfile: File? = null, name: String) {
         _isLoading.value = true
 
         viewModelScope.launch {

@@ -7,6 +7,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -15,6 +16,7 @@ import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.databinding.ActivityEditProfileBinding
 import com.example.fattrack.view.ProfileFragment
+import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.scan.reduceFileImage
 import com.example.fattrack.view.scan.uriToFile
 import io.github.muddz.styleabletoast.StyleableToast
@@ -25,6 +27,9 @@ class EditProfileActivity : AppCompatActivity() {
     private val homeViewModel by viewModels<HomeViewModel> {
         ViewModelFactory.getInstance(this)
     }
+    private lateinit var dialogLoading: DialogLoading
+    private lateinit var defaultImage: String
+    private lateinit var defaultName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +37,9 @@ class EditProfileActivity : AppCompatActivity() {
         //init binding
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //init dialog loading
+        dialogLoading = DialogLoading(this)
 
         initViewModel()
         setupValue()
@@ -71,6 +79,12 @@ class EditProfileActivity : AppCompatActivity() {
                             .error(R.drawable.circle_background)
                             .into(profileImage)
                     }
+
+                    //list init
+                    if (imageSrc != null) {
+                        defaultImage = imageSrc
+                    }
+                    defaultName = response.nama.toString()
                 }
             }
         }
@@ -91,12 +105,22 @@ class EditProfileActivity : AppCompatActivity() {
 
         //save button
         binding.btnSelesai.setOnClickListener() {
-            val name = binding.editName.text.toString()
-            val photo = imageUri?.let { uriToFile(it, this).reduceFileImage() }
+            val name = binding.editName.text.toString().ifEmpty { defaultName }
+            val photo = imageUri?.let {
+                try {
+                    uriToFile(it, this).reduceFileImage()
+                } catch (e: Exception) {
+                    null
+                }
+            }
             if (photo != null && name.isNotEmpty()) {
                 homeViewModel.updateProfile(photo, name)
+            } else if (name.isNotEmpty()) {
+                //if name change
+                homeViewModel.updateProfile(null, name)
             } else {
-                showToast("Please fill in all fields")
+                //back to profile
+                showSuccessDialog("Profile updated successfully")
             }
         }
     }
@@ -155,9 +179,9 @@ class EditProfileActivity : AppCompatActivity() {
         //loading
         homeViewModel.isLoading.observe(this) { isLoading ->
             if (isLoading) {
-                binding.progressBar.visibility = android.view.View.VISIBLE
+                dialogLoading.startLoading()
             } else {
-                binding.progressBar.visibility = android.view.View.GONE
+                dialogLoading.stopLoading()
             }
         }
     }
@@ -179,13 +203,14 @@ class EditProfileActivity : AppCompatActivity() {
     //alert dialog success
     private fun showSuccessDialog(message: String) {
         SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Login Success!")
+            .setTitleText("Success!")
             .setContentText(message)
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
+                //back to profile
                 val profileFragment = ProfileFragment()
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, profileFragment) // Sesuaikan ID container
+                    .replace(R.id.fragment_container, profileFragment)
                     .addToBackStack(null)
                     .commit()
             }

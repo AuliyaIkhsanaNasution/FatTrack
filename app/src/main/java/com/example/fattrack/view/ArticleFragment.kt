@@ -15,14 +15,24 @@ import com.example.fattrack.data.adapter.ArticleAdapter
 import com.example.fattrack.data.services.responses.DataItem
 import com.example.fattrack.data.viewmodel.ArticlesViewModel
 import com.example.fattrack.databinding.FragmentArticleBinding
+import com.example.fattrack.view.loadingDialog.DialogLoading
 import io.github.muddz.styleabletoast.StyleableToast
 
 class ArticleFragment : Fragment() {
-
     private lateinit var viewModel: ArticlesViewModel
     private lateinit var adapter: ArticleAdapter
     private var _binding: FragmentArticleBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dialogLoading: DialogLoading
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //loading setup
+        dialogLoading = DialogLoading(requireContext())
+        dialogLoading.startLoading()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -62,7 +72,11 @@ class ArticleFragment : Fragment() {
 
         // Observe loading state LiveData
         viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            if (isLoading) {
+                dialogLoading.startLoading()
+            } else {
+                dialogLoading.stopLoading()
+            }
         }
 
         // Observe error messages LiveData

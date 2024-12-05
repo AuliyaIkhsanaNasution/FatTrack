@@ -23,6 +23,7 @@ import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
 import com.example.fattrack.databinding.LogoutButtomSheetBinding
 import com.example.fattrack.databinding.PredictButtomSheetBinding
+import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.profile.EditProfileActivity
 import com.example.fattrack.view.scan.CameraActivity
@@ -35,19 +36,15 @@ import kotlinx.coroutines.launch
 class ProfileFragment : Fragment() {
     private var _bindingProfile: FragmentProfileBinding? = null
     private val bindingProfile get() = _bindingProfile!!
-
     private val profileViewModel: ProfileViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
-
     private val notificationViewModel: NotificationViewModel by viewModels {
         ViewModelFactory.getInstance(requireContext())
     }
-
     private val userViewModel by viewModels<HomeViewModel> {
         context?.let { ViewModelFactory.getInstance(it) }!!
     }
-
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
@@ -56,6 +53,15 @@ class ProfileFragment : Fragment() {
                 Log.d("Permission", "Notifications permission rejected")
             }
         }
+    private lateinit var dialogLoading: DialogLoading
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //loading setup
+        dialogLoading = DialogLoading(requireContext())
+        dialogLoading.startLoading()
+    }
 
 
     override fun onCreateView(
@@ -175,7 +181,11 @@ class ProfileFragment : Fragment() {
         }
 
         userViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            bindingProfile.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            if (isLoading) {
+                dialogLoading.startLoading()
+            } else {
+                dialogLoading.stopLoading()
+            }
         }
 
         userViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->

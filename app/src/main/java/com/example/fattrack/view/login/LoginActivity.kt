@@ -17,6 +17,7 @@ import com.example.fattrack.data.repositories.SessionModel
 import com.example.fattrack.data.viewmodel.LoginViewModel
 import com.example.fattrack.databinding.ActivityLoginBinding
 import com.example.fattrack.view.forgotpassword.ForgotActivity
+import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.register.RegisterActivity
 import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels {
         ViewModelFactory.getInstance(application)
     }
+    private lateinit var dialogLoading: DialogLoading
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,9 @@ class LoginActivity : AppCompatActivity() {
 
         //init preferences
         authPreferences = AuthPreferences.getInstance(this.authSession)
+
+        //init dialog loading
+        dialogLoading = DialogLoading(this)
 
         //run fun
         setupAction()
@@ -112,9 +117,9 @@ class LoginActivity : AppCompatActivity() {
         //loading
         loginViewModel.isLoading.observe(this) { isLoading ->
             if (isLoading) {
-                binding.progressBar?.visibility = View.VISIBLE
+                dialogLoading.startLoading()
             } else {
-                binding.progressBar?.visibility = View.GONE
+                dialogLoading.stopLoading()
             }
         }
 
