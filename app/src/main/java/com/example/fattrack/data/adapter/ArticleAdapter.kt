@@ -1,12 +1,15 @@
 package com.example.fattrack.data.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.util.Pair
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -44,9 +47,21 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() 
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailActivity::class.java).apply {
-                    putExtra(DetailActivity.ARTICLE_ID, article.id.toString()) // Kirim ID artikel ke DetailActivity
+                    putExtra(DetailActivity.ARTICLE_ID, article.id.toString())
                 }
-                itemView.context.startActivity(intent)
+                // Set up transition animation
+                val optionsCompat: ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        itemView.context as Activity,
+                        Pair(image, "image"),
+                        Pair(title, "title"),
+                        Pair(author, "author"),
+                        Pair(description, "deskripsi"),
+                        Pair(date, "date")
+                    )
+
+                // Start activity with animation
+                itemView.context.startActivity(intent, optionsCompat.toBundle())
             }
         }
 

@@ -50,19 +50,19 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     private fun playAnimation() {
 
-        val title = ObjectAnimator.ofFloat(binding.titleResetPassword, View.ALPHA, 1f).setDuration(300)
+        val title = ObjectAnimator.ofFloat(binding.titleResetPassword, View.ALPHA, 1f).setDuration(250)
         val logo =
-            ObjectAnimator.ofFloat(binding.ivResetPassword, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.ivResetPassword, View.ALPHA, 1f).setDuration(250)
         val descReset =
-            ObjectAnimator.ofFloat(binding.descResetPassword, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.descResetPassword, View.ALPHA, 1f).setDuration(250)
         val edOldPassword =
-            ObjectAnimator.ofFloat(binding.oldPassword, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.oldPassword, View.ALPHA, 1f).setDuration(250)
         val newPassword =
-            ObjectAnimator.ofFloat(binding.newPassword, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.newPassword, View.ALPHA, 1f).setDuration(250)
         val saveButton =
-            ObjectAnimator.ofFloat(binding.btnSavePassword, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.btnSavePassword, View.ALPHA, 1f).setDuration(250)
         val cancelButton =
-            ObjectAnimator.ofFloat(binding.btnCancelPassword, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.btnCancelPassword, View.ALPHA, 1f).setDuration(250)
 
         AnimatorSet().apply {
             playSequentially(
@@ -74,7 +74,7 @@ class ResetPasswordActivity : AppCompatActivity() {
                 saveButton,
                 cancelButton
             )
-            startDelay = 200
+            startDelay = 250
         }.start()
     }
 

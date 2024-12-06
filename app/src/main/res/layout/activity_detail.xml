@@ -28,7 +28,8 @@
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic"
-            android:contentDescription="@string/cover_image" />
+            android:contentDescription="@string/cover_image"
+            android:transitionName="image"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -46,6 +47,7 @@
 
                 <TextView
                     android:id="@+id/tv_article_title"
+                    android:transitionName="title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -61,7 +63,8 @@
                     android:layout_marginTop="8dp"
                     android:textAlignment="center"
                     android:textColor="?attr/font_color"
-                    tools:text="Dr.Indranami Oky" />
+                    tools:text="Dr.Indranami Oky"
+                    android:transitionName="author"/>
 
 
                 <TextView
@@ -70,7 +73,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textColor="?attr/font_color"
-                    tools:text="Karir IT memiliki banyak cabang, mulai dari Software, Hardware, Jaringan, Sistem Cerdas..." />
+                    tools:text="Karir IT memiliki banyak cabang, mulai dari Software, Hardware, Jaringan, Sistem Cerdas..."
+                    android:transitionName="deskripsi"/>
 
                 <TextView
                     android:id="@+id/tv_article_date"
@@ -80,7 +84,8 @@
                     android:textAlignment="textEnd"
                     android:textStyle="italic"
                     android:textColor="?attr/font_color"
-                    tools:text="17 oktober 2022" />
+                    tools:text="17 oktober 2022"
+                    android:transitionName="date"/>
 
             </LinearLayout>
 
