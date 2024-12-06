@@ -11,12 +11,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Do you want to Log Out?"
+        android:text="@string/do_you_want_to_log_out"
         android:gravity="center"
         android:textColor="?attr/font_color"
         android:textStyle="bold"
         android:textSize="22sp"
-        android:fontFamily="@font/urbold"
         android:layout_margin="20dp"/>
 
     <LinearLayout
@@ -39,9 +38,7 @@
         android:layout_height="wrap_content"
         android:text="@string/log_out"
         android:textSize="20sp"
-        android:textColor="@color/Error"
-        android:fontFamily="@font/urmedium"/>
-
+        android:textColor="@color/Error"/>
     </LinearLayout>
 
     <LinearLayout
@@ -65,9 +62,7 @@
             android:layout_height="wrap_content"
             android:text="@string/btn_cancel"
             android:textSize="20sp"
-            android:textColor="?attr/font_color"
-            android:fontFamily="@font/urmedium"/>
-
+            android:textColor="?attr/font_color"/>
     </LinearLayout>
 
 </LinearLayout>

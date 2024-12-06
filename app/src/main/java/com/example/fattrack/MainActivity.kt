@@ -23,7 +23,7 @@ import com.example.fattrack.data.pref.profileDataStore
 import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.ActivityMainBinding
-import com.example.fattrack.databinding.PredictButtomSheetBinding
+import com.example.fattrack.databinding.PredictBottomSheetBinding
 import com.example.fattrack.view.*
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.scan.CameraActivity
@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
         val bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
 
         // Create binding for the bottom sheet layout
-        val bottomSheetBinding = PredictButtomSheetBinding.inflate(layoutInflater)
+        val bottomSheetBinding = PredictBottomSheetBinding.inflate(layoutInflater)
 
         // Set up click listeners for options
         bottomSheetBinding.camera.setOnClickListener {

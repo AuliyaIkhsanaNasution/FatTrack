@@ -17,6 +17,10 @@
         <item name="cardBackgroundColor">@color/white</item>
         <item name="cardBackgroundVariant">@color/white</item>
         <item name="cardBackgroundDisabled">@color/lightGray</item>
+
+        <!-- Set default font -->
+        <item name="android:fontFamily">@font/mulish</item>
+        <item name="fontFamily">@font/mulish</item>
     </style>
 
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">

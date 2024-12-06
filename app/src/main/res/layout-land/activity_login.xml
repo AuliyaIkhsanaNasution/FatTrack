@@ -36,7 +36,6 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:hint="@string/email"
-                android:fontFamily="@font/urmedium"
                 android:drawableStart="@drawable/baseline_alternate_email_24"
                 android:textColor="?attr/font_color"
                 android:drawablePadding="10dp"/>
@@ -50,7 +49,6 @@
                 android:layout_marginTop="20dp"
                 android:inputType="textPassword"
                 android:padding="10dp"
-                android:fontFamily="@font/urmedium"
                 android:hint="@string/password"
                 android:drawableStart="@drawable/ic_password"
                 android:textColor="?attr/font_color"
@@ -65,7 +63,6 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="@font/urbold"
                 android:textColor="?attr/font_color"
                 android:onClick="onForgotClick"/>
 
@@ -77,7 +74,6 @@
                 android:text="@string/login"
                 android:textStyle="bold"
                 android:padding="10dp"
-                android:fontFamily="@font/urbold"
                 android:textSize="16sp"
                 android:textColor="@color/white"/>
 
@@ -104,7 +100,6 @@
                 android:text="@string/google"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:fontFamily="@font/urbold"
                 android:textSize="16sp"/>
 
             <LinearLayout
@@ -119,9 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/belum_ada_akun"
                     android:textSize="17sp"
-                    android:textColor="?attr/font_color"
-                    android:fontFamily="@font/urmedium" />
-
+                    android:textColor="?attr/font_color" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -130,7 +123,6 @@
                     android:textColor="#00BBFF"
                     android:clickable="true"
                     android:focusable="true"
-                    android:fontFamily="@font/urbold"
                     android:padding="4dp"
                     android:onClick="onRegisterClick"
 

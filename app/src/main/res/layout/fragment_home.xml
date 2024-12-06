@@ -42,7 +42,6 @@
                     tools:text="Halo, Name"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/urbold"
                     android:textColor="?attr/font_color" />
 
                 <TextView
@@ -50,7 +49,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/selamat_datang"
                     android:textSize="14sp"
-                    android:fontFamily="@font/urregular"
                     android:textColor="?attr/font_color" />
             </LinearLayout>
 

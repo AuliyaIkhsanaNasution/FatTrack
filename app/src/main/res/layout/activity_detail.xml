@@ -51,7 +51,6 @@
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:fontFamily="@font/urbold"
                     android:textColor="?attr/font_color"
                     tools:text="Jaga selalu kesehatan dengan meminum air putih" />
 
@@ -61,7 +60,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAlignment="center"
-                    android:fontFamily="@font/urmedium"
                     android:textColor="?attr/font_color"
                     tools:text="Dr.Indranami Oky" />
 
@@ -71,7 +69,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/urmedium"
                     android:textColor="?attr/font_color"
                     tools:text="Karir IT memiliki banyak cabang, mulai dari Software, Hardware, Jaringan, Sistem Cerdas..." />
 
@@ -83,7 +80,6 @@
                     android:textAlignment="textEnd"
                     android:textStyle="italic"
                     android:textColor="?attr/font_color"
-                    android:fontFamily="@font/urlight"
                     tools:text="17 oktober 2022" />
 
             </LinearLayout>

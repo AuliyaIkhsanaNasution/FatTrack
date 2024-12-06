@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.fattrack.R
 
 @SuppressLint("UseCompatLoadingForDrawables")
@@ -29,6 +30,8 @@ class PasswordCustom @JvmOverloads constructor(
 
     // Initialization
     init {
+        // Set default font
+        typeface = ResourcesCompat.getFont(context, R.font.mulish)
 
         hiddenPasswordDrawable = ContextCompat.getDrawable(context, R.drawable.baseline_off_visibility)
             ?: throw IllegalStateException("Drawable baseline_off_visibility tidak ditemukan.")

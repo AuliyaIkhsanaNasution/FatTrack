@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.fattrack.R
@@ -21,8 +20,8 @@ import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
-import com.example.fattrack.databinding.LogoutButtomSheetBinding
-import com.example.fattrack.databinding.PredictButtomSheetBinding
+import com.example.fattrack.databinding.LogoutBottomSheetBinding
+import com.example.fattrack.databinding.PredictBottomSheetBinding
 import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.profile.EditProfileActivity
@@ -111,7 +110,7 @@ class ProfileFragment : Fragment() {
         }
 
         // Create binding for the bottom sheet layout
-        val bottomSheetBinding = LogoutButtomSheetBinding.inflate(layoutInflater)
+        val bottomSheetBinding = LogoutBottomSheetBinding.inflate(layoutInflater)
 
         // Set up click listeners for options
         bottomSheetBinding.logoutBottom.setOnClickListener {

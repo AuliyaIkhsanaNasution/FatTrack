@@ -16,7 +16,6 @@
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="?attr/font_color"
-            android:fontFamily="@font/urbold"
             />
 
 

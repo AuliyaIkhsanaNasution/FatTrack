@@ -15,7 +15,6 @@
         android:textColor="?attr/font_color"
         android:textStyle="bold"
         android:textSize="22sp"
-        android:fontFamily="@font/urbold"
         android:layout_margin="20dp"/>
 
     <LinearLayout
@@ -38,9 +37,7 @@
         android:layout_height="wrap_content"
         android:text="@string/camera"
         android:textSize="20sp"
-        android:textColor="?attr/font_color"
-        android:fontFamily="@font/urmedium"/>
-
+        android:textColor="?attr/font_color"/>
     </LinearLayout>
 
     <LinearLayout
@@ -63,9 +60,7 @@
             android:layout_height="wrap_content"
             android:text="@string/predict_by_text"
             android:textSize="20sp"
-            android:textColor="?attr/font_color"
-            android:fontFamily="@font/urmedium"/>
-
+            android:textColor="?attr/font_color"/>
     </LinearLayout>
 
 </LinearLayout>

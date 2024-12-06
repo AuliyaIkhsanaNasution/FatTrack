@@ -53,7 +53,6 @@
             android:layout_marginBottom="8dp"
             android:text="@string/email_label"
             android:textSize="18sp"
-            android:fontFamily="@font/urmedium"
             android:textColor="?attr/font_color"
             tools:ignore="RtlHardcoded" />
 
@@ -82,7 +81,6 @@
                 android:autofillHints=""
                 android:hint="@string/edit_email"
                 android:focusable="false"
-                android:fontFamily="@font/urmedium"
                 android:inputType="textEmailAddress"
                 android:background="@android:color/transparent"
                 android:padding="8dp" />
@@ -99,7 +97,6 @@
             android:layout_marginBottom="8dp"
             android:layout_marginHorizontal="32dp"
             android:layout_gravity="left"
-            android:fontFamily="@font/urmedium"
             tools:ignore="RtlHardcoded" />
 
         <LinearLayout
@@ -127,7 +124,6 @@
                 android:hint="@string/edit_nama"
                 android:inputType="textPersonName"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/urmedium"
                 android:padding="8dp" />
         </LinearLayout>
 

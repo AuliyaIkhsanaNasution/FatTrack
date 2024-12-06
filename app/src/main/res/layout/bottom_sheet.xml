@@ -40,7 +40,6 @@
                 android:textSize="35sp"
                 android:text="@string/title_sheet"
                 android:gravity="center"
-                android:fontFamily="@font/urbold"
                 android:textColor="?attr/font_color" />
 
             <!-- Description -->
@@ -53,7 +52,6 @@
                 android:gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginHorizontal="12dp"
-                android:fontFamily="@font/urmedium"
                 android:textColor="?attr/font_color" />
 
             <!-- Nutritional Info -->
@@ -101,7 +99,6 @@
                                 android:gravity="center"
                                 android:textSize="30sp"
                                 android:text="@string/dummy_sheet"
-                                android:fontFamily="@font/urbold"
                                 android:textColor="?attr/font_color" />
                         </LinearLayout>
 
@@ -110,7 +107,6 @@
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
                             android:text="@string/kalori"
-                            android:fontFamily="@font/urmedium"
                             android:textColor="?attr/font_color" />
                     </LinearLayout>
 
@@ -146,7 +142,6 @@
                                 android:gravity="center"
                                 android:textSize="30sp"
                                 android:text="@string/dummy_sheet"
-                                android:fontFamily="@font/urbold"
                                 android:textColor="?attr/font_color" />
                         </LinearLayout>
 
@@ -155,7 +150,6 @@
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
                             android:text="@string/protein"
-                            android:fontFamily="@font/urmedium"
                             android:textColor="?attr/font_color" />
                     </LinearLayout>
 
@@ -191,7 +185,6 @@
                                 android:gravity="center"
                                 android:textSize="30sp"
                                 android:text="@string/dummy_sheet"
-                                android:fontFamily="@font/urbold"
                                 android:textColor="?attr/font_color" />
                         </LinearLayout>
 
@@ -200,7 +193,6 @@
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
                             android:text="@string/karbohidrat"
-                            android:fontFamily="@font/urmedium"
                             android:textColor="?attr/font_color" />
                     </LinearLayout>
 
@@ -236,7 +228,6 @@
                                 android:gravity="center"
                                 android:textSize="30sp"
                                 android:text="@string/dummy_sheet"
-                                android:fontFamily="@font/urbold"
                                 android:textColor="?attr/font_color" />
                         </LinearLayout>
 
@@ -245,7 +236,6 @@
                             android:layout_height="wrap_content"
                             android:textSize="18sp"
                             android:text="@string/lemak"
-                            android:fontFamily="@font/urmedium"
                             android:textColor="?attr/font_color" />
                     </LinearLayout>
                 </LinearLayout>
