@@ -47,19 +47,19 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun playAnimation() {
 
-        val title = ObjectAnimator.ofFloat(binding.titleRegister, View.ALPHA, 1f).setDuration(300)
+        val title = ObjectAnimator.ofFloat(binding.titleRegister, View.ALPHA, 1f).setDuration(200)
         val logo =
-            ObjectAnimator.ofFloat(binding.ivLogoRegister, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.ivLogoRegister, View.ALPHA, 1f).setDuration(200)
         val edName =
-            ObjectAnimator.ofFloat(binding.edName, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.edName, View.ALPHA, 1f).setDuration(200)
         val edEmail =
-            ObjectAnimator.ofFloat(binding.edEmail, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.edEmail, View.ALPHA, 1f).setDuration(200)
         val edPassword =
-            ObjectAnimator.ofFloat(binding.edPassword, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.edPassword, View.ALPHA, 1f).setDuration(200)
         val register =
-            ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(300)
-        val haveAccount = ObjectAnimator.ofFloat(binding.haveAcoount, View.ALPHA, 1f).setDuration(300)
-        val login = ObjectAnimator.ofFloat(binding.toLogin, View.ALPHA, 1f).setDuration(300)
+            ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(200)
+        val haveAccount = ObjectAnimator.ofFloat(binding.haveAcoount, View.ALPHA, 1f).setDuration(200)
+        val login = ObjectAnimator.ofFloat(binding.toLogin, View.ALPHA, 1f).setDuration(200)
 
         val together = AnimatorSet().apply {
             playTogether(haveAccount, login)
