@@ -1,16 +1,15 @@
 package com.example.fattrack.view.register
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.fattrack.R
@@ -42,6 +41,55 @@ class RegisterActivity : AppCompatActivity() {
         //run fun
         setupAction()
         observeViewModel()
+        setupView()
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+
+        val title = ObjectAnimator.ofFloat(binding.titleRegister, View.ALPHA, 1f).setDuration(300)
+        val logo =
+            ObjectAnimator.ofFloat(binding.ivLogoRegister, View.ALPHA, 1f).setDuration(300)
+        val edName =
+            ObjectAnimator.ofFloat(binding.edName, View.ALPHA, 1f).setDuration(300)
+        val edEmail =
+            ObjectAnimator.ofFloat(binding.edEmail, View.ALPHA, 1f).setDuration(300)
+        val edPassword =
+            ObjectAnimator.ofFloat(binding.edPassword, View.ALPHA, 1f).setDuration(300)
+        val register =
+            ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(300)
+        val haveAccount = ObjectAnimator.ofFloat(binding.haveAcoount, View.ALPHA, 1f).setDuration(300)
+        val login = ObjectAnimator.ofFloat(binding.toLogin, View.ALPHA, 1f).setDuration(300)
+
+        val together = AnimatorSet().apply {
+            playTogether(haveAccount, login)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(
+                title,
+                logo,
+                edName,
+                edEmail,
+                edPassword,
+                register,
+                together
+            )
+            startDelay = 200
+        }.start()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 
 
