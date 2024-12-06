@@ -250,7 +250,7 @@ class TextPredictActivity : AppCompatActivity() {
 
 
     //capitalize format
-    fun capitalizeWords(input: String): String {
+    private fun capitalizeWords(input: String): String {
         return input.split(" ")
             .joinToString(" ") { word ->
                 word.replaceFirstChar {

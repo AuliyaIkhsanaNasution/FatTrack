@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.fattrack.MainActivity
 import com.example.fattrack.R
@@ -16,7 +17,10 @@ import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.databinding.ActivityResultBinding
 import com.example.fattrack.view.MyBottomSheetFragment
 import com.example.fattrack.view.loadingDialog.DialogLoadingFood
+import com.example.fattrack.view.loadingDialog.DialogSuccess
 import io.github.muddz.styleabletoast.StyleableToast
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.io.File
 
 class ResultActivity : AppCompatActivity() {
@@ -25,6 +29,7 @@ class ResultActivity : AppCompatActivity() {
     }
     private lateinit var binding: ActivityResultBinding
     private lateinit var dialogLoadingFood: DialogLoadingFood
+    private lateinit var dialogSuccess: DialogSuccess
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +42,7 @@ class ResultActivity : AppCompatActivity() {
 
         //init
         dialogLoadingFood = DialogLoadingFood(this)
+        dialogSuccess = DialogSuccess(this)
 
         //set URI
         if (imageUri != null) {
@@ -87,7 +93,12 @@ class ResultActivity : AppCompatActivity() {
 
                     //open bottom and send data
                     val nutrition = mapToParcelable(it.data?.nutritionalInfo)
-                    displayBottomSheet(nutrition)
+
+                    lifecycleScope.launch {
+                        dialogSuccess.startSuccess(1500)
+                        delay(1600)
+                        displayBottomSheet(nutrition)
+                    }
                 } else {
                     it.data?.message?.let { it1 -> showToast(it1) }
                 }

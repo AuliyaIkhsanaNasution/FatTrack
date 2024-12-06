@@ -52,7 +52,7 @@ class SplashActivity : AppCompatActivity() {
             } else {
                 showErrorDialog("Check your connection.")
             }
-        }, 1000)
+        }, 2000)
 
         // Initialize ProfilePreferences and ProfileViewModel
         ProfilePreferences.getInstance(application.profileDataStore)
@@ -112,7 +112,7 @@ class SplashActivity : AppCompatActivity() {
                         // Tampilkan dialog kesalahan lagi jika internet tidak tersedia
                         showErrorDialog("Check your connection.")
                     }
-                }, 1000)
+                }, 2000)
 
             }
             .show()
