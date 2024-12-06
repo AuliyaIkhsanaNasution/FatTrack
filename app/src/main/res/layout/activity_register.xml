@@ -17,6 +17,7 @@
 
         <!-- TextView untuk judul login -->
         <TextView
+            android:id="@+id/title_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/register_title"
@@ -25,7 +26,9 @@
             android:fontFamily="@font/urbold"
             android:textSize="40sp"
             android:layout_marginBottom="20dp"
-            android:textColor="?attr/font_color"/>
+            android:textColor="?attr/font_color"
+            android:alpha="0"
+            tools:alpha="100"/>
 
     </LinearLayout>
 
@@ -48,13 +51,16 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/iv_logo_register"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:textColor="@color/black"
                 android:textSize="32sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/logo_fatrack"/>
+                android:src="@drawable/logo_fatrack"
+                android:alpha="0"
+                tools:alpha="100"/>
 
             <com.example.fattrack.view.custom.NameCustom
                 android:id="@+id/ed_name"
@@ -69,7 +75,9 @@
                 android:fontFamily="@font/urmedium"
                 android:drawableStart="@drawable/ic_name"
                 android:textColor="?attr/font_color"
-                android:drawablePadding="10dp"/>
+                android:drawablePadding="10dp"
+                android:alpha="0"
+                tools:alpha="100"/>
 
             <com.example.fattrack.view.custom.EmailCustom
                 android:id="@+id/ed_email"
@@ -84,7 +92,9 @@
                 android:fontFamily="@font/urmedium"
                 android:drawableStart="@drawable/baseline_alternate_email_24"
                 android:textColor="?attr/font_color"
-                android:drawablePadding="10dp"/>
+                android:drawablePadding="10dp"
+                android:alpha="0"
+                tools:alpha="100"/>
 
             <com.example.fattrack.view.custom.PasswordCustom
                 android:id="@+id/ed_password"
@@ -99,7 +109,9 @@
                 android:hint="@string/password"
                 android:drawableStart="@drawable/ic_password"
                 android:textColor="?attr/font_color"
-                android:drawablePadding="10dp"/>
+                android:drawablePadding="10dp"
+                android:alpha="0"
+                tools:alpha="100"/>
 
 
             <TextView
@@ -118,7 +130,9 @@
                 android:padding="10dp"
                 android:fontFamily="@font/urbold"
                 android:textSize="16sp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:alpha="0"
+                tools:alpha="100"/>
 
 
             <LinearLayout
@@ -130,14 +144,18 @@
                 android:layout_marginTop="10dp">
 
                 <TextView
+                    android:id="@+id/have_acoount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/sudah_ada_akun"
                     android:textSize="17sp"
                     android:textColor="?attr/font_color"
-                    android:fontFamily="@font/urmedium" />
+                    android:fontFamily="@font/urmedium"
+                    android:alpha="0"
+                    tools:alpha="100"/>
 
                 <TextView
+                    android:id="@+id/to_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/login"
@@ -149,6 +167,8 @@
                     android:fontFamily="@font/urbold"
                     android:padding="4dp"
                     android:onClick="onLoginClick"
+                    android:alpha="0"
+                    tools:alpha="100"
                     />
             </LinearLayout>
 
