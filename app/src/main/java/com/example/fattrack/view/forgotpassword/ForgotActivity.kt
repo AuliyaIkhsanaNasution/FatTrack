@@ -52,17 +52,17 @@ class ForgotActivity : AppCompatActivity() {
 
     private fun playAnimation() {
 
-        val title = ObjectAnimator.ofFloat(binding.titleForgot, View.ALPHA, 1f).setDuration(200)
+        val title = ObjectAnimator.ofFloat(binding.titleForgot, View.ALPHA, 1f).setDuration(300)
         val logo =
-            ObjectAnimator.ofFloat(binding.ivLogoForgot, View.ALPHA, 1f).setDuration(200)
+            ObjectAnimator.ofFloat(binding.ivLogoForgot, View.ALPHA, 1f).setDuration(300)
         val desc =
-            ObjectAnimator.ofFloat(binding.descForgot, View.ALPHA, 1f).setDuration(200)
+            ObjectAnimator.ofFloat(binding.descForgot, View.ALPHA, 1f).setDuration(300)
         val edEmail =
-            ObjectAnimator.ofFloat(binding.emailForgot, View.ALPHA, 1f).setDuration(200)
+            ObjectAnimator.ofFloat(binding.emailForgot, View.ALPHA, 1f).setDuration(300)
         val btnContinue =
-            ObjectAnimator.ofFloat(binding.btnContinue, View.ALPHA, 1f).setDuration(200)
+            ObjectAnimator.ofFloat(binding.btnContinue, View.ALPHA, 1f).setDuration(300)
         val btnCancel =
-            ObjectAnimator.ofFloat(binding.btnCancel, View.ALPHA, 1f).setDuration(200)
+            ObjectAnimator.ofFloat(binding.btnCancel, View.ALPHA, 1f).setDuration(300)
 
         AnimatorSet().apply {
             playSequentially(
