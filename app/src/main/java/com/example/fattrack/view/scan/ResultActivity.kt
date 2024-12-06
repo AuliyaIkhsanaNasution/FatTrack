@@ -15,6 +15,7 @@ import com.example.fattrack.data.services.responses.NutritionalInfo
 import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.databinding.ActivityResultBinding
 import com.example.fattrack.view.MyBottomSheetFragment
+import com.example.fattrack.view.loadingDialog.DialogLoadingFood
 import io.github.muddz.styleabletoast.StyleableToast
 import java.io.File
 
@@ -23,6 +24,7 @@ class ResultActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(application)
     }
     private lateinit var binding: ActivityResultBinding
+    private lateinit var dialogLoadingFood: DialogLoadingFood
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,9 @@ class ResultActivity : AppCompatActivity() {
 
         // get URI from Intent
         val imageUri = intent.getStringExtra("image_uri")?.let { Uri.parse(it) }
+
+        //init
+        dialogLoadingFood = DialogLoadingFood(this)
 
         //set URI
         if (imageUri != null) {
@@ -92,10 +97,10 @@ class ResultActivity : AppCompatActivity() {
         //observe loading
         predictViewModel.isLoading.observe(this) { isLoading ->
             if(isLoading) {
-                binding.progressBar.visibility = android.view.View.VISIBLE
+                dialogLoadingFood.startLoading()
                 binding.btnScan.isEnabled = false
             } else {
-                binding.progressBar.visibility = android.view.View.GONE
+                dialogLoadingFood.stopLoading()
             }
         }
 

@@ -84,7 +84,7 @@ class RegisterActivity : AppCompatActivity() {
                     showErrorDialog(errorMessage)
                 }
             }?.onFailure {
-                val errorMessage = "Something went wrong. Please try again!"
+                val errorMessage = "Email already exists. Please try again with other Email!"
                 showErrorDialog(errorMessage)
             }
         }
