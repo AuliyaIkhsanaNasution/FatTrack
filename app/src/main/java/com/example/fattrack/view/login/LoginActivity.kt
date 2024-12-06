@@ -1,9 +1,14 @@
 package com.example.fattrack.view.login
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -49,6 +54,55 @@ class LoginActivity : AppCompatActivity() {
         //run fun
         setupAction()
         observeViewModel()
+        setupView()
+        playAnimation()
+    }
+
+    private fun playAnimation() {
+
+        val title = ObjectAnimator.ofFloat(binding.title, View.ALPHA, 1f).setDuration(300)
+        val logo =
+            ObjectAnimator.ofFloat(binding.ivLogo, View.ALPHA, 1f).setDuration(300)
+        val edLogin =
+            ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f).setDuration(300)
+        val edPassword =
+            ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f).setDuration(300)
+        val forgot =
+            ObjectAnimator.ofFloat(binding.forgot, View.ALPHA, 1f).setDuration(300)
+        val login =
+            ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(300)
+        val noAccount = ObjectAnimator.ofFloat(binding.noAccount, View.ALPHA, 1f).setDuration(300)
+        val register = ObjectAnimator.ofFloat(binding.tvRegister, View.ALPHA, 1f).setDuration(300)
+
+        val together = AnimatorSet().apply {
+            playTogether(noAccount, register)
+        }
+
+        AnimatorSet().apply {
+            playSequentially(
+                title,
+                logo,
+                edLogin,
+                edPassword,
+                forgot,
+                login,
+                together
+            )
+            startDelay = 200
+        }.start()
+    }
+
+    private fun setupView() {
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+        supportActionBar?.hide()
     }
 
 
