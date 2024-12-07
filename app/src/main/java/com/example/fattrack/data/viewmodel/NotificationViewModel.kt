@@ -32,7 +32,7 @@ class NotificationViewModel(private val repository: NotificationRepository, priv
         val times = listOf(
             8 to 0,   // 8 AM
             12 to 0,  // 12 PM
-            19 to 15   // 7 PM
+            19 to 0   // 7 PM
         )
         notificationScheduler.scheduleNotifications(times)
     }

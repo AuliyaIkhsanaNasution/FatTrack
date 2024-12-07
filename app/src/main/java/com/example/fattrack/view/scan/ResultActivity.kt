@@ -18,6 +18,7 @@ import com.example.fattrack.databinding.ActivityResultBinding
 import com.example.fattrack.view.MyBottomSheetFragment
 import com.example.fattrack.view.loadingDialog.DialogLoadingFood
 import com.example.fattrack.view.loadingDialog.DialogSuccess
+import com.example.fattrack.view.text.TextPredictActivity
 import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -76,6 +77,12 @@ class ResultActivity : AppCompatActivity() {
             finish()
         }
         binding.btnBack.setOnClickListener {
+            finish()
+        }
+        binding.btnRecent.setOnClickListener {
+            //to predict text
+            val intent = Intent(this, TextPredictActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
