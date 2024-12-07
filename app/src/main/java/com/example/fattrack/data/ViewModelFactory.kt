@@ -17,6 +17,7 @@ import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.data.repositories.NotificationRepository
 import com.example.fattrack.data.viewmodel.DashboardViewModel
 import com.example.fattrack.data.viewmodel.DetailViewModel
+import com.example.fattrack.data.viewmodel.ForgotPassViewModel
 import com.example.fattrack.data.viewmodel.HomeViewModel
 import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
@@ -63,6 +64,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(authRepository) as T
+            }
+            modelClass.isAssignableFrom(ForgotPassViewModel::class.java) -> {
+                ForgotPassViewModel(authRepository) as T
             }
             modelClass.isAssignableFrom(RegisterViewModel::class.java) -> {
                 RegisterViewModel(authRepository) as T

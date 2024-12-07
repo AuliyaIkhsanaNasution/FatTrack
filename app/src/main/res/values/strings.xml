@@ -65,7 +65,7 @@
     <string name="tolong_check_email_kamu">Tolong check email kamu</string>
     <string name="label">-</string>
     <string name="verify">Verify</string>
-    <string name="confirm">Password harus berbeda dari sebelumnya</string>
+    <string name="confirm">Link Reset Password telah dikirim ke Email Anda. Belum menerima email? klik tombol dibawah!</string>
     <string name="enter_new_password">Enter new password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="foto_profil">Foto Profil</string>
@@ -151,4 +151,5 @@
     <string name="ketik_pesan">Ketik pesan</string>
     <string name="send">Send</string>
     <string name="do_you_want_to_log_out">Do you want to Log Out?</string>
+    <string name="send_again">SEND AGAIN</string>
 </resources>

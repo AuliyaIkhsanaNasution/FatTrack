@@ -9,6 +9,7 @@ import com.example.fattrack.data.services.responses.ResponseHome
 import com.example.fattrack.data.services.responses.ResponseLogin
 import com.example.fattrack.data.services.responses.ResponsePhoto
 import com.example.fattrack.data.services.responses.ResponseRegister
+import com.example.fattrack.data.services.responses.ResponseResetPassword
 import com.example.fattrack.data.services.responses.ResponseScanImage
 import com.example.fattrack.data.services.responses.ResponseSearchArticle
 import com.example.fattrack.data.services.responses.ResponseSearchFood
@@ -44,6 +45,14 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String,
     ) : Response<ResponseLogin>
+
+
+    //reset password
+    @FormUrlEncoded
+    @POST("forgot-password")
+    suspend fun forgotPassword(
+        @Field("email") email: String
+    ) : Response<ResponseResetPassword>
 
 
     //Predict / scan image
