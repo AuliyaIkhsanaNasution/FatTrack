@@ -203,23 +203,35 @@ class DashboardFragment : Fragment() {
         viewModel.dashboardMonthResponse.observe(viewLifecycleOwner) { response ->
             response?.data?.let { dataList ->
                 // list date for x-axis
-                val dates = dataList.mapNotNull { it?.week.toString() }
+                val dates = dataList.mapNotNull { it?.startEnd.toString() }
 
-                val barEntries = dataList.mapIndexedNotNull { index, item ->
+                val barEntries = dataList.mapIndexedNotNull { no, item ->
                     val totalCalories = item?.totalCalories
                     if (totalCalories != null) {
-                        BarEntry(index.toFloat(), totalCalories.toFloat())
+                        BarEntry(no.toFloat(), totalCalories.toFloat())
                     } else {
                         null
                     }
                 }
 
                 // value formatter for x-axis
-                val xAxis = bindingDashboard.barChart.xAxis
+                val usedValues = mutableSetOf<String>()
+               val xAxis = bindingDashboard.barChart.xAxis
                 xAxis.valueFormatter = object : ValueFormatter() {
                     override fun getFormattedValue(value: Float): String {
                         val index = value.toInt()
-                        return if (index in dates.indices) dates[index] else ""
+
+                        if (index in dates.indices) {
+                            val formattedDate = dates[index]
+                            if (usedValues.contains(formattedDate)) {
+                                return ""
+                            } else {
+                                usedValues.add(formattedDate)
+                                return formattedDate
+                            }
+                        } else {
+                            return ""
+                        }
                     }
                 }
 

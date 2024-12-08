@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import com.example.fattrack.data.pref.AuthPreferences
 import com.example.fattrack.data.pref.authSession
 import com.example.fattrack.data.repositories.SessionModel
 import com.example.fattrack.data.viewmodel.LoginViewModel
+import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.databinding.ActivityLoginBinding
 import com.example.fattrack.view.forgotpassword.ForgotActivity
 import com.example.fattrack.view.loadingDialog.DialogLoading
@@ -31,10 +33,15 @@ import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
+    private var backPressedTime: Long = 0
+    private lateinit var backToast: StyleableToast
     private  lateinit var binding: ActivityLoginBinding
     private lateinit var authPreferences: AuthPreferences
     private val loginViewModel: LoginViewModel by viewModels {
         ViewModelFactory.getInstance(application)
+    }
+    private val viewModel by viewModels<MainViewModel> {
+        ViewModelFactory.getInstance(this)
     }
     private lateinit var dialogLoading: DialogLoading
 
@@ -52,14 +59,30 @@ class LoginActivity : AppCompatActivity() {
         dialogLoading = DialogLoading(this)
 
         //run fun
+        observeSession()
         setupAction()
         observeViewModel()
         setupView()
         playAnimation()
     }
 
-    private fun playAnimation() {
 
+    private fun observeSession() {
+        viewModel.getSession().observe(this) { user ->
+            if (user.isLogin && user.token.isNotEmpty()) {
+                navigateToMainActivity()
+            }
+        }
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+
+    private fun playAnimation() {
         val title = ObjectAnimator.ofFloat(binding.title, View.ALPHA, 1f).setDuration(250)
         val logo =
             ObjectAnimator.ofFloat(binding.ivLogo, View.ALPHA, 1f).setDuration(250)
@@ -111,7 +134,6 @@ class LoginActivity : AppCompatActivity() {
             //get data from edit text
             val email = binding.edLoginEmail.text.toString().trim()
             val password = binding.edLoginPassword.text.toString().trim()
-            Log.d("RegisterViewModelTest", "Email: $email, Password: $password")
 
             //validations
             if (email.isEmpty() || password.isEmpty()) {
@@ -206,6 +228,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
+    //back behaviour
+    @Deprecated("Use OnBackPressedDispatcher instead for newer implementations.")
+    override fun onBackPressed() {
+        // Handle double back press to exit
+        if (System.currentTimeMillis() - backPressedTime < 2000) {
+            backToast.cancel()
+            finishAffinity()
+            super.onBackPressed()
+        } else {
+            backToast = StyleableToast.makeText(applicationContext, "Press again to exit", R.style.StyleableToast)
+            backToast.show()
+            backPressedTime = System.currentTimeMillis()
+        }
+    }
+
+
     //alert dialog error
     private fun showErrorDialog(message: String?) {
         SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
@@ -244,14 +282,12 @@ class LoginActivity : AppCompatActivity() {
 
     // to register
     fun onRegisterClick(view: View) {
-        // Contoh: Navigasi ke activity registrasi
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
     }
 
     // to forgot pass
     fun onForgotClick(view: View) {
-        // Contoh: Navigasi ke activity lupa password
         val intent = Intent(this, ForgotActivity::class.java)
         startActivity(intent)
     }

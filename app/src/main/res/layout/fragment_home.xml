@@ -39,7 +39,7 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Halo, Name"
+                    tools:text="Halo, "
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="?attr/font_color" />
@@ -80,6 +80,7 @@
 
 
             <LinearLayout
+                android:id="@+id/card_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -119,7 +120,7 @@
                             android:id="@+id/target_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="/2000Kcal"
+                            tools:text="/2100Kcal"
                             android:textSize="20sp"
                             android:textColor="@color/Primary"
                             android:fontFamily="sans-serif-medium"
@@ -154,7 +155,6 @@
             android:id="@+id/text_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="12 Desember 2024"
             android:textSize="14sp"
             android:textColor="?attr/font_color"/>
 

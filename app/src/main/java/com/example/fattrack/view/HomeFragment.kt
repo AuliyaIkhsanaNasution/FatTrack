@@ -2,6 +2,7 @@ package com.example.fattrack.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.graphics.Color
 import android.util.Log
@@ -101,12 +102,19 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.totalKalori.observe(viewLifecycleOwner) { totalKalori ->
-            val persentase = (totalKalori?.toDouble() ?: 0.0) / 2000.0 * 100
+            val persentase = (totalKalori?.toDouble() ?: 0.0) / 2100.0 * 100
 
             val color = when {
                 persentase >= 90 -> ContextCompat.getColor(requireContext(), android.R.color.holo_red_dark)
                 persentase >= 70 -> ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light)
                 else -> ContextCompat.getColor(requireContext(), R.color.Primary)
+            }
+
+            if (persentase >= 100) {
+                val colorWarning = ContextCompat.getColor(requireContext(), android.R.color.holo_red_light)
+                binding.cardContainer.backgroundTintList = ColorStateList.valueOf(colorWarning)
+                binding.totalKalori.setTextColor(colorWarning)
+                binding.targetValue.setTextColor(colorWarning)
             }
 
             updatePieChart(totalKalori, color)
@@ -116,7 +124,7 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("DefaultLocale")
     private fun updatePieChart(totalKalori: Int?, color: Int) {
-        val persentase = (totalKalori?.toFloat() ?: 0f) / 2000f * 100
+        val persentase = (totalKalori?.toFloat() ?: 0f) / 2100f * 100
 
         binding.targetPieChart.apply {
             data = PieData(PieDataSet(listOf(
@@ -160,7 +168,7 @@ class HomeFragment : Fragment() {
 
         //user response
         homeViewModel.userResponse.observe(viewLifecycleOwner) { response ->
-             binding.userName.text = "Halo, ${response?.nama ?: "My Name"}"
+             binding.userName.text = "Halo, ${response?.nama ?: ""}"
 
             //image
             val photoUrl = response?.fotoProfile

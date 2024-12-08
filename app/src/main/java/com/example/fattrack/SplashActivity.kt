@@ -104,12 +104,11 @@ class SplashActivity : AppCompatActivity() {
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
 
-                // Menunda pengecekan koneksi internet
+                // check internet again after 2 seconds
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (isInternetAvailable()) {
                         observeSession()
                     } else {
-                        // Tampilkan dialog kesalahan lagi jika internet tidak tersedia
                         showErrorDialog("Check your connection.")
                     }
                 }, 2000)
@@ -120,7 +119,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun observeSession() {
         viewModel.getSession().observe(this) { user ->
-            if (user.isLogin && user.idUser.isNotEmpty()) {
+            if (user.isLogin && user.token.isNotEmpty()) {
                 navigateToMainActivity()
             } else {
                 navigateToLoginActivity()

@@ -133,8 +133,8 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
             pieEntries = listOf(
                 PieEntry(info.kalori?.toFloat() ?: 0f, "Kalori"),
                 PieEntry(info.protein?.toFloat() ?: 0f, "Protein"),
-                PieEntry(info.lemak?.toFloat() ?: 0f, "Lemak"),
-                PieEntry(info.karbohidrat?.toFloat() ?: 0f, "Karbohidrat")
+                PieEntry(info.karbohidrat?.toFloat() ?: 0f, "Karbohidrat"),
+                PieEntry(info.lemak?.toFloat() ?: 0f, "Lemak")
             )
         }
 

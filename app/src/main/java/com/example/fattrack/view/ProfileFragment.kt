@@ -22,6 +22,7 @@ import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
 import com.example.fattrack.databinding.LogoutBottomSheetBinding
 import com.example.fattrack.databinding.PredictBottomSheetBinding
+import com.example.fattrack.view.forgotpassword.ForgotActivity
 import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.profile.EditProfileActivity
@@ -33,6 +34,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
+    private lateinit var dialogLoading: DialogLoading
     private var _bindingProfile: FragmentProfileBinding? = null
     private val bindingProfile get() = _bindingProfile!!
     private val profileViewModel: ProfileViewModel by viewModels {
@@ -52,7 +54,6 @@ class ProfileFragment : Fragment() {
                 Log.d("Permission", "Notifications permission rejected")
             }
         }
-    private lateinit var dialogLoading: DialogLoading
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,6 +89,13 @@ class ProfileFragment : Fragment() {
         bindingProfile.btnEditProfile.setOnClickListener {
             // Intent to move to NotificationsActivity
             val intent = Intent(requireContext(), EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        //reset button
+        bindingProfile.resetButton.setOnClickListener{
+            // Intent to move to NotificationsActivity
+            val intent = Intent(requireContext(), ForgotActivity::class.java)
             startActivity(intent)
         }
 
@@ -170,7 +178,7 @@ class ProfileFragment : Fragment() {
     private fun observeViewModel() {
         //user response
         userViewModel.userResponse.observe(viewLifecycleOwner) { response ->
-            bindingProfile.tvNameProfile.text = response?.nama?.uppercase() ?: "Default Name"
+            bindingProfile.tvNameProfile.text = response?.nama?.uppercase() ?: ""
             bindingProfile.tvEmailProfile.text = response?.email
             Glide.with(requireContext())
                 .load(response?.fotoProfile)
