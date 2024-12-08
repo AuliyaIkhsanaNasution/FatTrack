@@ -40,4 +40,11 @@ class NotificationViewModel(private val repository: NotificationRepository, priv
     private fun cancelScheduledNotifications() {
         notificationScheduler.cancelNotifications()
     }
+
+    fun deleteAllNotifications() {
+        viewModelScope.launch {
+            repository.deleteAllNotifications()
+        }
+    }
+
 }
