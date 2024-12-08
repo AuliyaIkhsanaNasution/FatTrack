@@ -20,4 +20,9 @@ class NotificationRepository(
     suspend fun getNotifications(): List<NotificationEntity> {
         return notificationDao.getAllNotifications()
     }
+
+    suspend fun deleteAllNotifications() {
+        notificationDao.deleteAllNotifications()
+    }
+
 }

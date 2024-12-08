@@ -67,9 +67,6 @@
             android:name=".view.forgotpassword.ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".view.forgotpassword.VerifyActivity"
-            android:exported="false" />
-        <activity
             android:name=".view.forgotpassword.ForgotActivity"
             android:exported="false" />
         <activity
