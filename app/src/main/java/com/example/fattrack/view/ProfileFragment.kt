@@ -6,11 +6,11 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -21,17 +21,12 @@ import com.example.fattrack.data.viewmodel.NotificationViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.FragmentProfileBinding
 import com.example.fattrack.databinding.LogoutBottomSheetBinding
-import com.example.fattrack.databinding.PredictBottomSheetBinding
 import com.example.fattrack.view.forgotpassword.ForgotActivity
 import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.profile.EditProfileActivity
-import com.example.fattrack.view.scan.CameraActivity
-import com.example.fattrack.view.text.TextPredictActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import io.github.muddz.styleabletoast.StyleableToast
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
     private lateinit var dialogLoading: DialogLoading

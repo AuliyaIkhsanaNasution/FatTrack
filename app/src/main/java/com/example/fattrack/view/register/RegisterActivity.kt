@@ -95,7 +95,7 @@ class RegisterActivity : AppCompatActivity() {
 
     //Validations and Actions
     private fun setupAction() {
-        binding.btnRegister?.setOnClickListener() {
+        binding.btnRegister?.setOnClickListener {
             //get data from edit text
             val email = binding.edEmail.text.toString().trim()
             val nama = binding.edName.text.toString().trim()

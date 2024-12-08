@@ -3,18 +3,16 @@ package com.example.fattrack.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Bundle
 import android.graphics.Color
-import android.util.Log
-import androidx.fragment.app.Fragment
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -23,7 +21,6 @@ import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.adapter.ArticleAdapter
 import com.example.fattrack.data.viewmodel.ArticlesViewModel
 import com.example.fattrack.data.viewmodel.HomeViewModel
-import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.databinding.FragmentHomeBinding
 import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.notifications.NotificationsActivity
@@ -31,8 +28,6 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import io.github.muddz.styleabletoast.StyleableToast
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 

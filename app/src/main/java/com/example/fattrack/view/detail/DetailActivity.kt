@@ -1,11 +1,11 @@
 package com.example.fattrack.view.detail
 
 import android.os.Bundle
-import com.bumptech.glide.Glide
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.DetailViewModel

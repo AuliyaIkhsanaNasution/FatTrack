@@ -5,11 +5,9 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -130,7 +128,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun setupAction() {
-        binding.btnLogin.setOnClickListener() {
+        binding.btnLogin.setOnClickListener {
             //get data from edit text
             val email = binding.edLoginEmail.text.toString().trim()
             val password = binding.edLoginPassword.text.toString().trim()
@@ -214,10 +212,9 @@ class LoginActivity : AppCompatActivity() {
     private fun checkUserSession() {
         lifecycleScope.launch {
             val sessionUser = authPreferences.getSession().first()
-            Log.d("RegisterViewModelTest", "Session User: $sessionUser")
             if (sessionUser.idUser.isNotEmpty()) {
                 if (sessionUser.isLogin) {
-                    showSuccessDialog(sessionUser.email)
+                    showToast("Login Success")
                 } else {
                     showErrorDialog("User session not found.")
                 }
@@ -252,23 +249,6 @@ class LoginActivity : AppCompatActivity() {
             .setConfirmText("OK")
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
-            }
-            .show()
-    }
-
-
-    //alert dialog success
-    private fun showSuccessDialog(email: String) {
-        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Login Success!")
-            .setContentText("Welcome, $email.")
-            .setConfirmClickListener { dialog ->
-                dialog.dismissWithAnimation()
-                // goto ke MainActivity
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
             }
             .show()
     }

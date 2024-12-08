@@ -15,7 +15,6 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -25,7 +24,6 @@ import com.example.fattrack.data.data.NutritionData
 import com.example.fattrack.data.services.responses.FoodDataItem
 import com.example.fattrack.data.viewmodel.PredictViewModel
 import com.example.fattrack.databinding.ActivityTextPredictBinding
-import com.example.fattrack.view.MyBottomSheetFragment
 import io.github.muddz.styleabletoast.StyleableToast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -220,7 +218,7 @@ class TextPredictActivity : AppCompatActivity() {
 
 
     //Mapping
-    private fun mapToParcelable(response: FoodDataItem?): NutritionData? {
+    private fun mapToParcelable(response: FoodDataItem?): NutritionData {
         return NutritionData(
             deskripsi = response?.deskripsi,
             kalori = response?.kalori,

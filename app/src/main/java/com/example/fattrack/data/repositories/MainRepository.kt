@@ -29,7 +29,7 @@ class MainRepository(private val apiService: ApiService, private val authPrefere
 
             //converse to multipart
             val imagePart = image.toMultipartBody()
-            val idUserPart = RequestBody.create("text/plain".toMediaTypeOrNull(), idUser)
+            val idUserPart = idUser.toRequestBody("text/plain".toMediaTypeOrNull())
 
             val url = "https://fastapi-tensorflow-app-123661394110.asia-southeast2.run.app/predict_image"
 

@@ -1,10 +1,10 @@
 package com.example.fattrack.view.forgotpassword
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Bundle
-import android.animation.AnimatorSet
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
@@ -17,8 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.fattrack.data.ViewModelFactory
 import com.example.fattrack.data.viewmodel.ForgotPassViewModel
-import com.example.fattrack.data.viewmodel.LoginViewModel
-import com.example.fattrack.databinding.ActivityForgotBinding // Auto-generated binding class
+import com.example.fattrack.databinding.ActivityForgotBinding
 import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.login.LoginActivity
 import kotlinx.coroutines.launch

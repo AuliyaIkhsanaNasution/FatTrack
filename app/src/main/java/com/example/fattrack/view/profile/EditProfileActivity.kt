@@ -7,7 +7,6 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -94,17 +93,17 @@ class EditProfileActivity : AppCompatActivity() {
     //button click handle
     private fun buttonClickHandle() {
         //cancel button
-        binding.btnCancel.setOnClickListener() {
+        binding.btnCancel.setOnClickListener {
             finish()
         }
 
         //edit photo
-        binding.editProfileImage.setOnClickListener() {
+        binding.editProfileImage.setOnClickListener {
             startGallery()
         }
 
         //save button
-        binding.btnSelesai.setOnClickListener() {
+        binding.btnSelesai.setOnClickListener {
             val name = binding.editName.text.toString().ifEmpty { defaultName }
             val photo = imageUri?.let {
                 try {

@@ -3,12 +3,11 @@ package com.example.fattrack.view.forgotpassword
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.os.CountDownTimer
-import java.util.concurrent.TimeUnit
 import android.content.Intent
-import android.os.Bundle
-import android.view.View
 import android.os.Build
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -25,6 +24,7 @@ import com.example.fattrack.databinding.ActivityResetPasswordBinding
 import com.example.fattrack.view.loadingDialog.DialogLoading
 import com.example.fattrack.view.login.LoginActivity
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class ResetPasswordActivity : AppCompatActivity() {
 

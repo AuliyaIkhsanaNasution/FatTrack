@@ -24,7 +24,10 @@ import com.example.fattrack.data.viewmodel.MainViewModel
 import com.example.fattrack.data.viewmodel.ProfileViewModel
 import com.example.fattrack.databinding.ActivityMainBinding
 import com.example.fattrack.databinding.PredictBottomSheetBinding
-import com.example.fattrack.view.*
+import com.example.fattrack.view.ArticleFragment
+import com.example.fattrack.view.DashboardFragment
+import com.example.fattrack.view.HomeFragment
+import com.example.fattrack.view.ProfileFragment
 import com.example.fattrack.view.login.LoginActivity
 import com.example.fattrack.view.scan.CameraActivity
 import com.example.fattrack.view.text.TextPredictActivity
@@ -190,6 +193,7 @@ class MainActivity : AppCompatActivity() {
             if (System.currentTimeMillis() - backPressedTime < 2000) {
                 backToast.cancel()
                 replacedFragmentTags.remove(currentTag) // Remove fragment tag
+                finishAffinity()
                 super.onBackPressed() // Proceed with back navigation
             } else {
                 // Show toast message on first back press
