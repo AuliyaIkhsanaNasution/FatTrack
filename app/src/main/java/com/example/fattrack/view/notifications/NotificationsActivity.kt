@@ -46,11 +46,9 @@ class NotificationsActivity : AppCompatActivity() {
             val notifications = notificationViewModel.getNotifications()
 
             if (notifications.isEmpty()) {
-                // Sembunyikan RecyclerView, tampilkan pesan kosong
                 binding.rvNotification.visibility = View.GONE
                 binding.tvEmptyNotification.visibility = View.VISIBLE
             } else {
-                // Tampilkan RecyclerView, sembunyikan pesan kosong
                 binding.rvNotification.visibility = View.VISIBLE
                 binding.tvEmptyNotification.visibility = View.GONE
                 binding.rvNotification.adapter = NotificationAdapter(notifications)
@@ -65,12 +63,11 @@ class NotificationsActivity : AppCompatActivity() {
                 .setTitle("Hapus Notifikasi")
                 .setMessage("Apakah kamu yakin ingin menghapus semua notifikasi?")
                 .setPositiveButton("OK") { _, _ ->
-                    // Jika klik OK, hapus semua notifikasi
                     notificationViewModel.deleteAllNotifications()
                     showToast("Notification cleared")
-                    loadNotifications() // Refresh daftar notifikasi
+                    loadNotifications()
                 }
-                .setNegativeButton("Cancel", null) // Tidak melakukan apa-apa saat Cancel
+                .setNegativeButton("Cancel", null)
                 .show()
         }
     }
