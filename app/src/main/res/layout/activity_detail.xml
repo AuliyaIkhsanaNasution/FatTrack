@@ -19,7 +19,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_event_image"
@@ -43,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_margin="16dp">
 
                 <TextView
                     android:id="@+id/tv_article_title"
@@ -81,11 +82,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:textAlignment="textEnd"
-                    android:textStyle="italic"
+                    android:gravity="end"
                     android:textColor="?attr/font_color"
                     tools:text="17 oktober 2022"
-                    android:transitionName="date"/>
+                    android:transitionName="date"
+                    />
 
             </LinearLayout>
 
