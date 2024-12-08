@@ -19,8 +19,8 @@
 
         <!-- Profile Picture -->
         <RelativeLayout
-            android:layout_width="160dp"
-            android:layout_height="150dp"
+            android:layout_width="185dp"
+            android:layout_height="185dp"
             android:layout_marginTop="-75dp">
 
             <ImageView
@@ -37,7 +37,7 @@
                 android:layout_height="46dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="4dp"
+                android:layout_margin="8dp"
                 android:src="@drawable/ic_edit_square"
                 android:padding="6dp"
                 android:contentDescription="@string/edit_profile_picture" />
