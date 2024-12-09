@@ -45,8 +45,7 @@ class ArticlesViewModel(private val articleRepository: ArticleRepository) : View
     }
 
     fun searchArticles(title: String) {
-        _isLoading.value = true
-        _errorMessage.value = null // Reset error message sebelum mencari
+        _errorMessage.value = null
 
         viewModelScope.launch {
             try {
@@ -57,13 +56,11 @@ class ArticlesViewModel(private val articleRepository: ArticleRepository) : View
                     if (articles.isEmpty()) {
                         _errorMessage.value = "No articles found for '$title'"
                     }
-                }.onFailure { throwable ->
+                }.onFailure {
                     _errorMessage.value ="No articles found for '$title'"
                 }
             } catch (e: Exception) {
                 _errorMessage.value = "No articles found for '$title'"
-            } finally {
-                _isLoading.value = false
             }
         }
     }

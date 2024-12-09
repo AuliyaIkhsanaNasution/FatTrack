@@ -17,6 +17,8 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -143,29 +145,38 @@ class MyBottomSheetFragment : BottomSheetDialogFragment() {
             ContextCompat.getColor(requireContext(), R.color.Tersier)
         )
 
-        // create PieDataSet
+        // Create PieDataSet
         val pieDataSet = PieDataSet(pieEntries, "").apply {
-//            colors = ColorTemplate.MATERIAL_COLORS.toList()
             colors = colorChart
             valueTextColor = ContextCompat.getColor(requireContext(), R.color.chart_text_color)
             valueTextSize = 12f
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return "${value.toInt()}%" // Hanya tampilkan bilangan bulat dengan simbol '%'
+                }
+            }
         }
 
-        // create PieData
-        val pieData = PieData(pieDataSet)
-
-        // ref to PieChart
+// Aktifkan mode persentase pada PieChart
         val pieChart: PieChart = binding.chartSheet
+        pieChart.setUsePercentValues(true)
+
+        // Create PieData
+        val pieData = PieData(pieDataSet)
         pieChart.data = pieData
 
         // custom PieChart
-        pieChart.isDrawHoleEnabled = true // hole
-        pieChart.holeRadius = 40f // hole Radius
-        pieChart.setEntryLabelColor(ContextCompat.getColor(requireContext(), R.color.chart_text_color)) // color entry label
-        pieChart.setEntryLabelTextSize(12f) // size label
+        pieChart.isDrawHoleEnabled = true
+        pieChart.holeRadius = 40f
+        pieChart.setDrawEntryLabels(false)
         pieChart.description.isEnabled = false
-        pieChart.legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-        pieChart.legend.textColor = ContextCompat.getColor(requireContext(), R.color.chart_text_color)
+        pieChart.legend.apply {
+            isEnabled = true
+            horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+            verticalAlignment = Legend.LegendVerticalAlignment.CENTER
+            orientation = Legend.LegendOrientation.VERTICAL
+            textColor = ContextCompat.getColor(requireContext(), R.color.chart_text_color)
+        }
 
         // Refresh chart
         pieChart.invalidate()

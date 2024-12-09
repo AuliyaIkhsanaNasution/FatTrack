@@ -32,7 +32,7 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-    private val _targetKalori = MutableLiveData<Int>(2000)
+    private val _targetKalori = MutableLiveData<Int>(2100)
     val targetKalori: LiveData<Int> = _targetKalori
 
     private val _updateProfileResponse = MutableLiveData<ResponseUpdateProfile>()
