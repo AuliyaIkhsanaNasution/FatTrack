@@ -6,12 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fattrack.data.repositories.MainRepository
 import com.example.fattrack.data.services.responses.HomeData
-import com.example.fattrack.data.services.responses.ResponseHome
 import com.example.fattrack.data.services.responses.ResponseUpdateProfile
-import com.example.fattrack.data.services.responses.ResponseUser
 import com.example.fattrack.data.services.responses.UserData
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -32,7 +28,7 @@ class HomeViewModel (private val  mainRepository: MainRepository ) : ViewModel()
     private val _errorMessage = MutableLiveData<String?>()
     val errorMessage: LiveData<String?> = _errorMessage
 
-    private val _targetKalori = MutableLiveData<Int>(2000)
+    private val _targetKalori = MutableLiveData<Int>(2100)
     val targetKalori: LiveData<Int> = _targetKalori
 
     private val _updateProfileResponse = MutableLiveData<ResponseUpdateProfile>()
