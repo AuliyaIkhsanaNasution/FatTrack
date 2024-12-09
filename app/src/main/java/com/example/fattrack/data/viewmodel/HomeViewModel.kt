@@ -6,12 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fattrack.data.repositories.MainRepository
 import com.example.fattrack.data.services.responses.HomeData
-import com.example.fattrack.data.services.responses.ResponseHome
 import com.example.fattrack.data.services.responses.ResponseUpdateProfile
-import com.example.fattrack.data.services.responses.ResponseUser
 import com.example.fattrack.data.services.responses.UserData
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 
