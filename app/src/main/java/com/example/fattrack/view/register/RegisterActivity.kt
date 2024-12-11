@@ -175,7 +175,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun showSuccessDialog(email: String) {
         SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
             .setTitleText("Success!")
-            .setContentText("Account Created for $email.")
+            .setContentText("Account Created for $email. Please check Your email for verification!")
             .setConfirmClickListener { dialog ->
                 dialog.dismissWithAnimation()
                 finish() // Kembali ke layar sebelumnya
