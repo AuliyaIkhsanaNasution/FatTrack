@@ -54,6 +54,7 @@
 
 ## 🔗 Social Media
 **Muhammad Bobby**
+
 [![portfolio](https://img.shields.io/badge/Muhammad_Bobby-portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://muhammadbobby.github.io/portfolio-muhammad-bobby/)
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/muhammad-bobby-oktaviano-1190482ba/)
@@ -61,6 +62,7 @@
 [![Instagram](https://img.shields.io/badge/instagram-1DA1F2?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/code.lab_indonesia?igsh=cGs2aGxpYm9sZGw0)
 
 **Auliya Ikhsana**
+
 [![portfolio](https://img.shields.io/badge/Muhammad_Bobby-portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://muhammadbobby.github.io/portfolio-muhammad-bobby/)
 
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/muhammad-bobby-oktaviano-1190482ba/)
